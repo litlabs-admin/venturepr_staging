@@ -1,0 +1,13 @@
+{
+  "name": "fresh-react-node-hero",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "client"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace client",
+    "dev:client": "npm run dev --workspace client",
+    "build": "npm run build --workspace client"
+  }
+}
