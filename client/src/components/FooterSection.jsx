@@ -70,7 +70,7 @@ export function FooterSection() {
         <div className="footer-section__top">
           <div className="footer-section__top-row">
             <div className="footer-section__brand">
-              <Link to="/#hero" className="footer-section__logo">
+              <Link to="/" className="footer-section__logo">
                 <img src={footerLogo} alt="Venture" />
               </Link>
               <p className="footer-section__tagline">

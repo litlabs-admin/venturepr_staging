@@ -27,7 +27,7 @@ export default function FloatingNav() {
           aria-label="Main navigation"
         >
           {/* Logo */}
-          <Link to="/#hero" className="fnav-logo" aria-label="VenturePR home">
+          <Link to="/" className="fnav-logo" aria-label="VenturePR home">
             <img
               src="/venturepr_hero_images/navbar_logo.png"
               alt="Venture PR Logo"

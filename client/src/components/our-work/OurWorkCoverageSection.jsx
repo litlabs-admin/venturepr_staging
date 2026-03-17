@@ -81,12 +81,12 @@ export function OurWorkCoverageSection() {
         <article className="our-work-coverage-exact__post our-work-coverage-exact__post--1">
           <img className="owc-image owc-image--post1-main" src={post1Main} alt="" />
           <h3 className="owc-text owc-text--post1-title">
-            The 13 most useful smart home devices I've seen at CES 2026 (and would buy if
+            The 13 most useful smart home devices I&apos;ve seen at CES 2026 (and would buy if
             I could)
           </h3>
           <p className="owc-text owc-text--post1-desc">
-            We've seen robot vacuums go upstairs before with a prototype carrier, but
-            we've never seen a robot vacuum seemingly grow legs and climb stairs.
+            We&apos;ve seen robot vacuums go upstairs before with a prototype carrier, but
+            we&apos;ve never seen a robot vacuum seemingly grow legs and climb stairs.
           </p>
           <div className="owc-badge owc-badge--post1">
             <img className="owc-image owc-image--post1-logo" src={post1Logo} alt="" />
@@ -145,12 +145,12 @@ export function OurWorkCoverageSection() {
       node: (
         <article className="our-work-coverage-exact__post our-work-coverage-exact__post--4">
           <h3 className="owc-text owc-text--post4-title">
-            Narwal's Flow 2 robovac might help you find that earring you lost
+            Narwal&apos;s Flow 2 robovac might help you find that earring you lost
           </h3>
           <img className="owc-image owc-image--post4-logo" src={post4Logo} alt="" />
           <img className="owc-image owc-image--post4-main" src={post4Main} alt="" />
           <p className="owc-text owc-text--post4-desc">
-            Narwal's successor to its edge-mopping Flow robovac is here, and it sports a
+            Narwal&apos;s successor to its edge-mopping Flow robovac is here, and it sports a
             refreshed design along with a new cleaning mode that can scan your floor to
             tag valuables............
           </p>
@@ -167,7 +167,7 @@ export function OurWorkCoverageSection() {
               The 8 Best Robotic Pool Cleaners Of 2025, Recommended By Home And Pool Experts
             </h3>
             <p className="owc-text owc-text--post5-desc">
-              Itâ€™s no secret that outdoor pools require considerable upkeep. To spend more
+              It&apos;s no secret that outdoor pools require considerable upkeep. To spend more
               of your time swimming and less of it skimming &amp; scooping
             </p>
             <img className="owc-image owc-image--post5-logo" src={post5Logo} alt="" />
@@ -178,7 +178,6 @@ export function OurWorkCoverageSection() {
       ),
     },
   ];
-
   const slots = [
     {
       slot: "slot-exit-left",
