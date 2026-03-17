@@ -6775,7 +6775,11 @@ a {
   height: 48px;
   align-items: center;
   line-height: 28.49px;
-  padding: 0;
+  padding: 0 0 0 14px;
+}
+
+.contact-form-exact__field--topic .contact-form-exact__input {
+  padding-right: 42px;
 }
 
 .contact-form-exact__message-frame {
@@ -6791,9 +6795,9 @@ a {
 
 .contact-form-exact__caret {
   height: 24px;
-  left: 710px;
   position: absolute;
-  top: 473px;
+  right: 12px;
+  top: 51px;
   width: 24px;
 }
 
@@ -6899,6 +6903,353 @@ a {
 .contact-card-exact__arrow {
   font-family: "Raleway", sans-serif;
   font-weight: 700;
+}
+
+.contact-page-shell-exact {
+  width: 100%;
+}
+
+@media (max-width: 1199px) and (min-width: 810px) {
+  .contact-page-shell-exact {
+    align-items: stretch;
+  }
+
+  .contact-page-shell-exact .contact-page-exact {
+    box-sizing: border-box;
+    display: grid;
+    gap: 28px 32px;
+    grid-template-areas:
+      "intro intro"
+      "email form"
+      "sales form";
+    grid-template-columns: minmax(250px, 0.95fr) minmax(0, 1.55fr);
+    height: auto;
+    margin: 0 auto;
+    max-width: 1199px;
+    min-height: 0;
+    overflow: visible;
+    padding: 137px 32px 40px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-intro-exact,
+  .contact-page-shell-exact .contact-form-exact,
+  .contact-page-shell-exact .contact-card-exact,
+  .contact-page-shell-exact .contact-form-exact__header,
+  .contact-page-shell-exact .contact-form-exact__field,
+  .contact-page-shell-exact .contact-card-exact__content {
+    left: auto;
+    position: relative;
+    top: auto;
+  }
+
+  .contact-page-shell-exact .contact-intro-exact {
+    gap: 22px;
+    grid-area: intro;
+    justify-self: center;
+    width: min(100%, 825px);
+  }
+
+  .contact-page-shell-exact .contact-intro-exact__copy {
+    gap: 24px;
+  }
+
+  .contact-page-shell-exact .contact-intro-exact__copy h1 {
+    font-size: clamp(62px, 7.2vw, 85.08px);
+    line-height: 0.8;
+  }
+
+  .contact-page-shell-exact .contact-intro-exact__copy p {
+    font-size: clamp(22px, 2.2vw, 25.11px);
+    line-height: 1;
+  }
+
+  .contact-page-shell-exact .contact-form-exact {
+    box-sizing: border-box;
+    display: grid;
+    gap: 20px 24px;
+    grid-area: form;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "header header"
+      "name surname"
+      "email email"
+      "topic topic"
+      "message message"
+      "submit submit";
+    height: auto;
+    min-width: 0;
+    padding: 40px 32px 32px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__header {
+    gap: 16px;
+    grid-area: header;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__header h2 {
+    font-size: clamp(40px, 4.2vw, 51.95px);
+    line-height: 0.82;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__header p {
+    font-size: 22px;
+    line-height: 1.05;
+    width: auto;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__field {
+    gap: 8px;
+    min-width: 0;
+    width: auto;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__field--name {
+    grid-area: name;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__field--surname {
+    grid-area: surname;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__field--email {
+    grid-area: email;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__field--topic {
+    grid-area: topic;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__field--message {
+    grid-area: message;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__label {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__input {
+    box-sizing: border-box;
+    font-size: 24px;
+    min-width: 0;
+    padding-left: 12px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__message-frame {
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__caret {
+    right: 14px;
+    top: 45px;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__submit {
+    grid-area: submit;
+    left: auto;
+    margin-top: 4px;
+    position: relative;
+    top: auto;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-card-exact {
+    box-sizing: border-box;
+    height: auto;
+    min-height: 330px;
+    padding: 34px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-card-exact--email {
+    grid-area: email;
+  }
+
+  .contact-page-shell-exact .contact-card-exact--sales {
+    grid-area: sales;
+  }
+
+  .contact-page-shell-exact .contact-card-exact__content {
+    gap: 12px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-card-exact h3 {
+    font-size: 30px;
+    line-height: 1;
+  }
+
+  .contact-page-shell-exact .contact-card-exact p {
+    font-size: 22px;
+    line-height: 1;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-card-exact__link {
+    bottom: auto;
+    left: auto;
+    margin-top: 28px;
+    position: relative;
+  }
+}
+
+@media (max-width: 809px) {
+  .contact-page-shell-exact {
+    align-items: stretch;
+  }
+
+  .contact-page-shell-exact .contact-page-exact {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+    margin: 0 auto;
+    min-height: 0;
+    overflow: visible;
+    padding: 108px 16px 32px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-intro-exact,
+  .contact-page-shell-exact .contact-form-exact,
+  .contact-page-shell-exact .contact-card-exact,
+  .contact-page-shell-exact .contact-form-exact__header,
+  .contact-page-shell-exact .contact-form-exact__field,
+  .contact-page-shell-exact .contact-card-exact__content {
+    left: auto;
+    position: relative;
+    top: auto;
+  }
+
+  .contact-page-shell-exact .contact-intro-exact {
+    gap: 18px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-intro-exact__pill {
+    height: 32px;
+    padding: 0 28px;
+  }
+
+  .contact-page-shell-exact .contact-intro-exact__copy {
+    gap: 18px;
+  }
+
+  .contact-page-shell-exact .contact-intro-exact__copy h1 {
+    font-size: clamp(48px, 13vw, 64px);
+    line-height: 0.84;
+  }
+
+  .contact-page-shell-exact .contact-intro-exact__copy p {
+    font-size: clamp(20px, 6vw, 24px);
+    line-height: 1;
+  }
+
+  .contact-page-shell-exact .contact-form-exact {
+    border-radius: 28px;
+    box-sizing: border-box;
+    display: grid;
+    gap: 18px;
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+    padding: 28px 18px 24px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__header {
+    gap: 14px;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__header h2 {
+    font-size: clamp(36px, 10vw, 46px);
+    line-height: 0.88;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__header p {
+    font-size: 21px;
+    line-height: 1.04;
+    width: auto;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__field {
+    gap: 8px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__label {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__input {
+    box-sizing: border-box;
+    font-size: 24px;
+    min-width: 0;
+    padding-left: 12px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__message-frame {
+    height: auto;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__message-frame svg {
+    height: auto;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__caret {
+    right: 14px;
+    top: 45px;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__submit {
+    left: auto;
+    margin-top: 2px;
+    position: relative;
+    top: auto;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-card-exact {
+    border-radius: 28px;
+    box-sizing: border-box;
+    height: auto;
+    min-height: 0;
+    padding: 28px 22px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-card-exact__content {
+    gap: 12px;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-card-exact__title {
+    gap: 8px;
+  }
+
+  .contact-page-shell-exact .contact-card-exact h3 {
+    font-size: clamp(29px, 8vw, 34px);
+    line-height: 1;
+  }
+
+  .contact-page-shell-exact .contact-card-exact p {
+    font-size: 22px;
+    line-height: 1;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-card-exact__link {
+    bottom: auto;
+    left: auto;
+    margin-top: 24px;
+    position: relative;
+  }
 }
 
 /* Force all sections to use the same font as Services (site sans). */

@@ -3,7 +3,7 @@ import { FooterSection } from "../components/FooterSection";
 
 export function ContactUsPage() {
   return (
-    <div className="page-exact-shell">
+    <div className="page-exact-shell contact-page-shell-exact">
       <FloatingNav />
       <main className="contact-page-exact">
       <div className="contact-intro-exact">
@@ -43,6 +43,11 @@ export function ContactUsPage() {
         <div className="contact-form-exact__field contact-form-exact__field--topic">
           <div className="contact-form-exact__label">Topic *</div>
           <div className="contact-form-exact__input">Select from the list</div>
+          <div className="contact-form-exact__caret" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation">
+              <path d="M12 15L7 10H17L12 15Z" fill="currentColor" />
+            </svg>
+          </div>
         </div>
 
         <div className="contact-form-exact__field contact-form-exact__field--message">
@@ -56,12 +61,6 @@ export function ContactUsPage() {
               <path d="M697.174 114.477L690.609 121.041" stroke="#787878" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
           </div>
-        </div>
-
-        <div className="contact-form-exact__caret" aria-hidden="true">
-          <svg viewBox="0 0 24 24" role="presentation">
-            <path d="M12 15L7 10H17L12 15Z" fill="currentColor" />
-          </svg>
         </div>
 
         <div className="contact-form-exact__submit">Get in touch</div>
