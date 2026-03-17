@@ -1,39 +1,59 @@
 import { useEffect, useRef, useState } from "react";
-import post1Main from "../../assets/our-work/coverage/post1-main.png";
-import post1Logo from "../../assets/our-work/coverage/post1-logo.png";
-import post1Thumb from "../../assets/our-work/coverage/post1-thumb.png";
-import post1Brand from "../../assets/our-work/coverage/post1-brand.png";
-import post2Logo from "../../assets/our-work/coverage/post2-logo.png";
-import post2Main from "../../assets/our-work/coverage/post2-main.png";
-import post2Brand from "../../assets/our-work/coverage/post2-brand.png";
-import post3Logo from "../../assets/our-work/coverage/post3-logo.png";
-import post3Main from "../../assets/our-work/coverage/post3-main.png";
-import post3BrandLeft from "../../assets/our-work/coverage/post3-brand-left.png";
-import post3BrandRight from "../../assets/our-work/coverage/post3-brand-right.png";
-import post4Logo from "../../assets/our-work/coverage/post4-logo.png";
-import post4Main from "../../assets/our-work/coverage/post4-main.png";
-import post4Brand from "../../assets/our-work/coverage/post4-brand.png";
-import post5Logo from "../../assets/our-work/coverage/post5-logo.png";
-import post5Main from "../../assets/our-work/coverage/post5-main.png";
-import post5Brand from "../../assets/our-work/coverage/post5-brand.png";
+import img1 from "../../assets/hero_images/1.PNG";
+import img2 from "../../assets/hero_images/2.PNG";
+import img3 from "../../assets/hero_images/3.PNG";
+import img4 from "../../assets/hero_images/4.PNG";
+import img5 from "../../assets/hero_images/5.PNG";
+import img6 from "../../assets/hero_images/6.PNG";
+import img7 from "../../assets/hero_images/7.PNG";
+import img8 from "../../assets/hero_images/8.PNG";
+import img9 from "../../assets/hero_images/9.PNG";
+import img10 from "../../assets/hero_images/10.png";
+import { useOurWorkBreakpoint } from "./useOurWorkBreakpoint";
 
-const carouselSettings = {
-  cardWidthPx: 214,
-  cardHeightPx: 267,
-  gapPx: 90,
-  radiusPx: 20,
-  popScale: 1.594,
+const carouselSettingsByBreakpoint = {
+  desktop: {
+    cardWidthPx: 214,
+    cardHeightPx: 267,
+    gapPx: 90,
+    radiusPx: 20,
+    popScale: 1.594,
+    sideOpacity: 1,
+  },
+  tablet: {
+    cardWidthPx: 184,
+    cardHeightPx: 229,
+    gapPx: 52,
+    radiusPx: 18,
+    popScale: 1.42,
+    sideOpacity: 0.72,
+  },
+  mobile: {
+    cardWidthPx: 144,
+    cardHeightPx: 180,
+    gapPx: 18,
+    radiusPx: 16,
+    popScale: 1.28,
+    sideOpacity: 0.24,
+  },
+};
+
+const sharedCarouselTiming = {
   intervalMs: 2500,
   animationMs: 750,
 };
 
 const mod = (value, length) => ((value % length) + length) % length;
 
+const heroImages = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
+
 export function OurWorkCoverageSection() {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const breakpoint = useOurWorkBreakpoint();
+  const carouselSettings = carouselSettingsByBreakpoint[breakpoint];
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -58,7 +78,7 @@ export function OurWorkCoverageSection() {
 
     const intervalId = window.setInterval(() => {
       setIsAnimating((prev) => (prev ? prev : true));
-    }, carouselSettings.intervalMs);
+    }, sharedCarouselTiming.intervalMs);
 
     return () => window.clearInterval(intervalId);
   }, [isVisible]);
@@ -67,144 +87,48 @@ export function OurWorkCoverageSection() {
     if (!isVisible || !isAnimating) return;
 
     const timeoutId = window.setTimeout(() => {
-      setActiveIndex((prev) => (prev + 1) % 5);
+      setActiveIndex((prev) => (prev + 1) % heroImages.length);
       setIsAnimating(false);
-    }, carouselSettings.animationMs);
+    }, sharedCarouselTiming.animationMs);
 
     return () => window.clearTimeout(timeoutId);
   }, [isAnimating, isVisible]);
 
-  const posts = [
-    {
-      id: "1",
-      node: (
-        <article className="our-work-coverage-exact__post our-work-coverage-exact__post--1">
-          <img className="owc-image owc-image--post1-main" src={post1Main} alt="" />
-          <h3 className="owc-text owc-text--post1-title">
-            The 13 most useful smart home devices I&apos;ve seen at CES 2026 (and would buy if
-            I could)
-          </h3>
-          <p className="owc-text owc-text--post1-desc">
-            We&apos;ve seen robot vacuums go upstairs before with a prototype carrier, but
-            we&apos;ve never seen a robot vacuum seemingly grow legs and climb stairs.
-          </p>
-          <div className="owc-badge owc-badge--post1">
-            <img className="owc-image owc-image--post1-logo" src={post1Logo} alt="" />
-          </div>
-          <img className="owc-image owc-image--post1-thumb" src={post1Thumb} alt="" />
-          <img className="owc-image owc-image--post1-brand" src={post1Brand} alt="" />
-        </article>
-      ),
-    },
-    {
-      id: "2",
-      node: (
-        <article className="our-work-coverage-exact__post our-work-coverage-exact__post--2">
-          <h3 className="owc-text owc-text--post2-title">
-            CES 2026: These Robots and AI Tools Dominated the Show Floor
-          </h3>
-          <p className="owc-text owc-text--post2-desc">
-            From robot butlers to AI-powered bartenders, intuitive movement throughout our
-            world is where tech is heading.
-          </p>
-          <img className="owc-image owc-image--post2-logo" src={post2Logo} alt="" />
-          <img className="owc-image owc-image--post2-main" src={post2Main} alt="" />
-          <img className="owc-image owc-image--post2-brand" src={post2Brand} alt="" />
-        </article>
-      ),
-    },
-    {
-      id: "3",
-      node: (
-        <article className="our-work-coverage-exact__post our-work-coverage-exact__post--3">
-          <div className="owc-frame owc-frame--post3-logo">
-            <img className="owc-image owc-image--post3-logo" src={post3Logo} alt="" />
-          </div>
-          <img className="owc-image owc-image--post3-main" src={post3Main} alt="" />
-          <p className="owc-text owc-text--post3-desc">
-            Making it easier to keep your pets safe is an important mission for a lot of
-            tech companies, and SATELLAI has made it a goal to make knowing where your pets
-            are a breeze.
-          </p>
-          <img
-            className="owc-image owc-image--post3-brand-left"
-            src={post3BrandLeft}
-            alt=""
-          />
-          <img
-            className="owc-image owc-image--post3-brand-right"
-            src={post3BrandRight}
-            alt=""
-          />
-          <div className="owc-text owc-text--post3-tag">SATELLAI Tracker</div>
-        </article>
-      ),
-    },
-    {
-      id: "4",
-      node: (
-        <article className="our-work-coverage-exact__post our-work-coverage-exact__post--4">
-          <h3 className="owc-text owc-text--post4-title">
-            Narwal&apos;s Flow 2 robovac might help you find that earring you lost
-          </h3>
-          <img className="owc-image owc-image--post4-logo" src={post4Logo} alt="" />
-          <img className="owc-image owc-image--post4-main" src={post4Main} alt="" />
-          <p className="owc-text owc-text--post4-desc">
-            Narwal&apos;s successor to its edge-mopping Flow robovac is here, and it sports a
-            refreshed design along with a new cleaning mode that can scan your floor to
-            tag valuables............
-          </p>
-          <img className="owc-image owc-image--post4-brand" src={post4Brand} alt="" />
-        </article>
-      ),
-    },
-    {
-      id: "5",
-      node: (
-        <article className="our-work-coverage-exact__post our-work-coverage-exact__post--5">
-          <div className="owc-post5-scale">
-            <h3 className="owc-text owc-text--post5-title">
-              The 8 Best Robotic Pool Cleaners Of 2025, Recommended By Home And Pool Experts
-            </h3>
-            <p className="owc-text owc-text--post5-desc">
-              It&apos;s no secret that outdoor pools require considerable upkeep. To spend more
-              of your time swimming and less of it skimming &amp; scooping
-            </p>
-            <img className="owc-image owc-image--post5-logo" src={post5Logo} alt="" />
-            <img className="owc-image owc-image--post5-main" src={post5Main} alt="" />
-            <img className="owc-image owc-image--post5-brand" src={post5Brand} alt="" />
-          </div>
-        </article>
-      ),
-    },
-  ];
   const slots = [
     {
+      slot: "slot-buffer-left",
+      index: mod(activeIndex + (isAnimating ? -2 : -3), heroImages.length),
+    },
+    {
       slot: "slot-exit-left",
-      index: mod(activeIndex + (isAnimating ? -1 : -2), posts.length),
+      index: mod(activeIndex + (isAnimating ? -1 : -2), heroImages.length),
     },
     {
       slot: "slot-left",
-      index: mod(activeIndex + (isAnimating ? 0 : -1), posts.length),
+      index: mod(activeIndex + (isAnimating ? 0 : -1), heroImages.length),
     },
     {
       slot: "slot-center",
-      index: mod(activeIndex + (isAnimating ? 1 : 0), posts.length),
+      index: mod(activeIndex + (isAnimating ? 1 : 0), heroImages.length),
     },
     {
       slot: "slot-right",
-      index: mod(activeIndex + (isAnimating ? 2 : 1), posts.length),
+      index: mod(activeIndex + (isAnimating ? 2 : 1), heroImages.length),
     },
     {
       slot: "slot-enter-right",
-      index: mod(activeIndex + (isAnimating ? 3 : 2), posts.length),
+      index: mod(activeIndex + (isAnimating ? 3 : 2), heroImages.length),
+    },
+    {
+      slot: "slot-buffer-right",
+      index: mod(activeIndex + (isAnimating ? 4 : 3), heroImages.length),
     },
   ];
 
   return (
     <section
       ref={sectionRef}
-      className="our-work-coverage-exact"
+      className={`our-work-coverage-exact is-${breakpoint}`}
       aria-labelledby="our-work-coverage-title"
     >
       <div className="our-work-coverage-exact__header">
@@ -278,10 +202,10 @@ export function OurWorkCoverageSection() {
               }}
             >
               {slots.map(({ slot, index }) => {
-                const post = posts[index];
+                const image = heroImages[index];
                 return (
                   <div
-                    key={post.id}
+                    key={index}
                     className={`marqo-hero__carousel-item marqo-hero__carousel-item--${slot}`}
                     style={{
                       flex: `0 0 ${carouselSettings.cardWidthPx}px`,
@@ -289,13 +213,18 @@ export function OurWorkCoverageSection() {
                       height: `${carouselSettings.cardHeightPx}px`,
                       borderRadius: `${carouselSettings.radiusPx}px`,
                       "--pop-scale": carouselSettings.popScale,
+                      "--side-opacity": carouselSettings.sideOpacity,
                     }}
                   >
                     <div
-                      className="marqo-hero__carousel-image-container marqo-hero__carousel-image"
+                      className="marqo-hero__carousel-image-container"
                       style={{ borderRadius: `${carouselSettings.radiusPx}px` }}
                     >
-                      {post.node}
+                      <img
+                        className="our-work-coverage-exact__hero-image marqo-hero__carousel-image"
+                        src={image}
+                        alt={`Coverage carousel image ${index + 1}`}
+                      />
                     </div>
                   </div>
                 );

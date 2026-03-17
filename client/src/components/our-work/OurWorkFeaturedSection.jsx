@@ -2,9 +2,12 @@ import { useState } from "react";
 import roborockImage from "../../assets/our-work/featured/roborock.png";
 import beatbotImage from "../../assets/our-work/featured/beatbot.png";
 import narwalImage from "../../assets/our-work/featured/narwal.png";
+import { useOurWorkBreakpoint } from "./useOurWorkBreakpoint";
 
 export function OurWorkFeaturedSection() {
   const [activeId, setActiveId] = useState("roborock");
+  const breakpoint = useOurWorkBreakpoint();
+  const isDesktop = breakpoint === "desktop";
   const cards = [
     {
       id: "roborock",
@@ -28,6 +31,62 @@ export function OurWorkFeaturedSection() {
       image: narwalImage,
     },
   ];
+
+  if (!isDesktop) {
+    return (
+      <section
+        className={`our-work-featured-exact our-work-featured-exact--responsive our-work-featured-exact--${breakpoint}`}
+        aria-labelledby="our-work-featured-title"
+      >
+        <div className="our-work-featured-exact__responsive-surface">
+          <div className="our-work-featured-exact__responsive-copy">
+            <h2 id="our-work-featured-title" className="our-work-featured-exact__responsive-heading">
+              Executed campaigns. Verified results.
+            </h2>
+            <p className="our-work-featured-exact__responsive-subtext">
+              Transparent look at the strategies, media secured, and business impact we
+              deliver.
+            </p>
+          </div>
+
+          <div className="our-work-featured-exact__responsive-cards">
+            {cards.map((card) => {
+              const isActive = activeId === card.id;
+              return (
+                <button
+                  key={card.id}
+                  type="button"
+                  className={`our-work-featured-exact__responsive-card${
+                    isActive ? " is-active" : " is-inactive"
+                  }`}
+                  onClick={() => setActiveId(card.id)}
+                >
+                  <img
+                    className="our-work-featured-exact__responsive-image"
+                    src={card.image}
+                    alt=""
+                  />
+                  <div className="our-work-featured-exact__responsive-overlay" />
+                  <div className="our-work-featured-exact__responsive-content">
+                    <h3 className="our-work-featured-exact__responsive-name">{card.name}</h3>
+                    {isActive ? (
+                      <p className="our-work-featured-exact__responsive-desc">
+                        {card.description}
+                      </p>
+                    ) : (
+                      <span className="our-work-featured-exact__responsive-label">
+                        View campaign
+                      </span>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="our-work-featured-exact" aria-labelledby="our-work-featured-title">

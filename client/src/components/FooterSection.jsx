@@ -19,6 +19,8 @@ const socialLinks = [
   { label: "Youtube", href: "https://youtube.com" }
 ];
 
+const navLinkColumns = [navLinks.slice(0, 4), navLinks.slice(4, 8)];
+
 function PhoneIcon() {
   return (
     <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false">
@@ -80,13 +82,15 @@ export function FooterSection() {
 
             <div className="footer-section__links">
               <div className="footer-section__links-group">
-                <div className="footer-section__link-column">
-                  {navLinks.map((link) => (
-                    <Link key={link.label} to={link.href}>
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
+                {navLinkColumns.map((column, columnIndex) => (
+                  <div className="footer-section__link-column" key={`nav-column-${columnIndex}`}>
+                    {column.map((link) => (
+                      <Link key={link.label} to={link.href}>
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                ))}
                 <div className="footer-section__link-column">
                   {socialLinks.map((link) => (
                     <a
