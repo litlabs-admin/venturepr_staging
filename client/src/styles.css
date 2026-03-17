@@ -3493,14 +3493,20 @@ a {
   .nl-form__input {
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 999px;
-    height: 52px;
-    padding: 0 18px;
-    line-height: 52px;
+    box-sizing: border-box;
+    font-size: 17px;
+    height: 60px;
+    line-height: 1.2;
+    padding: 0 20px;
     width: 100%;
   }
 
+  .nl-form__input::placeholder {
+    line-height: 1.2;
+  }
+
   .nl-form__button {
-    height: 52px;
+    height: 60px;
     min-width: 0;
     width: 100%;
   }
