@@ -293,7 +293,7 @@
 }
 
 .marqo-hero__carousel-wrapper {
-  width: min(772px, 100%);
+  width: min(1120px, 100%);
   overflow: visible; /* Allow scaled items to peek out */
   margin: 20px auto 0;
   overflow: hidden;
@@ -304,15 +304,15 @@
   mask: linear-gradient(
     90deg,
     transparent 0%,
-    black 15%,
-    black 85%,
+    black 6%,
+    black 94%,
     transparent 100%
   );
   -webkit-mask: linear-gradient(
     90deg,
     transparent 0%,
-    black 15%,
-    black 85%,
+    black 6%,
+    black 94%,
     transparent 100%
   );
   z-index: 5;
@@ -360,12 +360,12 @@
 }
 
 .marqo-hero__carousel-item--slot-exit-left {
-  --slot-x: calc(var(--slot-step, 0px) * -2);
+  --slot-x: calc(var(--slot-step, 0px) * -2.1);
   z-index: 0;
 }
 
 .marqo-hero__carousel-item--slot-left {
-  --slot-x: calc(var(--slot-step, 0px) * -1);
+  --slot-x: calc(var(--slot-step, 0px) * -1.1);
   z-index: 1;
 }
 
@@ -377,13 +377,25 @@
 }
 
 .marqo-hero__carousel-item--slot-right {
-  --slot-x: var(--slot-step, 0px);
+  --slot-x: calc(var(--slot-step, 0px) * 1.1);
   z-index: 2;
 }
 
 .marqo-hero__carousel-item--slot-enter-right {
-  --slot-x: calc(var(--slot-step, 0px) * 2);
+  --slot-x: calc(var(--slot-step, 0px) * 2.1);
   z-index: 0;
+}
+
+.marqo-hero__carousel-item--slot-buffer-left {
+  --slot-x: calc(var(--slot-step, 0px) * -3.2);
+  opacity: 0;
+  z-index: -1;
+}
+
+.marqo-hero__carousel-item--slot-buffer-right {
+  --slot-x: calc(var(--slot-step, 0px) * 3.2);
+  opacity: 0;
+  z-index: -1;
 }
 
 .marqo-hero__carousel-track.is-animating
@@ -450,22 +462,8 @@
   --slot-x: calc(var(--slot-step, 0px) * 1.1);
 }
 
-.our-work-coverage-exact .marqo-hero__carousel-item--slot-buffer-left {
-  --slot-x: calc(var(--slot-step, 0px) * -3.2);
-  opacity: 0;
-  z-index: -1;
-}
-
-.our-work-coverage-exact .marqo-hero__carousel-item--slot-exit-left {
-  --slot-x: calc(var(--slot-step, 0px) * -2.1);
-}
-
-.our-work-coverage-exact .marqo-hero__carousel-item--slot-enter-right {
-  --slot-x: calc(var(--slot-step, 0px) * 2.1);
-}
-
+.our-work-coverage-exact .marqo-hero__carousel-item--slot-buffer-left,
 .our-work-coverage-exact .marqo-hero__carousel-item--slot-buffer-right {
-  --slot-x: calc(var(--slot-step, 0px) * 3.2);
   opacity: 0;
   z-index: -1;
 }
@@ -847,7 +845,7 @@ a {
   border: 1px dashed rgba(0, 0, 0, 0.4);
   border-radius: 30px;
   display: flex;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   flex-direction: column;
   gap: 0;
   padding: 30px 20px;
@@ -965,7 +963,6 @@ a {
 
   .stats-card__frame {
     align-items: center;
-    flex: 0 0 auto;
     padding: 20px;
   }
 
@@ -1312,7 +1309,7 @@ a {
   align-items: center;
   display: grid;
   gap: 16px 18px;
-  grid-template-columns: repeat(3, minmax(0, 180px));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   justify-content: center;
   max-width: 100%;
   overflow-x: visible;
@@ -1334,7 +1331,7 @@ a {
   transition:
     opacity 0.55s ease,
     transform 0.55s ease;
-  width: 180px;
+  width: 100%;
 }
 
 .reveal.is-visible .brand-tile {
@@ -1428,13 +1425,13 @@ a {
 
   .brands-section__logos {
     display: grid;
-    gap: 8px;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     overflow-x: visible;
   }
 
   .brand-tile {
-    aspect-ratio: 1.25 / 1;
+    aspect-ratio: 1.4 / 1;
     height: auto;
     width: 100%;
   }
@@ -1457,13 +1454,13 @@ a {
   }
 
   .brands-section__logos {
-    gap: 14px;
-    grid-template-columns: repeat(3, minmax(0, 156px));
+    gap: 14px 16px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .brand-tile {
     height: 112px;
-    width: 156px;
+    width: 100%;
   }
 
   .brand-tile__logo {
@@ -1866,21 +1863,25 @@ a {
   border-radius: 10px;
   bottom: -15px;
   display: inline-flex;
-  height: 41px;
+  height: 48px;
   left: 25px;
-  padding: 7px 14px;
+  justify-content: center;
+  overflow: visible;
+  padding: 4px 12px;
   position: absolute;
-  width: 109px;
+  width: 140px;
   z-index: 2;
 }
 
-.projects-card__logo-text {
-  color: #141414;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  white-space: nowrap;
+.projects-card__media .projects-card__logo-image {
+  display: block;
+  height: auto;
+  flex: 0 0 auto;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+  width: auto;
 }
 
 .projects-card__content {
@@ -4157,14 +4158,10 @@ a {
 
   .projects-card__logo {
     bottom: -15px;
-    height: 41px;
+    height: 48px;
     left: 25px;
-    padding: 7px 14px;
-    width: 109px;
-  }
-
-  .projects-card__logo-text {
-    font-size: 13px;
+    padding: 4px 12px;
+    width: 140px;
   }
 }
 

@@ -86,6 +86,9 @@ function StatValue({ value, suffix, isVisible }) {
 
 export function StatisticsSection() {
   const sectionRef = useRef(null);
+  const cardRefs = useRef([]);
+  const frameRefs = useRef([]);
+  const descriptionRefs = useRef([]);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -109,6 +112,92 @@ export function StatisticsSection() {
 
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const cards = cardRefs.current.filter(Boolean);
+    const frames = frameRefs.current.filter(Boolean);
+    const descriptions = descriptionRefs.current.filter(Boolean);
+
+    if (!cards.length || !frames.length || !descriptions.length) {
+      return undefined;
+    }
+
+    let frameId = 0;
+
+    const clearHeights = () => {
+      cards.forEach((card) => {
+        card.style.minHeight = "";
+      });
+
+      frames.forEach((frame) => {
+        frame.style.minHeight = "";
+      });
+
+      descriptions.forEach((description) => {
+        description.style.minHeight = "";
+      });
+    };
+
+    const measure = () => {
+      clearHeights();
+
+      if (window.matchMedia("(max-width: 809px)").matches) {
+        return;
+      }
+
+      const maxFrameHeight = Math.max(
+        ...frames.map((frame) => Math.ceil(frame.getBoundingClientRect().height))
+      );
+      const maxDescriptionHeight = Math.max(
+        ...descriptions.map((description) =>
+          Math.ceil(description.getBoundingClientRect().height)
+        )
+      );
+
+      frames.forEach((frame) => {
+        frame.style.minHeight = `${maxFrameHeight}px`;
+      });
+
+      descriptions.forEach((description) => {
+        description.style.minHeight = `${maxDescriptionHeight}px`;
+      });
+
+      const maxCardHeight = Math.max(
+        ...cards.map((card) => Math.ceil(card.getBoundingClientRect().height))
+      );
+
+      cards.forEach((card) => {
+        card.style.minHeight = `${maxCardHeight}px`;
+      });
+    };
+
+    const scheduleMeasure = () => {
+      window.cancelAnimationFrame(frameId);
+      frameId = window.requestAnimationFrame(measure);
+    };
+
+    scheduleMeasure();
+
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => {
+            scheduleMeasure();
+          })
+        : null;
+
+    [...cards, ...frames, ...descriptions].forEach((node) => {
+      resizeObserver?.observe(node);
+    });
+
+    window.addEventListener("resize", scheduleMeasure);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", scheduleMeasure);
+      resizeObserver?.disconnect();
+      clearHeights();
+    };
+  }, [isVisible]);
 
   return (
     <section
@@ -137,12 +226,20 @@ export function StatisticsSection() {
         </h2>
 
         <div className="stats-grid">
-          {stats.map((stat) => (
+          {stats.map((stat, index) => (
             <article
               key={stat.label}
               className="stats-card"
+              ref={(node) => {
+                cardRefs.current[index] = node;
+              }}
             >
-              <div className="stats-card__frame">
+              <div
+                className="stats-card__frame"
+                ref={(node) => {
+                  frameRefs.current[index] = node;
+                }}
+              >
                 <StatValue
                   value={stat.value}
                   suffix={stat.suffix}
@@ -150,7 +247,14 @@ export function StatisticsSection() {
                 />
                 <h3 className="stats-card__label">{stat.label}</h3>
               </div>
-              <p className="stats-card__description">{stat.description}</p>
+              <p
+                className="stats-card__description"
+                ref={(node) => {
+                  descriptionRefs.current[index] = node;
+                }}
+              >
+                {stat.description}
+              </p>
             </article>
           ))}
         </div>

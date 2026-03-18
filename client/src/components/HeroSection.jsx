@@ -16,9 +16,9 @@ const heroImages = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10]
 const baseImageCount = heroImages.length;
 
 const carouselSettings = {
-  cardWidthPx: 193.5,
-  cardHeightPx: 241.89,
-  gapPx: 48,
+  cardWidthPx: 160,
+  cardHeightPx: 200,
+  gapPx: 32,
   radiusPx: 32,
   popScale: 1.594,
   intervalMs: 2500,
@@ -74,6 +74,10 @@ export function HeroSection() {
 
   const slots = [
     {
+      slot: "slot-buffer-left",
+      index: mod(activeIndex + (isAnimating ? -2 : -3), baseImageCount),
+    },
+    {
       slot: "slot-exit-left",
       index: mod(activeIndex + (isAnimating ? -1 : -2), baseImageCount),
     },
@@ -92,6 +96,10 @@ export function HeroSection() {
     {
       slot: "slot-enter-right",
       index: mod(activeIndex + (isAnimating ? 3 : 2), baseImageCount),
+    },
+    {
+      slot: "slot-buffer-right",
+      index: mod(activeIndex + (isAnimating ? 4 : 3), baseImageCount),
     },
   ];
 
@@ -135,11 +143,12 @@ export function HeroSection() {
             className={`marqo-hero__carousel-track${
               isAnimating ? " is-animating" : ""
             }`}
-            style={{
-              "--slot-step": `${carouselSettings.cardWidthPx + carouselSettings.gapPx}px`,
-              "--track-height": `${carouselSettings.cardHeightPx * carouselSettings.popScale}px`,
-            }}
-          >
+              style={{
+                "--slot-step": `${carouselSettings.cardWidthPx + carouselSettings.gapPx}px`,
+                "--track-height": `${carouselSettings.cardHeightPx * carouselSettings.popScale}px`,
+                "--side-opacity": 0.85,
+              }}
+            >
             {slots.map(({ slot, index }) => {
               const img = heroImages[index];
 

@@ -5,11 +5,16 @@ import rabbitaiImage from "../assets/agencie/projects/rabbitai_thumbnail.png";
 import roborockImage from "../assets/agencie/projects/roborock_thumbnail.png";
 import lexmachinaImage from "../assets/agencie/projects/lexmachina_thumbnail.png";
 import loomlyImage from "../assets/agencie/projects/loomly_thumbnail.png";
+import rabbitLogo from "../assets/agencie/projects/rabbit_logo.png";
+import roborockLogo from "../assets/agencie/projects/roborock_logo.png";
+import lexmachinaLogo from "../assets/agencie/projects/lexmachina_logo.png";
+import loomlyLogo from "../assets/agencie/projects/loomly_logo.png";
 
 const projects = [
   {
     title: "Rabbit R1",
     image: rabbitaiImage,
+    logo: rabbitLogo,
     services: ["PRODUCT LAUNCH", "CONSUMER TECH", "CES STRATEGY", "VIRAL PR"],
     detailsLabel: "Expand Details",
     hideLabel: "Hide Details",
@@ -26,6 +31,7 @@ const projects = [
   {
     title: "Roborock",
     image: roborockImage,
+    logo: roborockLogo,
     services: [
       "CONSUMER ELECTRONICS",
       "SMART HOME",
@@ -48,6 +54,7 @@ const projects = [
     title:
       "Lex Machina",
     image: lexmachinaImage,
+    logo: lexmachinaLogo,
     services: [
       "B2B SAAS",
       "THOUGHT LEADERSHIP",
@@ -71,6 +78,7 @@ const projects = [
     title:
       "Loomly",
     image: loomlyImage,
+    logo: loomlyLogo,
     services: [
       "MEDIA RELATIONS",
       "PR STRATEGY",
@@ -90,17 +98,6 @@ const projects = [
     )
   }
 ];
-
-function getProjectLogoPlaceholder(title) {
-  const baseTitle = title.split("-")[0].trim();
-  const words = baseTitle.split(/\s+/).filter(Boolean);
-
-  if (words.length === 1) {
-    return words[0];
-  }
-
-  return words.slice(0, 2).join(" ");
-}
 
 function ArrowIcon({ className }) {
   return (
@@ -160,9 +157,7 @@ function ProjectCard({ project, index }) {
       <div className="projects-card__media">
         <img src={project.image} alt="" />
         <div className="projects-card__logo" aria-hidden="true">
-          <span className="projects-card__logo-text">
-            {getProjectLogoPlaceholder(project.title)}
-          </span>
+          <img className="projects-card__logo-image" src={project.logo} alt="" />
         </div>
       </div>
 

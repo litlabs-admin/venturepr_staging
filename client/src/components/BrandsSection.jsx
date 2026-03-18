@@ -5,6 +5,10 @@ import logo3 from "../assets/agencie/brands/tomshardware.svg";
 import logo4 from "../assets/agencie/brands/cnet.svg";
 import logo5 from "../assets/agencie/brands/thewallstreetjournal.svg";
 import logo6 from "../assets/agencie/brands/techcrunch.svg";
+import logo7 from "../assets/agencie/brands/bloomberg_Logo.png";
+import logo8 from "../assets/agencie/brands/ft_logo.png";
+import logo9 from "../assets/agencie/brands/nytimes_logo.png";
+import logo10 from "../assets/agencie/brands/bbc_logo.png";
 
 const brandWords = [
   { text: "As", accent: false },
@@ -19,6 +23,10 @@ const logos = [
   { src: logo4, alt: "Brand logo 4" },
   { src: logo5, alt: "Brand logo 5" },
   { src: logo6, alt: "Brand logo 6" },
+  { src: logo7, alt: "Bloomberg logo" },
+  { src: logo8, alt: "Financial Times logo" },
+  { src: logo9, alt: "New York Times logo" },
+  { src: logo10, alt: "BBC logo" },
 ];
 
 export function BrandsSection() {
