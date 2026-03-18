@@ -7049,7 +7049,7 @@ a {
 
 /* Diligent Layout - Case Studies exact */
 .case-studies-page-exact {
-  --case-hero-top-offset-desktop: 167px;
+  --case-hero-top-offset-desktop: 132px;
   --case-hero-bottom-gap-desktop: 48px;
   --case-hero-media-height-desktop: clamp(
     360px,
@@ -7066,6 +7066,10 @@ a {
   padding-bottom: 30px;
   position: relative;
   width: min(1440px, 100%);
+}
+
+.page-exact-shell > .case-studies-page-exact {
+  margin-top: 27px;
 }
 
 .case-detail-exact {
@@ -7401,7 +7405,7 @@ a {
 
 @media (max-width: 1199px) and (min-width: 810px) {
   .case-studies-page-exact {
-    --case-hero-top-offset-tablet: 145px;
+    --case-hero-top-offset-tablet: 120px;
     --case-hero-bottom-gap-tablet: 40px;
     --case-hero-media-height-tablet: clamp(
       320px,
@@ -7415,6 +7419,10 @@ a {
     padding-bottom: 40px;
     padding-left: 32px;
     width: 100%;
+  }
+
+  .page-exact-shell > .case-studies-page-exact {
+    margin-top: 15px;
   }
 
   .case-detail-exact {
