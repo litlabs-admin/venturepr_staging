@@ -8,7 +8,7 @@ import loomlyImage from "../assets/agencie/projects/loomly_thumbnail.png";
 
 const projects = [
   {
-    title: "Rabbit AI",
+    title: "Rabbit R1",
     image: rabbitaiImage,
     services: ["PRODUCT LAUNCH", "CONSUMER TECH", "CES STRATEGY", "VIRAL PR"],
     detailsLabel: "Expand Details",
@@ -91,6 +91,17 @@ const projects = [
   }
 ];
 
+function getProjectLogoPlaceholder(title) {
+  const baseTitle = title.split("-")[0].trim();
+  const words = baseTitle.split(/\s+/).filter(Boolean);
+
+  if (words.length === 1) {
+    return words[0];
+  }
+
+  return words.slice(0, 2).join(" ");
+}
+
 function ArrowIcon({ className }) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" className={className}>
@@ -148,6 +159,11 @@ function ProjectCard({ project, index }) {
     <article className={`projects-card ${isExpanded ? "is-expanded" : ""}`} key={project.title}>
       <div className="projects-card__media">
         <img src={project.image} alt="" />
+        <div className="projects-card__logo" aria-hidden="true">
+          <span className="projects-card__logo-text">
+            {getProjectLogoPlaceholder(project.title)}
+          </span>
+        </div>
       </div>
 
       <div className="projects-card__content">

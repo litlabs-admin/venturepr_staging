@@ -54,7 +54,7 @@ const testimonials = [
   },
   {
     quote:
-      "\u201cWorking with Venture has been phenomenal. The whole team has been supportive, professional, and highly motivated in every interaction. From product launches to industry events, they’ve helped us make plans and achieve goals in ways that resonate with media outlets, industry professionals, and investors.Their creativity and insights have been absolutely invaluable, and I would not hesitate to recommend Venture to any company looking for professional PR support.\u201d",
+      "\u201cWorking with Venture has been phenomenal. The whole team has been supportive, professional, and highly motivated in every interaction. From product launches to industry events, they’ve helped us make plans and achieve goals in ways that resonate with media outlets, industry professionals, and investors.\u201d",
     name: "David Teaster",
     role: "Satellai",
     logo: satellailogo
