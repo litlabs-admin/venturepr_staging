@@ -45,7 +45,48 @@ const sharedCarouselTiming = {
 
 const mod = (value, length) => ((value % length) + length) % length;
 
-const heroImages = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
+const heroSlides = [
+  {
+    src: img1,
+    href: "https://www.wsj.com/tech/ai/theft-of-trade-secrets-is-on-the-riseand-ai-is-making-it-worse-1b36122f",
+  },
+  {
+    src: img2,
+    href: "https://www.cnet.com/pictures/ces-2026-these-robots-and-ai-tools-dominated-the-show-floor/",
+  },
+  {
+    src: img3,
+    href: "https://www.tomshardware.com/desktops/mini-pcs/minisforum-ms-02-ultra-mini-workstation-hands-on",
+  },
+  {
+    src: img4,
+    href: "https://time.com/7296841/dog-sunburn-sunscreen/#",
+  },
+  {
+    src: img5,
+    href: "https://www.forbes.com/sites/forbes-personal-shopper/article/best-robotic-pool-cleaner/",
+  },
+  {
+    src: img6,
+    href: "https://www.zdnet.com/home-and-office/smart-home/best-smart-home-tech-ces-2026/",
+  },
+  {
+    src: img7,
+    href: "https://www.newsweek.com/best-mwc-2025-12-exciting-tech-products-coming-this-year-2042503",
+  },
+  {
+    src: img8,
+    href: "https://www.cnet.com/pictures/ces-2026-these-robots-and-ai-tools-dominated-the-show-floor/",
+  },
+  {
+    src: img9,
+    href: "https://www.theverge.com/news/850787/narwal-flow-2-robovac-ai-object-recognition-ces-2026",
+  },
+  {
+    src: img10,
+    href: "https://www.cnn.com/cnn-underscored/deals/esr-car-phone-holder-sale-2026-01-29",
+  },
+];
 
 export function OurWorkCoverageSection() {
   const sectionRef = useRef(null);
@@ -87,7 +128,7 @@ export function OurWorkCoverageSection() {
     if (!isVisible || !isAnimating) return;
 
     const timeoutId = window.setTimeout(() => {
-      setActiveIndex((prev) => (prev + 1) % heroImages.length);
+      setActiveIndex((prev) => (prev + 1) % heroSlides.length);
       setIsAnimating(false);
     }, sharedCarouselTiming.animationMs);
 
@@ -97,31 +138,31 @@ export function OurWorkCoverageSection() {
   const slots = [
     {
       slot: "slot-buffer-left",
-      index: mod(activeIndex + (isAnimating ? -2 : -3), heroImages.length),
+      index: mod(activeIndex + (isAnimating ? -2 : -3), heroSlides.length),
     },
     {
       slot: "slot-exit-left",
-      index: mod(activeIndex + (isAnimating ? -1 : -2), heroImages.length),
+      index: mod(activeIndex + (isAnimating ? -1 : -2), heroSlides.length),
     },
     {
       slot: "slot-left",
-      index: mod(activeIndex + (isAnimating ? 0 : -1), heroImages.length),
+      index: mod(activeIndex + (isAnimating ? 0 : -1), heroSlides.length),
     },
     {
       slot: "slot-center",
-      index: mod(activeIndex + (isAnimating ? 1 : 0), heroImages.length),
+      index: mod(activeIndex + (isAnimating ? 1 : 0), heroSlides.length),
     },
     {
       slot: "slot-right",
-      index: mod(activeIndex + (isAnimating ? 2 : 1), heroImages.length),
+      index: mod(activeIndex + (isAnimating ? 2 : 1), heroSlides.length),
     },
     {
       slot: "slot-enter-right",
-      index: mod(activeIndex + (isAnimating ? 3 : 2), heroImages.length),
+      index: mod(activeIndex + (isAnimating ? 3 : 2), heroSlides.length),
     },
     {
       slot: "slot-buffer-right",
-      index: mod(activeIndex + (isAnimating ? 4 : 3), heroImages.length),
+      index: mod(activeIndex + (isAnimating ? 4 : 3), heroSlides.length),
     },
   ];
 
@@ -202,7 +243,7 @@ export function OurWorkCoverageSection() {
               }}
             >
               {slots.map(({ slot, index }) => {
-                const image = heroImages[index];
+                const slide = heroSlides[index];
                 return (
                   <div
                     key={index}
@@ -215,17 +256,25 @@ export function OurWorkCoverageSection() {
                       "--pop-scale": carouselSettings.popScale,
                       "--side-opacity": carouselSettings.sideOpacity,
                     }}
-                  >
-                    <div
-                      className="marqo-hero__carousel-image-container"
-                      style={{ borderRadius: `${carouselSettings.radiusPx}px` }}
                     >
-                      <img
-                        className="our-work-coverage-exact__hero-image marqo-hero__carousel-image"
-                        src={image}
-                        alt={`Coverage carousel image ${index + 1}`}
-                      />
-                    </div>
+                    <a
+                      className="marqo-hero__carousel-link"
+                      href={slide.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Open coverage carousel image ${index + 1} in a new tab`}
+                    >
+                      <div
+                        className="marqo-hero__carousel-image-container"
+                        style={{ borderRadius: `${carouselSettings.radiusPx}px` }}
+                      >
+                        <img
+                          className="our-work-coverage-exact__hero-image marqo-hero__carousel-image"
+                          src={slide.src}
+                          alt={`Coverage carousel image ${index + 1}`}
+                        />
+                      </div>
+                    </a>
                   </div>
                 );
               })}

@@ -45,14 +45,9 @@ export default function FloatingNav() {
           </div>
 
           {/* CTA */}
-          <a
-            href="https://cal.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="fnav-cta"
-          >
+          <Link to="/contact-us" className="fnav-cta">
             Book Now
-          </a>
+          </Link>
 
           {/* Mobile hamburger */}
           <button
@@ -96,15 +91,9 @@ export default function FloatingNav() {
             {link.label}
           </Link>
         ))}
-        <a
-          href="https://cal.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fnav-mobile-cta"
-          onClick={() => setMenuOpen(false)}
-        >
+        <Link to="/contact-us" className="fnav-mobile-cta" onClick={() => setMenuOpen(false)}>
           Book Now
-        </a>
+        </Link>
       </div>
     </>
   );

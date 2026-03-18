@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { useOurWorkBreakpoint } from "./our-work/useOurWorkBreakpoint";
 
 // Import all 9 hero images
 import img1 from "../assets/hero_images/1.PNG";
@@ -12,15 +14,75 @@ import img8 from "../assets/hero_images/8.PNG";
 import img9 from "../assets/hero_images/9.PNG";
 import img10 from "../assets/hero_images/10.png";
 
-const heroImages = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
-const baseImageCount = heroImages.length;
+const heroSlides = [
+  {
+    src: img1,
+    href: "https://www.wsj.com/tech/ai/theft-of-trade-secrets-is-on-the-riseand-ai-is-making-it-worse-1b36122f",
+  },
+  {
+    src: img2,
+    href: "https://www.cnet.com/pictures/ces-2026-these-robots-and-ai-tools-dominated-the-show-floor/",
+  },
+  {
+    src: img3,
+    href: "https://www.tomshardware.com/desktops/mini-pcs/minisforum-ms-02-ultra-mini-workstation-hands-on",
+  },
+  {
+    src: img4,
+    href: "https://time.com/7296841/dog-sunburn-sunscreen/#",
+  },
+  {
+    src: img5,
+    href: "https://www.forbes.com/sites/forbes-personal-shopper/article/best-robotic-pool-cleaner/",
+  },
+  {
+    src: img6,
+    href: "https://www.zdnet.com/home-and-office/smart-home/best-smart-home-tech-ces-2026/",
+  },
+  {
+    src: img7,
+    href: "https://www.newsweek.com/best-mwc-2025-12-exciting-tech-products-coming-this-year-2042503",
+  },
+  {
+    src: img8,
+    href: "https://www.cnet.com/pictures/ces-2026-these-robots-and-ai-tools-dominated-the-show-floor/",
+  },
+  {
+    src: img9,
+    href: "https://www.theverge.com/news/850787/narwal-flow-2-robovac-ai-object-recognition-ces-2026",
+  },
+  {
+    src: img10,
+    href: "https://www.cnn.com/cnn-underscored/deals/esr-car-phone-holder-sale-2026-01-29",
+  },
+];
+const baseImageCount = heroSlides.length;
 
-const carouselSettings = {
-  cardWidthPx: 160,
-  cardHeightPx: 200,
-  gapPx: 32,
-  radiusPx: 32,
-  popScale: 1.594,
+const carouselSettingsByBreakpoint = {
+  desktop: {
+    cardWidthPx: 214,
+    cardHeightPx: 267,
+    gapPx: 72,
+    radiusPx: 20,
+    popScale: 1.594,
+  },
+  tablet: {
+    cardWidthPx: 184,
+    cardHeightPx: 229,
+    gapPx: 12,
+    radiusPx: 18,
+    popScale: 1.42,
+  },
+  mobile: {
+    cardWidthPx: 144,
+    cardHeightPx: 180,
+    gapPx: 8,
+    radiusPx: 16,
+    popScale: 1.28,
+  },
+};
+
+const carouselTiming = {
   intervalMs: 2500,
   animationMs: 750,
 };
@@ -32,6 +94,8 @@ export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const breakpoint = useOurWorkBreakpoint();
+  const carouselSettings = carouselSettingsByBreakpoint[breakpoint];
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -56,7 +120,7 @@ export function HeroSection() {
 
     const intervalId = window.setInterval(() => {
       setIsAnimating((prev) => (prev ? prev : true));
-    }, carouselSettings.intervalMs);
+    }, carouselTiming.intervalMs);
 
     return () => window.clearInterval(intervalId);
   }, [isVisible]);
@@ -67,7 +131,7 @@ export function HeroSection() {
     const timeoutId = window.setTimeout(() => {
       setActiveIndex((prev) => (prev + 1) % baseImageCount);
       setIsAnimating(false);
-    }, carouselSettings.animationMs);
+    }, carouselTiming.animationMs);
 
     return () => window.clearTimeout(timeoutId);
   }, [isAnimating, isVisible]);
@@ -122,18 +186,18 @@ export function HeroSection() {
         </div>
 
         <div className="marqo-hero__actions">
-          <a
+          <Link
             className="marqo-button marqo-button--green marqo-appear marqo-appear--delay-3"
-            href="./waitlist"
+            to="/contact-us"
           >
             See what's possible
-          </a>
-          <a
+          </Link>
+          <Link
             className="marqo-button marqo-button--outline marqo-appear marqo-appear--delay-4"
-            href="./#features"
+            to="/our-work"
           >
             See our work
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -146,11 +210,11 @@ export function HeroSection() {
               style={{
                 "--slot-step": `${carouselSettings.cardWidthPx + carouselSettings.gapPx}px`,
                 "--track-height": `${carouselSettings.cardHeightPx * carouselSettings.popScale}px`,
-                "--side-opacity": 0.85,
+                "--pop-scale": carouselSettings.popScale,
               }}
             >
             {slots.map(({ slot, index }) => {
-              const img = heroImages[index];
+              const slide = heroSlides[index];
 
               return (
                 <div
@@ -162,18 +226,27 @@ export function HeroSection() {
                     height: `${carouselSettings.cardHeightPx}px`,
                     borderRadius: `${carouselSettings.radiusPx}px`,
                     "--pop-scale": carouselSettings.popScale,
+                    "--side-opacity": 0.85,
                   }}
                 >
-                  <div
-                    className="marqo-hero__carousel-image-container"
-                    style={{ borderRadius: `${carouselSettings.radiusPx}px` }}
+                  <a
+                    className="marqo-hero__carousel-link"
+                    href={slide.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open press coverage ${index + 1} in a new tab`}
                   >
-                    <img
-                      className="marqo-hero__carousel-image"
-                      src={img}
-                      alt={`Press coverage ${index + 1}`}
-                    />
-                  </div>
+                    <div
+                      className="marqo-hero__carousel-image-container"
+                      style={{ borderRadius: `${carouselSettings.radiusPx}px` }}
+                    >
+                      <img
+                        className="marqo-hero__carousel-image"
+                        src={slide.src}
+                        alt={`Press coverage ${index + 1}`}
+                      />
+                    </div>
+                  </a>
                 </div>
               );
             })}

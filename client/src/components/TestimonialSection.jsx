@@ -8,8 +8,16 @@ import cheflinglogo from "../assets/agencie/testimonials/chefling.svg";
 import fourthwalllogo from "../assets/agencie/testimonials/fourthwall.svg";
 import fivestudioslogo from "../assets/agencie/testimonials/fivestudios.svg";
 import satellailogo from "../assets/agencie/testimonials/satellai_logo.png";
+import channellogo from "../assets/agencie/testimonials/channel99.svg";
 
 const testimonials = [
+  {
+    quote:
+      "\u201cI’ve worked with many communications and PR firms in my past companies. Venture PR spent the time to really understand our market and needs, and then got us high-quality monthly coverage in AI, martech and business publications. Web traffic from our target markets increased 37% as a result. Highly recommended.\u201d",
+    name: "Chris Golec",
+    role: "Channel99",
+    logo: channellogo
+  },  
   {
     quote:
       "\u201cWe got so much great coverage with Venture PR, that I hired them again at my next company.\u201d",

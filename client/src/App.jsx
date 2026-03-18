@@ -16,12 +16,13 @@ import FloatingNav from "./components/FloatingNav";
 import { OurWorkPage } from "./pages/OurWork";
 import { ContactUsPage } from "./pages/ContactUs";
 import { CaseStudiesPage } from "./pages/CaseStudies";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { defaultCaseStudySlug } from "./data/caseStudies";
 import ScrollToHash from "./components/ScrollToHash";
 
 function HomePage() {
   return (
-    <>
+    <main className="home-page">
       <FloatingNav />
       <HeroSection />
       <StatisticsSection />
@@ -36,7 +37,7 @@ function HomePage() {
       <FaqSection />
       <CtaSection />
       <FooterSection />
-    </>
+    </main>
   );
 }
 
@@ -48,7 +49,11 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/our-work" element={<OurWorkPage />} />
         <Route path="/contact-us" element={<ContactUsPage />} />
-        <Route path="/case-studies" element={<CaseStudiesPage />} />
+        <Route
+          path="/case-studies"
+          element={<Navigate replace to={`/case-studies/${defaultCaseStudySlug}`} />}
+        />
+        <Route path="/case-studies/:slug" element={<CaseStudiesPage />} />
       </Routes>
     </div>
   );

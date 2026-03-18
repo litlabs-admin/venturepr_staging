@@ -1,229 +1,291 @@
-import heroImage from "../assets/case-studies/hero/beatbot-hero.png";
+import { useEffect, useMemo, useState } from "react";
+import { Link, Navigate, useParams } from "react-router-dom";
 import FloatingNav from "../components/FloatingNav";
 import { FooterSection } from "../components/FooterSection";
-import lexImage from "../assets/case-studies/grid/lex-machina.png";
-import guruImage from "../assets/case-studies/grid/guru.png";
-import audyenceImage from "../assets/case-studies/grid/audyence.png";
-import loomlyImage from "../assets/case-studies/grid/loomly.png";
-import rabbitImage from "../assets/case-studies/grid/rabbit.png";
-import roborockImage from "../assets/case-studies/grid/roborock.png";
-import narwalImage from "../assets/case-studies/grid/narwal.png";
-import beatbotImage from "../assets/case-studies/grid/beatbot.png";
+import {
+  caseStudies,
+  caseStudiesBySlug,
+  defaultCaseStudySlug,
+} from "../data/caseStudies";
+import { useOurWorkBreakpoint } from "../components/our-work/useOurWorkBreakpoint";
 
-const caseStudySections = [
-  {
-    title: "Overview",
-    body: [
-      "Beatbot, a pioneer in AI-powered pool robotics, partnered with Venture PR to elevate global brand presence and introduce the AquaSense, AquaSense Pro, and AquaSense 2 Ultra during high-profile launches.",
-      "Collaboration focused on strategic media engagement, targeted outreach to leading technology publications, and CES 2025 event activations.",
-      "Objectives included establishing Beatbot as the leader in consumer-focused robotics, winning top innovation awards, and driving rapid market adoption.",
-    ],
+const carouselSettingsByBreakpoint = {
+  desktop: {
+    cardWidthPx: 427,
+    cardHeightPx: 319,
+    panelWidthPx: 382,
+    gapPx: 25.7824,
   },
-  {
-    title: "Approach",
-    body: [
-      "Developed and executed a global media strategy for new product launches with integrated messaging focused on innovation, user experience, and environmental benefits.",
-      "Organized hands-on press events and demo opportunities at industry shows like CES 2025, securing direct access and reviews by influential technology journalists.",
-      "Coordinated targeted media outreach and pitching to secure recognition in both consumer tech and robotics trade outlets.",
-      "Submitted flagship products to prestigious award programs and supported applications with compelling evidence around design, technology, and market impact.",
-    ],
+  tablet: {
+    cardWidthPx: 360,
+    cardHeightPx: 269,
+    panelWidthPx: 320,
+    gapPx: 22,
   },
-  {
-    title: "Impact",
-    body: [
-      { text: "Achieved widespread coverage:", weight: "bold" },
-      {
-        text: "CNET: Praised AquaSense Pro as the world’s first 5-in-1 pool cleaning solution, with exceptional cleaning, AI path optimization, and ease of use.",
-      },
-      {
-        text: "ZDNet: Named AquaSense Pro one of the best pool-cleaning robots ever tested, citing robust performance.",
-      },
-      { text: "TechCrunch: Highlighted Beatbot’s CES showcase and ecologically-focused innovations." },
-      { text: "IEEE Spectrum: Spotlighted Beatbot’s robotics and AI navigation engineering." },
-      { text: "Secured major awards and accolades:", weight: "bold" },
-      { text: "Red Dot Design Award: Recognizing product excellence and innovation." },
-      { text: "CES Innovation Award: Celebrating breakthrough features and smart home integration." },
-      { text: "Best of CES: Industry roundups listing Beatbot among top smart home devices." },
-      {
-        text: "Featured by Smart Home World Magazine, Robotics Business Review, and Fast Company for operational impact, environmental focus, and market leadership.",
-        weight: "bold",
-      },
-      {
-        text: "Impact included immediate retailer and consumer interest, rapid adoption, accelerated sales, and global tech sector recognition.",
-        weight: "bold",
-      },
-    ],
+  mobile: {
+    cardWidthPx: 286,
+    cardHeightPx: 214,
+    panelWidthPx: 286,
+    gapPx: 16,
   },
-  {
-    title: "Conclusion",
-    body: [
-      "Venture PR’s partnership with Beatbot delivered exceptional visibility, credibility, and acclaim for the brand’s AI robotics innovation. Through strategic media engagement and sustained award campaigns, Beatbot set a new standard for smart pool cleaning—solidifying its market leadership in consumer robotics.",
-    ],
-  },
-  {
-    title: "Publication highlights",
-    body: [
-      "Breakthrough award wins, top-tier press coverage, and thought leadership distinguished Beatbot and its product line as innovators in the smart pool cleaning and robotics sector throughout 2024 and 2025.",
-    ],
-  },
-];
+};
 
-const caseStudies = [
-  {
-    name: "Lex Machina",
-    description: "Building Global Visibility for a Leading Legal Analytics Platform",
-    image: lexImage,
-    frameColor: "#000000",
-    imageStyle: { width: 429, height: 319, top: 0, left: -1, objectFit: "cover" },
-  },
-  {
-    name: "GuRu",
-    description: "Driving Media Attention Around Breakthrough Wireless Technology",
-    image: guruImage,
-    frameColor: "#0b041a",
-    imageStyle: { width: 357, height: 357, top: -38, left: 24, objectFit: "cover" },
-  },
-  {
-    name: "Audyence",
-    description: "Redefining B2B Demand Generation with Programmatic Innovation",
-    image: audyenceImage,
-    frameColor: "#000000",
-    imageStyle: { width: 423, height: 423, top: 0, left: 0, objectFit: "cover" },
-  },
-  {
-    name: "Loomly",
-    description: "Sustained Media Coverage for a Social Media Management Platform",
-    image: loomlyImage,
-    frameColor: "#ddf9ae",
-    imageStyle: { width: 455, height: 328, top: -5, left: -14, objectFit: "cover" },
-  },
-  {
-    name: "Rabbit",
-    description:
-      "Rabbit r1 is a personal assistant by Rabbit Inc, designed with Teenage Engineering. It offers smart functions like browsing and music.",
-    image: rabbitImage,
-    frameColor: "#ddf9ae",
-    imageStyle: { width: 455, height: 328, top: -5, left: -14, objectFit: "cover" },
-  },
-  {
-    name: "Roborock",
-    description: "Top Tier Product Reviews and Media Awards for Roborock.",
-    image: roborockImage,
-    frameColor: "#000000",
-    imageStyle: { width: 762, height: 319, top: 0, left: -251, objectFit: "fill" },
-  },
-  {
-    name: "Narwal",
-    description:
-      "Elevating Smart Cleaning Through Top-Tier Technology Media and Industry Recognition",
-    image: narwalImage,
-    frameColor: "#000000",
-    imageStyle: { width: 419, height: 319, top: 0, left: 0, objectFit: "fill" },
-  },
-  {
-    name: "Beatbot",
-    description:
-      "Beatbot announces the AquaSense 2 Series alongside new partnership with U.S. SailGP team.",
-    image: beatbotImage,
-    frameColor: "#000000",
-    imageStyle: { width: 495, height: 370, top: -51, left: -45, objectFit: "fill" },
-  },
-];
+const carouselTiming = {
+  intervalMs: 2500,
+  animationMs: 750,
+};
+
+const mod = (value, length) => ((value % length) + length) % length;
+
+function getGridCropStyle(study) {
+  return {
+    "--grid-frame-color": study.gridFrameColor,
+    "--grid-crop-width-ratio": `${study.gridImageCrop.widthRatio}`,
+    "--grid-crop-height-ratio": `${study.gridImageCrop.heightRatio}`,
+    "--grid-crop-top-ratio": `${study.gridImageCrop.topRatio}`,
+    "--grid-crop-left-ratio": `${study.gridImageCrop.leftRatio}`,
+    "--grid-crop-fit": study.gridImageCrop.objectFit,
+  };
+}
 
 export function CaseStudiesPage() {
+  const { slug } = useParams();
+  const caseStudy = slug ? caseStudiesBySlug[slug] : caseStudiesBySlug[defaultCaseStudySlug];
+  const resolvedCaseStudy = caseStudy ?? caseStudiesBySlug[defaultCaseStudySlug];
+  const breakpoint = useOurWorkBreakpoint();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const carouselSettings = carouselSettingsByBreakpoint[breakpoint];
+  const relatedCaseStudies = useMemo(
+    () => caseStudies.filter((study) => study.slug !== resolvedCaseStudy.slug),
+    [resolvedCaseStudy.slug]
+  );
+
+  const conclusionSection =
+    resolvedCaseStudy.overviewSections[resolvedCaseStudy.overviewSections.length - 1] ?? null;
+  const mainSections = conclusionSection
+    ? resolvedCaseStudy.overviewSections.slice(0, -1)
+    : resolvedCaseStudy.overviewSections;
+  const relatedCount = relatedCaseStudies.length;
+
+  useEffect(() => {
+    setActiveIndex(0);
+    setIsAnimating(false);
+  }, [resolvedCaseStudy.slug]);
+
+  useEffect(() => {
+    if (relatedCount < 2) return undefined;
+
+    const intervalId = window.setInterval(() => {
+      setIsAnimating((prev) => (prev ? prev : true));
+    }, carouselTiming.intervalMs);
+
+    return () => window.clearInterval(intervalId);
+  }, [relatedCount]);
+
+  useEffect(() => {
+    if (!isAnimating || relatedCount < 2) return undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      setActiveIndex((prev) => mod(prev + 1, relatedCount));
+      setIsAnimating(false);
+    }, carouselTiming.animationMs);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [isAnimating, relatedCount]);
+
+  const relatedSlots = useMemo(() => {
+    if (relatedCount === 0) return [];
+    if (relatedCount === 1) {
+      return [{ slot: "slot-center", study: relatedCaseStudies[0] }];
+    }
+
+    if (breakpoint === "mobile") {
+      return [
+        {
+          slot: "slot-left",
+          study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 0 : -1), relatedCount)],
+        },
+        {
+          slot: "slot-center",
+          study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 1 : 0), relatedCount)],
+        },
+        {
+          slot: "slot-right",
+          study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 2 : 1), relatedCount)],
+        },
+      ];
+    }
+
+    return [
+      {
+        slot: "slot-buffer-left",
+        study:
+          relatedCaseStudies[mod(activeIndex + (isAnimating ? -2 : -3), relatedCount)],
+      },
+      {
+        slot: "slot-exit-left",
+        study:
+          relatedCaseStudies[mod(activeIndex + (isAnimating ? -1 : -2), relatedCount)],
+      },
+      {
+        slot: "slot-left",
+        study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 0 : -1), relatedCount)],
+      },
+      {
+        slot: "slot-center",
+        study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 1 : 0), relatedCount)],
+      },
+      {
+        slot: "slot-right",
+        study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 2 : 1), relatedCount)],
+      },
+      {
+        slot: "slot-enter-right",
+        study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 3 : 2), relatedCount)],
+      },
+      {
+        slot: "slot-buffer-right",
+        study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 4 : 3), relatedCount)],
+      },
+    ];
+  }, [activeIndex, breakpoint, isAnimating, relatedCaseStudies, relatedCount]);
+
+  if (!caseStudy) {
+    return <Navigate replace to={`/case-studies/${defaultCaseStudySlug}`} />;
+  }
+
   return (
     <div className="page-exact-shell">
       <FloatingNav />
       <main className="case-studies-page-exact">
-      <div className="case-detail-exact">
-        <div className="case-detail-exact__intro">
-          <div className="case-detail-exact__hero">
-            <div className="case-detail-exact__hero-media">
-              <img src={heroImage} alt="" />
-            </div>
-          </div>
-          <div className="case-detail-exact__stack">
-            <div className="case-detail-exact__title">
-              <h1>AquaSense 2</h1>
-              <p>
-                Beatbot announces the AquaSense 2 Series alongside new partnership with
-                U.S. SailGP team.
-              </p>
+        <div className="case-detail-exact">
+          <div className="case-detail-exact__intro">
+            <div className="case-detail-exact__hero">
+              <div className="case-detail-exact__hero-media">
+                <img
+                  src={resolvedCaseStudy.heroImage}
+                  alt={resolvedCaseStudy.heroImageAlt}
+                />
+              </div>
             </div>
 
-            {caseStudySections.map((section, index) => (
-              <div key={section.title} className="case-detail-exact__block">
-                <h2>{section.title}</h2>
-                {section.body.map((paragraph, pIndex) => {
+            <div className="case-detail-exact__stack">
+              <div className="case-detail-exact__title">
+                <h1>{resolvedCaseStudy.title}</h1>
+                <p>{resolvedCaseStudy.headline}</p>
+              </div>
+
+              {mainSections.map((section, index) => (
+                <div key={section.title} className="case-detail-exact__block">
+                  <h2>{section.title}</h2>
+                  {section.body.map((paragraph, paragraphIndex) => {
+                    const text = typeof paragraph === "string" ? paragraph : paragraph.text;
+                    const weight =
+                      typeof paragraph === "object" && paragraph.weight === "bold"
+                        ? "bold"
+                        : "normal";
+
+                    return (
+                      <p
+                        key={`${section.title}-${paragraphIndex}`}
+                        className={`case-detail-exact__paragraph case-detail-exact__paragraph--${weight}`}
+                      >
+                        {text}
+                      </p>
+                    );
+                  })}
+                  {index < mainSections.length - 1 && (
+                    <div className="case-detail-exact__divider" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="case-detail-exact__closing">
+            <div className="case-detail-exact__publication">
+              <h2>Publication highlights</h2>
+              <p>{resolvedCaseStudy.publicationIntro}</p>
+            </div>
+
+            {conclusionSection ? (
+              <div className="case-detail-exact__block case-detail-exact__block--closing">
+                <h2>{conclusionSection.title}</h2>
+                {conclusionSection.body.map((paragraph, paragraphIndex) => {
                   const text = typeof paragraph === "string" ? paragraph : paragraph.text;
                   const weight =
                     typeof paragraph === "object" && paragraph.weight === "bold"
                       ? "bold"
                       : "normal";
+
                   return (
                     <p
-                      key={`${section.title}-${pIndex}`}
+                      key={`${conclusionSection.title}-${paragraphIndex}`}
                       className={`case-detail-exact__paragraph case-detail-exact__paragraph--${weight}`}
                     >
                       {text}
                     </p>
                   );
                 })}
-                {index < 3 && <div className="case-detail-exact__divider" />}
               </div>
-            ))}
+            ) : null}
           </div>
         </div>
 
-        <div className="case-detail-exact__publication">
-          <h2>Publication highlights</h2>
-          <p>
-            Breakthrough award wins, top-tier press coverage, and thought leadership
-            distinguished Beatbot and its product line as innovators in the smart pool
-            cleaning and robotics sector throughout 2024 and 2025.
-          </p>
-        </div>
-      </div>
+        <section className="case-studies-grid-exact">
+          <div className="case-studies-grid-exact__eyebrow">/ Our Work</div>
+          <div className="case-studies-grid-exact__header">
+            <h2>Performance Audits &amp; Client Scenarios</h2>
+            <p>
+              Step-by-step analyses of our operational execution. We dissect the initial
+              problem, the exact strategies deployed, and the raw, unedited data that
+              defined the final outcome.
+            </p>
+          </div>
 
-      <section className="case-studies-grid-exact">
-        <div className="case-studies-grid-exact__eyebrow">/ Our Work</div>
-        <div className="case-studies-grid-exact__header">
-          <h2>Performance Audits &amp; Client Scenarios</h2>
-          <p>
-            Step-by-step analyses of our operational execution. We dissect the initial
-            problem, the exact strategies deployed, and the raw, unedited data that
-            defined the final outcome.
-          </p>
-        </div>
-
-        <div className="case-studies-grid-exact__row">
-          {caseStudies.map((study) => (
-            <article key={study.name} className="case-studies-grid-exact__card">
-              <div
-                className="case-studies-grid-exact__frame"
-                style={{ backgroundColor: study.frameColor }}
-              >
-                <img
-                  src={study.image}
-                  alt=""
-                  style={{
-                    position: "absolute",
-                    width: study.imageStyle.width,
-                    height: study.imageStyle.height,
-                    top: study.imageStyle.top,
-                    left: study.imageStyle.left,
-                    objectFit: study.imageStyle.objectFit,
-                  }}
-                />
-              </div>
-              <div className="case-studies-grid-exact__panel">
-                <h3>{study.name}</h3>
-                <p>{study.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+          <div className="case-studies-grid-exact__carousel">
+            <div
+              className={`case-studies-grid-exact__row${isAnimating ? " is-animating" : ""}`}
+              style={{
+                "--case-studies-card-width": `${carouselSettings.cardWidthPx}px`,
+                "--case-studies-card-height": `${carouselSettings.cardHeightPx}px`,
+                "--case-studies-panel-width": `${carouselSettings.panelWidthPx}px`,
+                "--case-studies-slot-step": `${
+                  carouselSettings.cardWidthPx + carouselSettings.gapPx
+                }px`,
+              }}
+            >
+              {relatedSlots.map(({ slot, study }) => (
+                <div
+                  key={study.slug}
+                  className={`case-studies-grid-exact__carousel-item case-studies-grid-exact__carousel-item--${slot}`}
+                >
+                  <Link
+                    to={`/case-studies/${study.slug}`}
+                    className="case-studies-grid-exact__card"
+                  >
+                    <div
+                      className="case-studies-grid-exact__frame"
+                      style={getGridCropStyle(study)}
+                    >
+                      <img
+                        className="case-studies-grid-exact__image"
+                        src={study.gridImage}
+                        alt=""
+                      />
+                    </div>
+                    <div className="case-studies-grid-exact__panel">
+                      <h3>{study.name}</h3>
+                      <p>{study.headline}</p>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
       <FooterSection />
     </div>
