@@ -5213,41 +5213,6 @@ a {
   top: 369px;
 }
 
-.our-work-featured-exact__dot {
-  border: 1.41466px solid #ff4f01;
-  border-radius: 50%;
-  height: 37px;
-  left: 1285px;
-  position: absolute;
-  top: 280px;
-  width: 37px;
-}
-
-.our-work-featured-exact__line {
-  position: absolute;
-}
-
-.our-work-featured-exact__line--long {
-  height: 4px;
-  left: 1295px;
-  top: 297px;
-  width: 16px;
-}
-
-.our-work-featured-exact__line--diag-up {
-  height: 9px;
-  left: 1302px;
-  top: 292px;
-  width: 9px;
-}
-
-.our-work-featured-exact__line--diag-down {
-  height: 9px;
-  left: 1302px;
-  top: 296px;
-  width: 9px;
-}
-
 .our-work-featured-exact__heading {
   font-family: "Darker Grotesque", sans-serif;
   font-size: 60px;

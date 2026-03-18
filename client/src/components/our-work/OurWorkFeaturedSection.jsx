@@ -135,29 +135,6 @@ export function OurWorkFeaturedSection() {
           );
         })}
 
-        <span className="our-work-featured-exact__dot" aria-hidden="true" />
-        <svg
-          className="our-work-featured-exact__line our-work-featured-exact__line--long"
-          viewBox="0 0 16 4"
-          aria-hidden="true"
-        >
-          <line x1="0" y1="2" x2="16" y2="2" stroke="#FF844E" strokeWidth="1.31211" />
-        </svg>
-        <svg
-          className="our-work-featured-exact__line our-work-featured-exact__line--diag-up"
-          viewBox="0 0 9 9"
-          aria-hidden="true"
-        >
-          <line x1="1" y1="1" x2="8" y2="8" stroke="#FF844E" strokeWidth="1.31211" />
-        </svg>
-        <svg
-          className="our-work-featured-exact__line our-work-featured-exact__line--diag-down"
-          viewBox="0 0 9 9"
-          aria-hidden="true"
-        >
-          <line x1="8" y1="1" x2="1" y2="8" stroke="#FF844E" strokeWidth="1.31211" />
-        </svg>
-
         <h2 id="our-work-featured-title" className="our-work-featured-exact__heading">
           Executed campaigns. Verified results.
         </h2>
