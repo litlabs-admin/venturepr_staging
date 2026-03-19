@@ -1,73 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { PhosphorIcon } from "./PhosphorIcon";
-
-import carollogo from "../assets/agencie/testimonials/carol.svg";
-import fivetranlogo from "../assets/agencie/testimonials/fivetran.svg";
-import basepawslogo from "../assets/agencie/testimonials/basepaws.svg";
-import cheflinglogo from "../assets/agencie/testimonials/chefling.svg";
-import fourthwalllogo from "../assets/agencie/testimonials/fourthwall.svg";
-import fivestudioslogo from "../assets/agencie/testimonials/fivestudios.svg";
-import satellailogo from "../assets/agencie/testimonials/satellai_logo.png";
-import channellogo from "../assets/agencie/testimonials/channel99.svg";
-
-const testimonials = [
-  {
-    quote:
-      "\u201cI’ve worked with many communications and PR firms in my past companies. Venture PR spent the time to really understand our market and needs, and then got us high-quality monthly coverage in AI, martech and business publications. Web traffic from our target markets increased 37% as a result. Highly recommended.\u201d",
-    name: "Chris Golec",
-    role: "Channel99",
-    logo: channellogo
-  },  
-  {
-    quote:
-      "\u201cWe got so much great coverage with Venture PR, that I hired them again at my next company.\u201d",
-    name: "Kris Altiere",
-    role: "Carol",
-    logo: carollogo
-  },
-  {
-    quote:
-      "\u201cVenture Public Relations was our first PR company and helped us through our Series B, on the way to becoming a unicorn!\u201d",
-    name: "Katie Chin",
-    role: "Fivetran",
-    logo: fivetranlogo
-  },
-  {
-    quote:
-      "\u201cWorking with VenturePR played a crucial role in the launch of my groundbreaking app. Their team was responsive, creative, and landed huge stories for us in national press outlets. Cannot wait to work with them again!\u201d",
-    name: "Nancy Baker",
-    role: "4th Wall",
-    logo: fourthwalllogo
-  },
-  {
-    quote:
-      "\u201cWe hired Venture Public Relations to get press at the Consumer Electronics Show and they exceeded our expectations coverage in Fortune, CBS, ABC, Gizmodo, CNET and quickly got meetings with important buyers and partners. Highly recommend!\u201d",
-    name: "Anna Skaya",
-    role: "Basepaws",
-    logo: basepawslogo
-  },
-  {
-    quote:
-      "\u201cIt\u2019s been great working with Ben and the Venture PR team! They generated great ideas and got my company Chefling press coverage in leading publications in a short amount of time. Venture PR\u2019s creativity and flexibility sets them apart.\u201d",
-    name: "Nancy Tu",
-    role: "Chefling",
-    logo: cheflinglogo
-  },
-  {
-    quote:
-      "\u201cMy company, 5518 Studios was looking for PR and we got introduced to Venture PR we are glad we did. Ben was able to get us in top gaming publications as well as magazines. Looking forward to continuing this partnership.\u201d",
-    name: "Michael Casalino",
-    role: "5518 Studios",
-    logo: fivestudioslogo
-  },
-  {
-    quote:
-      "\u201cWorking with Venture has been phenomenal. The whole team has been supportive, professional, and highly motivated in every interaction. From product launches to industry events, they’ve helped us make plans and achieve goals in ways that resonate with media outlets, industry professionals, and investors.\u201d",
-    name: "David Teaster",
-    role: "Satellai",
-    logo: satellailogo
-  }
-];
+import { testimonials } from "../data/testimonials";
 
 function ArrowIcon({ direction }) {
   return (
@@ -89,7 +22,7 @@ export function TestimonialSection() {
   const dragStateRef = useRef({
     isDragging: false,
     startX: 0,
-    startScrollLeft: 0
+    startScrollLeft: 0,
   });
   const [isVisible, setIsVisible] = useState(false);
 
@@ -103,7 +36,7 @@ export function TestimonialSection() {
 
     track.scrollBy({
       left: direction * (cardWidth + gap),
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
@@ -133,7 +66,7 @@ export function TestimonialSection() {
       dragStateRef.current = {
         isDragging: true,
         startX: event.clientX,
-        startScrollLeft: track.scrollLeft
+        startScrollLeft: track.scrollLeft,
       };
       track.setPointerCapture(event.pointerId);
     };

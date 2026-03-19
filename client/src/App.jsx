@@ -3,6 +3,7 @@ import { BenefitsSection } from "./components/BenefitsSection";
 import { BrandsSection } from "./components/BrandsSection";
 import { ServicesSection } from "./components/ServicesSection";
 import { StatisticsSection } from "./components/StatisticsSection";
+import { FloatingEdgeTestimonials } from "./components/FloatingEdgeTestimonials";
 
 import { ProjectsSection } from "./components/ProjectsSection";
 import { ProcessSection } from "./components/ProcessSection";
@@ -24,6 +25,7 @@ function HomePage() {
   return (
     <main className="home-page">
       <FloatingNav />
+      <FloatingEdgeTestimonials />
       <HeroSection />
       <StatisticsSection />
       <BenefitsSection />

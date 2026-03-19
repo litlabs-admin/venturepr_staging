@@ -57,25 +57,26 @@ const heroSlides = [
   },
 ];
 const baseImageCount = heroSlides.length;
+const HERO_CARD_SIZE_MULTIPLIER = 1.3;
 
 const carouselSettingsByBreakpoint = {
   desktop: {
-    cardWidthPx: 214,
-    cardHeightPx: 267,
+    cardWidthPx: Math.round(214 * HERO_CARD_SIZE_MULTIPLIER),
+    cardHeightPx: Math.round(267 * HERO_CARD_SIZE_MULTIPLIER),
     gapPx: 72,
     radiusPx: 20,
     popScale: 1.594,
   },
   tablet: {
-    cardWidthPx: 184,
-    cardHeightPx: 229,
+    cardWidthPx: Math.round(184 * HERO_CARD_SIZE_MULTIPLIER),
+    cardHeightPx: Math.round(229 * HERO_CARD_SIZE_MULTIPLIER),
     gapPx: 12,
     radiusPx: 18,
     popScale: 1.42,
   },
   mobile: {
-    cardWidthPx: 144,
-    cardHeightPx: 180,
+    cardWidthPx: Math.round(144 * HERO_CARD_SIZE_MULTIPLIER),
+    cardHeightPx: Math.round(180 * HERO_CARD_SIZE_MULTIPLIER),
     gapPx: 8,
     radiusPx: 16,
     popScale: 1.28,
