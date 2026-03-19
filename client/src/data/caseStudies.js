@@ -116,6 +116,104 @@ const beatbotSections = [
   },
 ];
 
+const audyenceSections = [
+  {
+    title: "Overview",
+    body: [
+      "Founded in 2023 by industry veterans, Audyence developed the first programmatic platform enabling cost-per-lead campaigns in B2B marketing.",
+      "Venture PR was engaged to launch Audyence's Real-Time Demand platform and spotlight its differentiated approach centered on automation, transparency, and efficiency.",
+      "The campaign aimed to position Audyence as a category leader by securing coverage in leading business, marketing, and technology publications.",
+    ],
+  },
+  {
+    title: "Approach",
+    body: [
+      "Directed launch campaigns that positioned Audyence RTD as a transformative programmatic CPL platform for B2B marketers.",
+      "Secured thought leadership through bylined articles, executive interviews, and industry commentary that highlighted the team's expertise.",
+      "Shared early adopter success stories demonstrating meaningful reductions in cost per lead and faster time-to-market.",
+      "Submitted Audyence for key industry awards and rankings to build recognition and credibility.",
+      "Engaged top-tier media including Business Wire, Marketing Dive, AdExchanger, MarTech Series, Demand Gen Report, Adweek, USA Today, and more to amplify brand presence across multiple verticals.",
+    ],
+  },
+  {
+    title: "Impact",
+    body: [
+      { text: "Achieved more than 40 million media impressions across business, marketing, and technology outlets.", weight: "bold" },
+      {
+        text: "Delivered a 100% post-beta renewal rate while projected annual revenue reached seven figures early in the company's growth.",
+      },
+      {
+        text: "Earned recognition from industry analysts and trade publications as a leading innovator in B2B demand generation.",
+      },
+      {
+        text: "Established Audyence executives as sought-after thought leaders on the future of programmatic B2B marketing.",
+      },
+      {
+        text: "Generated featured stories and interviews covering the platform's integration capabilities, marketing efficiency gains, and the industry's shift from CPM to CPL.",
+      },
+    ],
+  },
+  {
+    title: "Conclusion",
+    body: [
+      "Venture PR's partnership with Audyence shows how strategic public relations can accelerate market entry and category leadership. By combining product innovation, thought leadership, and customer success narratives, Audyence redefined B2B demand generation and strengthened its path to sustained growth.",
+    ],
+  },
+];
+
+const narwalSections = [
+  {
+    title: "Overview",
+    body: [
+      "Narwal, a global leader in intelligent cleaning robotics, engaged Venture PR to amplify brand impact and advance major product launches in the US and international markets.",
+      "The engagement focused on strategic collaboration across product messaging, media strategy, CES 2025 launch moments, and submissions to top global award programs.",
+      "Key objectives included securing high-profile technology coverage, winning international recognition for design and performance, and positioning Narwal at the forefront of consumer robotics innovation.",
+    ],
+  },
+  {
+    title: "Approach",
+    body: [
+      "Developed and executed comprehensive media strategies for the Flow Series, Freo Z10, Freo Pro, and S30, spotlighting both breakthrough technology and user-focused design.",
+      "Coordinated press events at CES 2025 with direct product demonstrations for influential journalists and industry analysts.",
+      "Engaged leading technology and business publications across the US and Asia-Pacific to give launches and milestones influential global reach.",
+      "Led targeted award submissions that secured wins across the Red Dot Design Award, CES Innovation Award, and Edison Gold Award, among others.",
+    ],
+  },
+  {
+    title: "Impact",
+    body: [
+      { text: "Media results included top-tier coverage:", weight: "bold" },
+      {
+        text: "Time: Named Narwal's innovations among the Best Inventions, citing market impact and outstanding user design.",
+      },
+      {
+        text: "Forbes: Highlighted Narwal's global sales growth, technical milestones, and rise into the top five smart cleaning brands.",
+      },
+      {
+        text: "TechCrunch, Engadget, CNET, and WIRED: Delivered extensive coverage of CES product reveals, hands-on reviews, and engineering breakthroughs.",
+      },
+      { text: "Award wins included:", weight: "bold" },
+      { text: "Red Dot Design Award for product excellence." },
+      { text: "CES Innovation Award 2025 for the Freo Z Ultra and Flow Series." },
+      { text: "Edison Gold Award for technology and innovation leadership." },
+      {
+        text: "Backed by investor recognition from Sequoia Capital, Hillhouse Capital, ByteDance, and Tencent, Narwal's market leadership was further validated by consistent product sell-outs after each global launch.",
+        weight: "bold",
+      },
+      {
+        text: "Thought leadership across robotics, smart home, and business media sustained demand and reinforced Narwal's industry credibility.",
+        weight: "bold",
+      },
+    ],
+  },
+  {
+    title: "Conclusion",
+    body: [
+      "Venture PR's strategic engagement with Narwal set a new standard for brand building and launch excellence in smart home robotics. By unlocking major media, award, and investor visibility, Narwal accelerated adoption and strengthened its role as an innovation leader in the global cleaning technology market.",
+    ],
+  },
+];
+
 export const defaultCaseStudySlug = "beatbot";
 
 export const caseStudies = [
@@ -164,12 +262,9 @@ export const caseStudies = [
     headline: "Redefining B2B Demand Generation with Programmatic Innovation",
     heroImage: audyenceGridImage,
     heroImageAlt: "Audyence case study hero visual",
-    overviewSections: createFallbackSections(
-      "Audyence",
-      "Redefining B2B Demand Generation with Programmatic Innovation"
-    ),
+    overviewSections: audyenceSections,
     publicationIntro:
-      "Publication highlights and supporting campaign outcomes for Audyence will expand here as the full long-form case study is finalized.",
+      "Coverage across business, marketing, and technology outlets helped frame Audyence's platform launch, early traction, and category perspective as proof of momentum in programmatic B2B demand generation.",
     gridImage: audyenceGridImage,
     gridFrameColor: "#000000",
     gridImageCrop: createCrop(423, 423, 0, 0, "cover"),
@@ -242,12 +337,9 @@ export const caseStudies = [
       "Elevating Smart Cleaning Through Top-Tier Technology Media and Industry Recognition",
     heroImage: narwalGridImage,
     heroImageAlt: "Narwal case study hero visual",
-    overviewSections: createFallbackSections(
-      "Narwal",
-      "Elevating Smart Cleaning Through Top-Tier Technology Media and Industry Recognition"
-    ),
+    overviewSections: narwalSections,
     publicationIntro:
-      "Publication highlights and supporting campaign outcomes for Narwal will expand here as the full long-form case study is finalized.",
+      "Coverage across Time, Forbes, TechCrunch, Engadget, CNET, and WIRED helped turn Narwal's product launches, award wins, and market traction into clear proof of leadership in smart home robotics.",
     gridImage: narwalGridImage,
     gridFrameColor: "#000000",
     gridImageCrop: createCrop(419, 319, 0, 0, "fill"),

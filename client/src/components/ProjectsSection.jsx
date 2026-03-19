@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { PhosphorIcon } from "./PhosphorIcon";
 
 import rabbitaiImage from "../assets/agencie/projects/rabbit_thumbnail.png";
-import roborockImage from "../assets/agencie/projects/roborock_thumbnail.png";
 import lexmachinaImage from "../assets/agencie/projects/lexmachina_thumbnail.png";
 import loomlyImage from "../assets/agencie/projects/loomly_thumbnail.png";
+import narwalImage from "../assets/agencie/projects/narwal.png";
+import beatbotImage from "../assets/agencie/projects/beatbot.png";
+import audyenceImage from "../assets/agencie/projects/audyence.png";
 
 const projects = [
   {
@@ -24,23 +26,34 @@ const projects = [
     )
   },
   {
-    title: "Roborock",
-    image: roborockImage,
+    title: "Beatbot",
+    image: beatbotImage,
     services: [
       "CONSUMER ELECTRONICS",
-      "SMART HOME",
-      "LONG-TERM PR",
-      "PRODUCT REVIEWS"
+      "ROBOTICS",
+      "PRODUCT LAUNCH",
+      "CES STRATEGY"
     ],
     detailsLabel: "Expand Details",
     hideLabel: "Hide Details",
     detailsContent: (
       <div className="projects-card__expanded-content">
-        <h4><strong>3.5 Years of Building Roborock Into a Household Name in Smart Home Tech</strong></h4>
-        <p>Roborock was already a quality product when they came to us. Our job was to make the world know it. Over 3.5 years, we built a sustained earned media engine securing product reviews, thought leadership placements, and brand coverage that established Roborock as the go-to name in robot vacuums.</p>
+        <h4>
+          <strong>
+            Launching Beatbot’s AquaSense Series and Driving Global Recognition in AI-Powered Robotics
+          </strong>
+        </h4>
+        <p>
+          Beatbot partnered with Venture PR to elevate its global brand presence and introduce the AquaSense, AquaSense Pro, and AquaSense 2 Ultra through high-impact product launches and CES 2025 activations. Our strategy positioned Beatbot as a leader in consumer robotics by highlighting its innovation in AI-powered pool cleaning, user experience, and sustainability.
+        </p>
+        <p>
+          We executed a comprehensive global media campaign, combining targeted outreach, hands-on demos, and strategic storytelling to engage top-tier technology and robotics publications. Award submissions and industry recognition programs further reinforced Beatbot’s credibility and product excellence.
+        </p>
 
         <h4><strong>Result:</strong></h4>
-        <p>Consistent top-tier coverage, ongoing journalist relationships, and a brand that could compete with global giants on earned media alone.</p>
+        <p>
+          Extensive coverage across CNET, ZDNet, TechCrunch, and IEEE Spectrum, alongside features in Fast Company and Robotics Business Review. Secured major accolades including the Red Dot Design Award, CES Innovation Award, and multiple “Best of CES” recognitions. Drove strong retailer and consumer demand, rapid adoption, and established Beatbot as a category leader in smart pool cleaning and AI robotics.
+        </p>
       </div>
     )
   },
@@ -86,6 +99,70 @@ const projects = [
 
         <h4><strong>Result:</strong></h4>
         <p>Loomly secured 231 feature stories, reaching an audience of 4.34 billion, generating widespread exposure and consistent attention across top-tier publications.</p>
+      </div>
+    )
+  },
+  {
+    title: "Narwal",
+    image: narwalImage,
+    services: [
+      "CONSUMER ELECTRONICS",
+      "SMART HOME",
+      "GLOBAL PR",
+      "CES STRATEGY"
+    ],
+    detailsLabel: "Expand Details",
+    hideLabel: "Hide Details",
+    detailsContent: (
+      <div className="projects-card__expanded-content">
+        <h4>
+          <strong>
+            Elevating Narwal’s Global Presence Through Strategic Media, CES Launches, and Award Wins
+          </strong>
+        </h4>
+        <p>
+          Narwal partnered with Venture PR to amplify its position as a leader in intelligent cleaning robotics across the US and international markets. We led integrated media strategies for major product launches including the Flow Series, Freo Z10, Freo Pro, and S30, combining compelling product narratives with hands-on media experiences at CES 2025.
+        </p>
+        <p>
+          Our approach focused on securing top-tier coverage, coordinating impactful launch events, and driving global recognition through prestigious award programs. We engaged leading technology and business publications across regions while positioning Narwal’s innovations at the forefront of smart home and robotics conversations.
+        </p>
+
+        <h4><strong>Result:</strong></h4>
+        <p>
+          Extensive top-tier media coverage across Time, Forbes, TechCrunch, Engadget, CNET, and WIRED, alongside major award wins including Red Dot Design Award, CES Innovation Award 2025, and Edison Gold Award. Narwal achieved strong global visibility, consistent product sell-outs post-launch, and reinforced its position as a leading innovator in the smart cleaning category.
+        </p>
+      </div>
+    )
+  },
+  {
+    title: "Audyence",
+    image: audyenceImage,
+    services: [
+      "B2B SAAS",
+      "DEMAND GENERATION",
+      "PRODUCT LAUNCH",
+      "THOUGHT LEADERSHIP"
+    ],
+    detailsLabel: "Expand Details",
+    hideLabel: "Hide Details",
+    detailsContent: (
+      <div className="projects-card__expanded-content">
+        <h4>
+          <strong>
+            Launching Audyence and Defining a New Category in B2B Demand Generation
+          </strong>
+        </h4>
+        <p>
+          Audyence partnered with Venture PR to introduce its Real-Time Demand (RTD) platform, the first programmatic solution enabling cost-per-lead (CPL) campaigns in B2B marketing. Our strategy focused on positioning the company as a category creator, emphasizing its unique approach to automation, transparency, and performance-driven demand generation.
+        </p>
+        <p>
+          We executed a comprehensive launch campaign combining product storytelling, thought leadership, and early customer success narratives. Through bylined articles, executive interviews, and targeted media outreach, we established Audyence’s leadership voice across marketing and technology ecosystems.
+        </p>
+
+        <h4><strong>Result:</strong></h4>
+        <p>
+          Over 40 million media impressions and widespread coverage across Business Wire, Marketing Dive, AdExchanger, MarTech Series, Adweek, and USA Today. Achieved a 100% post-beta renewal rate with early seven-figure revenue projections, while positioning Audyence as a leading innovator in programmatic B2B demand generation and a go-to voice for industry insights.
+        </p>
       </div>
     )
   }

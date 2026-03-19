@@ -102,18 +102,23 @@ export function CaseStudiesPage() {
     }
 
     if (breakpoint === "mobile") {
+      if (isAnimating) {
+        return [
+          {
+            slot: "slot-center-current",
+            study: relatedCaseStudies[mod(activeIndex, relatedCount)],
+          },
+          {
+            slot: "slot-center-next",
+            study: relatedCaseStudies[mod(activeIndex + 1, relatedCount)],
+          },
+        ];
+      }
+
       return [
         {
-          slot: "slot-left",
-          study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 0 : -1), relatedCount)],
-        },
-        {
           slot: "slot-center",
-          study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 1 : 0), relatedCount)],
-        },
-        {
-          slot: "slot-right",
-          study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 2 : 1), relatedCount)],
+          study: relatedCaseStudies[mod(activeIndex, relatedCount)],
         },
       ];
     }
