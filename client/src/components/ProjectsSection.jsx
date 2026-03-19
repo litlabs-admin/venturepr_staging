@@ -10,6 +10,70 @@ import audyenceImage from "../assets/agencie/projects/audyence.png";
 
 const projects = [
   {
+    title: "Narwal",
+    image: narwalImage,
+    services: [
+      "CONSUMER ELECTRONICS",
+      "SMART HOME",
+      "GLOBAL PR",
+      "CES STRATEGY"
+    ],
+    detailsLabel: "Expand Details",
+    hideLabel: "Hide Details",
+    detailsContent: (
+      <div className="projects-card__expanded-content">
+        <h4>
+          <strong>
+            Elevating Narwal’s Global Presence Through Strategic Media, CES Launches, and Award Wins
+          </strong>
+        </h4>
+        <p>
+          Narwal partnered with Venture PR to amplify its position as a leader in intelligent cleaning robotics across the US and international markets. We led integrated media strategies for major product launches including the Flow Series, Freo Z10, Freo Pro, and S30, combining compelling product narratives with hands-on media experiences at CES 2025.
+        </p>
+        <p>
+          Our approach focused on securing top-tier coverage, coordinating impactful launch events, and driving global recognition through prestigious award programs. We engaged leading technology and business publications across regions while positioning Narwal’s innovations at the forefront of smart home and robotics conversations.
+        </p>
+
+        <h4><strong>Result:</strong></h4>
+        <p>
+          Extensive top-tier media coverage across Time, Forbes, TechCrunch, Engadget, CNET, and WIRED, alongside major award wins including Red Dot Design Award, CES Innovation Award 2025, and Edison Gold Award. Narwal achieved strong global visibility, consistent product sell-outs post-launch, and reinforced its position as a leading innovator in the smart cleaning category.
+        </p>
+      </div>
+    )
+  },
+  {
+    title: "Audyence",
+    image: audyenceImage,
+    services: [
+      "B2B SAAS",
+      "DEMAND GENERATION",
+      "PRODUCT LAUNCH",
+      "THOUGHT LEADERSHIP"
+    ],
+    detailsLabel: "Expand Details",
+    hideLabel: "Hide Details",
+    detailsContent: (
+      <div className="projects-card__expanded-content">
+        <h4>
+          <strong>
+            Launching Audyence and Defining a New Category in B2B Demand Generation
+          </strong>
+        </h4>
+        <p>
+          Audyence partnered with Venture PR to introduce its Real-Time Demand (RTD) platform, the first programmatic solution enabling cost-per-lead (CPL) campaigns in B2B marketing. Our strategy focused on positioning the company as a category creator, emphasizing its unique approach to automation, transparency, and performance-driven demand generation.
+        </p>
+        <p>
+          We executed a comprehensive launch campaign combining product storytelling, thought leadership, and early customer success narratives. Through bylined articles, executive interviews, and targeted media outreach, we established Audyence’s leadership voice across marketing and technology ecosystems.
+        </p>
+
+        <h4><strong>Result:</strong></h4>
+        <p>
+          Over 40 million media impressions and widespread coverage across Business Wire, Marketing Dive, AdExchanger, MarTech Series, Adweek, and USA Today. Achieved a 100% post-beta renewal rate with early seven-figure revenue projections, while positioning Audyence as a leading innovator in programmatic B2B demand generation and a go-to voice for industry insights.
+        </p>
+      </div>
+    )
+  },
+  {
     title: "Rabbit R1",
     image: rabbitaiImage,
     services: ["PRODUCT LAUNCH", "CONSUMER TECH", "CES STRATEGY", "VIRAL PR"],
@@ -99,70 +163,6 @@ const projects = [
 
         <h4><strong>Result:</strong></h4>
         <p>Loomly secured 231 feature stories, reaching an audience of 4.34 billion, generating widespread exposure and consistent attention across top-tier publications.</p>
-      </div>
-    )
-  },
-  {
-    title: "Narwal",
-    image: narwalImage,
-    services: [
-      "CONSUMER ELECTRONICS",
-      "SMART HOME",
-      "GLOBAL PR",
-      "CES STRATEGY"
-    ],
-    detailsLabel: "Expand Details",
-    hideLabel: "Hide Details",
-    detailsContent: (
-      <div className="projects-card__expanded-content">
-        <h4>
-          <strong>
-            Elevating Narwal’s Global Presence Through Strategic Media, CES Launches, and Award Wins
-          </strong>
-        </h4>
-        <p>
-          Narwal partnered with Venture PR to amplify its position as a leader in intelligent cleaning robotics across the US and international markets. We led integrated media strategies for major product launches including the Flow Series, Freo Z10, Freo Pro, and S30, combining compelling product narratives with hands-on media experiences at CES 2025.
-        </p>
-        <p>
-          Our approach focused on securing top-tier coverage, coordinating impactful launch events, and driving global recognition through prestigious award programs. We engaged leading technology and business publications across regions while positioning Narwal’s innovations at the forefront of smart home and robotics conversations.
-        </p>
-
-        <h4><strong>Result:</strong></h4>
-        <p>
-          Extensive top-tier media coverage across Time, Forbes, TechCrunch, Engadget, CNET, and WIRED, alongside major award wins including Red Dot Design Award, CES Innovation Award 2025, and Edison Gold Award. Narwal achieved strong global visibility, consistent product sell-outs post-launch, and reinforced its position as a leading innovator in the smart cleaning category.
-        </p>
-      </div>
-    )
-  },
-  {
-    title: "Audyence",
-    image: audyenceImage,
-    services: [
-      "B2B SAAS",
-      "DEMAND GENERATION",
-      "PRODUCT LAUNCH",
-      "THOUGHT LEADERSHIP"
-    ],
-    detailsLabel: "Expand Details",
-    hideLabel: "Hide Details",
-    detailsContent: (
-      <div className="projects-card__expanded-content">
-        <h4>
-          <strong>
-            Launching Audyence and Defining a New Category in B2B Demand Generation
-          </strong>
-        </h4>
-        <p>
-          Audyence partnered with Venture PR to introduce its Real-Time Demand (RTD) platform, the first programmatic solution enabling cost-per-lead (CPL) campaigns in B2B marketing. Our strategy focused on positioning the company as a category creator, emphasizing its unique approach to automation, transparency, and performance-driven demand generation.
-        </p>
-        <p>
-          We executed a comprehensive launch campaign combining product storytelling, thought leadership, and early customer success narratives. Through bylined articles, executive interviews, and targeted media outreach, we established Audyence’s leadership voice across marketing and technology ecosystems.
-        </p>
-
-        <h4><strong>Result:</strong></h4>
-        <p>
-          Over 40 million media impressions and widespread coverage across Business Wire, Marketing Dive, AdExchanger, MarTech Series, Adweek, and USA Today. Achieved a 100% post-beta renewal rate with early seven-figure revenue projections, while positioning Audyence as a leading innovator in programmatic B2B demand generation and a go-to voice for industry insights.
-        </p>
       </div>
     )
   }
