@@ -95,6 +95,7 @@ export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isCarouselPaused, setIsCarouselPaused] = useState(false);
   const breakpoint = useOurWorkBreakpoint();
   const carouselSettings = carouselSettingsByBreakpoint[breakpoint];
 
@@ -117,14 +118,14 @@ export function HeroSection() {
   }, []);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || isCarouselPaused) return;
 
     const intervalId = window.setInterval(() => {
       setIsAnimating((prev) => (prev ? prev : true));
     }, carouselTiming.intervalMs);
 
     return () => window.clearInterval(intervalId);
-  }, [isVisible]);
+  }, [isCarouselPaused, isVisible]);
 
   useEffect(() => {
     if (!isVisible || !isAnimating) return;
@@ -202,7 +203,13 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="marqo-hero__carousel-wrapper marqo-appear marqo-appear--delay-5">
+      <div
+        className="marqo-hero__carousel-wrapper marqo-appear marqo-appear--delay-5"
+        onMouseEnter={() => setIsCarouselPaused(true)}
+        onMouseLeave={() => setIsCarouselPaused(false)}
+        onFocusCapture={() => setIsCarouselPaused(true)}
+        onBlurCapture={() => setIsCarouselPaused(false)}
+      >
         <div className="marqo-hero__carousel">
           <div
             className={`marqo-hero__carousel-track${

@@ -46,7 +46,7 @@ export default function FloatingNav() {
 
           {/* CTA */}
           <Link to="/contact-us" className="fnav-cta">
-            Book Now
+            Request a strategy call
           </Link>
 
           {/* Mobile hamburger */}
