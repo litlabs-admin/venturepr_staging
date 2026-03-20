@@ -1233,9 +1233,12 @@ a {
   height: 580px;
   overflow-x: auto;
   overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  touch-action: pan-y;
+  touch-action: pan-x pan-y;
   user-select: none;
   width: 100%;
 }
@@ -1258,6 +1261,8 @@ a {
   justify-content: flex-start;
   overflow: hidden;
   padding: 32px 28px 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   width: 340px;
 }
 
@@ -2699,9 +2704,12 @@ a {
   gap: 15px;
   overflow-x: auto;
   overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  touch-action: pan-y;
+  touch-action: pan-x pan-y;
   user-select: none;
   width: 100%;
 }
@@ -2726,6 +2734,8 @@ a {
   justify-content: space-between;
   overflow: visible;
   padding: 26px 26px 20px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   width: 350px;
   border-top: 4px solid var(--agencie-accent);
 }
@@ -4029,6 +4039,7 @@ a {
 }
 
 .footer-section__contact-item a,
+.footer-section__contact-text,
 .footer-section__hours span {
   color: rgb(255, 254, 245);
   font-size: 15px;
@@ -4043,7 +4054,8 @@ a {
   gap: 0;
 }
 
-.footer-section__contact-item:nth-child(3) a {
+.footer-section__contact-item:nth-child(3) a,
+.footer-section__contact-item:nth-child(3) .footer-section__contact-text {
   max-width: 280px;
 }
 

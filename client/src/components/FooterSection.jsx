@@ -135,9 +135,9 @@ export function FooterSection() {
               </span>
               <span className="footer-section__label">Address</span>
             </div>
-            <a href="https://www.google.com/maps" target="_blank" rel="noopener">
+            <span className="footer-section__contact-text">
               407 N. Maple Dr., Ste. GRD 1, Beverly Hills, California 90210
-            </a>
+            </span>
           </div>
           <div className="footer-section__contact-item">
             <div className="footer-section__label-row">

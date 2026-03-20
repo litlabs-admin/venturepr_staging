@@ -148,6 +148,19 @@ export function BenefitsSection() {
 
     updateScrollState();
 
+    const onScroll = () => {
+      updateScrollState();
+    };
+
+    const onResize = () => {
+      updateScrollState();
+    };
+
+    const enablePointerDrag =
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(pointer: fine)").matches;
+
     const onPointerDown = (event) => {
       dragStateRef.current = {
         isDragging: true,
@@ -177,14 +190,6 @@ export function BenefitsSection() {
       }
     };
 
-    const onScroll = () => {
-      updateScrollState();
-    };
-
-    const onResize = () => {
-      updateScrollState();
-    };
-
     const resizeObserver =
       typeof ResizeObserver === "undefined" ? null : new ResizeObserver(onResize);
 
@@ -195,17 +200,21 @@ export function BenefitsSection() {
       window.addEventListener("resize", onResize);
     }
 
-    track.addEventListener("pointerdown", onPointerDown);
-    track.addEventListener("pointermove", onPointerMove);
-    track.addEventListener("pointerup", endDrag);
-    track.addEventListener("pointercancel", endDrag);
+    if (enablePointerDrag) {
+      track.addEventListener("pointerdown", onPointerDown);
+      track.addEventListener("pointermove", onPointerMove);
+      track.addEventListener("pointerup", endDrag);
+      track.addEventListener("pointercancel", endDrag);
+    }
     track.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
-      track.removeEventListener("pointerdown", onPointerDown);
-      track.removeEventListener("pointermove", onPointerMove);
-      track.removeEventListener("pointerup", endDrag);
-      track.removeEventListener("pointercancel", endDrag);
+      if (enablePointerDrag) {
+        track.removeEventListener("pointerdown", onPointerDown);
+        track.removeEventListener("pointermove", onPointerMove);
+        track.removeEventListener("pointerup", endDrag);
+        track.removeEventListener("pointercancel", endDrag);
+      }
       track.removeEventListener("scroll", onScroll);
 
       if (resizeObserver) {
