@@ -1,7 +1,89 @@
+import { useState } from "react";
 import FloatingNav from "../components/FloatingNav";
 import { FooterSection } from "../components/FooterSection";
 
 export function ContactUsPage() {
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    topic: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormValues((current) => ({
+      ...current,
+      [name]: value,
+    }));
+
+    setErrors((current) => {
+      if (!current[name]) {
+        return current;
+      }
+
+      const nextErrors = { ...current };
+      delete nextErrors[name];
+      return nextErrors;
+    });
+
+    if (submitMessage) {
+      setSubmitMessage("");
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const nextErrors = {};
+
+    if (!formValues.firstName.trim()) {
+      nextErrors.firstName = "Please enter your first name.";
+    }
+
+    if (!formValues.lastName.trim()) {
+      nextErrors.lastName = "Please enter your surname.";
+    }
+
+    if (!formValues.email.trim()) {
+      nextErrors.email = "Please enter your email address.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email)) {
+      nextErrors.email = "Please enter a valid email address.";
+    }
+
+    if (!formValues.topic.trim()) {
+      nextErrors.topic = "Please enter a topic.";
+    }
+
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) {
+      setSubmitMessage("Please complete the required fields before submitting.");
+      return;
+    }
+
+    const subject = encodeURIComponent(
+      `Website inquiry: ${formValues.topic.trim()}`
+    );
+    const body = encodeURIComponent(
+      [
+        `Name: ${formValues.firstName.trim()} ${formValues.lastName.trim()}`,
+        `Email: ${formValues.email.trim()}`,
+        `Topic: ${formValues.topic.trim()}`,
+        "",
+        "Message:",
+        formValues.message.trim() || "No message provided.",
+      ].join("\n")
+    );
+
+    setSubmitMessage("Opening your email app with your message details.");
+    window.location.href = `mailto:ben@venturepr.co?subject=${subject}&body=${body}`;
+  };
+
   return (
     <div className="page-exact-shell contact-page-shell-exact">
       <FloatingNav />
@@ -20,71 +102,114 @@ export function ContactUsPage() {
             </div>
           </div>
 
-          <div className="contact-form-exact">
+          <form className="contact-form-exact" onSubmit={handleSubmit} noValidate>
             <div className="contact-form-exact__header">
               <h2>We'd love to answer your questions</h2>
               <p>Send us a message and we'll get back to you as soon as possible</p>
             </div>
 
             <div className="contact-form-exact__field contact-form-exact__field--name">
-              <div className="contact-form-exact__label">Name *</div>
-              <div className="contact-form-exact__input">Neil</div>
+              <label className="contact-form-exact__label" htmlFor="contact-first-name">
+                Name
+              </label>
+              <input
+                id="contact-first-name"
+                className={`contact-form-exact__input${errors.firstName ? " is-error" : ""}`}
+                type="text"
+                name="firstName"
+                value={formValues.firstName}
+                onChange={handleChange}
+                placeholder="Neil"
+                autoComplete="given-name"
+              />
+              {errors.firstName ? (
+                <p className="contact-form-exact__error">{errors.firstName}</p>
+              ) : null}
             </div>
 
             <div className="contact-form-exact__field contact-form-exact__field--surname">
-              <div className="contact-form-exact__label">Surname *</div>
-              <div className="contact-form-exact__input">Armstrong</div>
+              <label className="contact-form-exact__label" htmlFor="contact-last-name">
+                Surname
+              </label>
+              <input
+                id="contact-last-name"
+                className={`contact-form-exact__input${errors.lastName ? " is-error" : ""}`}
+                type="text"
+                name="lastName"
+                value={formValues.lastName}
+                onChange={handleChange}
+                placeholder="Armstrong"
+                autoComplete="family-name"
+              />
+              {errors.lastName ? (
+                <p className="contact-form-exact__error">{errors.lastName}</p>
+              ) : null}
             </div>
 
             <div className="contact-form-exact__field contact-form-exact__field--email">
-              <div className="contact-form-exact__label">E-mail *</div>
-              <div className="contact-form-exact__input">neilarmstrong@email.com</div>
+              <label className="contact-form-exact__label" htmlFor="contact-email">
+                E-mail
+              </label>
+              <input
+                id="contact-email"
+                className={`contact-form-exact__input${errors.email ? " is-error" : ""}`}
+                type="email"
+                name="email"
+                value={formValues.email}
+                onChange={handleChange}
+                placeholder="neilarmstrong@email.com"
+                autoComplete="email"
+              />
+              {errors.email ? (
+                <p className="contact-form-exact__error">{errors.email}</p>
+              ) : null}
             </div>
 
             <div className="contact-form-exact__field contact-form-exact__field--topic">
-              <div className="contact-form-exact__label">Topic *</div>
-              <div className="contact-form-exact__input">Select from the list</div>
-              <div className="contact-form-exact__caret" aria-hidden="true">
-                <svg viewBox="0 0 24 24" role="presentation">
-                  <path d="M12 15L7 10H17L12 15Z" fill="currentColor" />
-                </svg>
-              </div>
+              <label className="contact-form-exact__label" htmlFor="contact-topic">
+                Topic
+              </label>
+              <input
+                id="contact-topic"
+                className={`contact-form-exact__input${errors.topic ? " is-error" : ""}`}
+                type="text"
+                name="topic"
+                value={formValues.topic}
+                onChange={handleChange}
+                placeholder="How can we help?"
+              />
+              {errors.topic ? (
+                <p className="contact-form-exact__error">{errors.topic}</p>
+              ) : null}
             </div>
 
             <div className="contact-form-exact__field contact-form-exact__field--message">
-              <div className="contact-form-exact__label contact-form-exact__label--message">
-                <span className="contact-form-exact__label-strong">Messege</span> (optional )
-              </div>
-              <div className="contact-form-exact__message-frame" aria-hidden="true">
-                <svg viewBox="0 0 702 125" role="presentation">
-                  <rect
-                    x="0.540042"
-                    y="0.540042"
-                    width="700.92"
-                    height="123.92"
-                    rx="6.34414"
-                    fill="none"
-                    stroke="#E1E1E1"
-                    strokeWidth="1.08008"
-                  />
-                  <path
-                    d="M695.625 110.922L686.602 119.945"
-                    stroke="#787878"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M697.174 114.477L690.609 121.041"
-                    stroke="#787878"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
+              <label
+                className="contact-form-exact__label contact-form-exact__label--message"
+                htmlFor="contact-message"
+              >
+                <span className="contact-form-exact__label-strong">Message</span> (optional)
+              </label>
+              <textarea
+                id="contact-message"
+                className="contact-form-exact__input contact-form-exact__input--message"
+                name="message"
+                value={formValues.message}
+                onChange={handleChange}
+                placeholder="Tell us a bit about what you need."
+                rows="5"
+              />
             </div>
 
-            <div className="contact-form-exact__submit">Get in touch</div>
-          </div>
+            <button type="submit" className="contact-form-exact__submit">
+              Get in touch
+            </button>
+            {submitMessage ? (
+              <p className="contact-form-exact__status" role="status">
+                {submitMessage}
+              </p>
+            ) : null}
+          </form>
 
           <div className="contact-card-exact contact-card-exact--email">
             <div className="contact-card-exact__content">

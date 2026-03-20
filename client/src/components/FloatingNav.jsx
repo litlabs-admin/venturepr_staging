@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  saveHomeScrollTarget,
+  scrollToHomeTarget,
+} from "../utils/homeNavigation";
 
 const NAV_LINKS = [
   { label: "Services", href: "/#services" },
@@ -11,12 +15,31 @@ const NAV_LINKS = [
 export default function FloatingNav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname, location.hash]);
+
+  const handleHomeNavigation = (event, targetId = null) => {
+    event.preventDefault();
+    setMenuOpen(false);
+
+    if (location.pathname === "/") {
+      scrollToHomeTarget(targetId);
+      return;
+    }
+
+    saveHomeScrollTarget(targetId);
+    navigate(targetId ? `/#${targetId}` : "/");
+  };
 
   return (
     <>
@@ -27,7 +50,12 @@ export default function FloatingNav() {
           aria-label="Main navigation"
         >
           {/* Logo */}
-          <Link to="/" className="fnav-logo" aria-label="VenturePR home">
+          <Link
+            to="/"
+            className="fnav-logo"
+            aria-label="VenturePR home"
+            onClick={(event) => handleHomeNavigation(event)}
+          >
             <img
               src="/venturepr_hero_images/navbar_logo.png"
               alt="Venture PR Logo"
@@ -38,7 +66,16 @@ export default function FloatingNav() {
           {/* Desktop links */}
           <div className="fnav-links">
             {NAV_LINKS.map((link) => (
-              <Link key={link.label} to={link.href} className="fnav-link">
+              <Link
+                key={link.label}
+                to={link.href}
+                className="fnav-link"
+                onClick={(event) => {
+                  if (link.href.startsWith("/#")) {
+                    handleHomeNavigation(event, link.href.slice(2));
+                  }
+                }}
+              >
                 {link.label}
               </Link>
             ))}
@@ -86,7 +123,14 @@ export default function FloatingNav() {
             key={link.label}
             to={link.href}
             className="fnav-mobile-link"
-            onClick={() => setMenuOpen(false)}
+            onClick={(event) => {
+              if (link.href.startsWith("/#")) {
+                handleHomeNavigation(event, link.href.slice(2));
+                return;
+              }
+
+              setMenuOpen(false);
+            }}
           >
             {link.label}
           </Link>

@@ -1,5 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import footerLogo from "../assets/logo/footer_logo.png";
+import {
+  saveHomeScrollTarget,
+  scrollToHomeTarget,
+} from "../utils/homeNavigation";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -67,13 +71,32 @@ function ClockIcon() {
 }
 
 export function FooterSection() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleHomeNavigation = (event, targetId = null) => {
+    event.preventDefault();
+
+    if (location.pathname === "/") {
+      scrollToHomeTarget(targetId);
+      return;
+    }
+
+    saveHomeScrollTarget(targetId);
+    navigate(targetId ? `/#${targetId}` : "/");
+  };
+
   return (
     <footer className="footer-section" aria-label="Footer">
       <div className="footer-section__container">
         <div className="footer-section__top">
           <div className="footer-section__top-row">
             <div className="footer-section__brand">
-              <Link to="/" className="footer-section__logo">
+              <Link
+                to="/"
+                className="footer-section__logo"
+                onClick={(event) => handleHomeNavigation(event)}
+              >
                 <img src={footerLogo} alt="Venture" />
               </Link>
               <p className="footer-section__tagline">
@@ -84,11 +107,22 @@ export function FooterSection() {
             <div className="footer-section__links">
               <div className="footer-section__links-group">
                 {navLinkColumns.map((column, columnIndex) => (
-                  <div className="footer-section__link-column" key={`nav-column-${columnIndex}`}>
-                    {column.map((link) => (
-                      <Link key={link.label} to={link.href}>
-                        {link.label}
-                      </Link>
+                    <div className="footer-section__link-column" key={`nav-column-${columnIndex}`}>
+                      {column.map((link) => (
+                        <Link
+                          key={link.label}
+                          to={link.href}
+                          onClick={(event) => {
+                            if (link.href === "/" || link.href.startsWith("/#")) {
+                              handleHomeNavigation(
+                                event,
+                                link.href.startsWith("/#") ? link.href.slice(2) : null
+                              );
+                            }
+                          }}
+                        >
+                          {link.label}
+                        </Link>
                     ))}
                   </div>
                 ))}

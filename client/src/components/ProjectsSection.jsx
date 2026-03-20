@@ -284,7 +284,6 @@ function ProjectCard({ project }) {
 
 export function ProjectsSection() {
   const sectionRef = useRef(null);
-  const listRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -307,70 +306,6 @@ export function ProjectsSection() {
     observer.observe(node);
 
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const listNode = listRef.current;
-
-    if (!listNode) {
-      return;
-    }
-
-    let frameId = 0;
-
-    const equalizeCardBodies = () => {
-      const cardBodies = Array.from(
-        listNode.querySelectorAll(".projects-card__body")
-      );
-
-      if (cardBodies.length === 0) {
-        return;
-      }
-
-      cardBodies.forEach((body) => {
-        body.style.minHeight = "";
-      });
-
-      const rowHeights = new Map();
-
-      cardBodies.forEach((body) => {
-        const card = body.closest(".projects-card");
-        const rowTop = card?.offsetTop ?? 0;
-        const nextHeight = Math.max(rowHeights.get(rowTop) ?? 0, body.offsetHeight);
-        rowHeights.set(rowTop, nextHeight);
-      });
-
-      cardBodies.forEach((body) => {
-        const card = body.closest(".projects-card");
-        const rowTop = card?.offsetTop ?? 0;
-        const rowHeight = rowHeights.get(rowTop);
-
-        body.style.minHeight = rowHeight ? `${rowHeight}px` : "";
-      });
-    };
-
-    const scheduleEqualize = () => {
-      cancelAnimationFrame(frameId);
-      frameId = requestAnimationFrame(equalizeCardBodies);
-    };
-
-    scheduleEqualize();
-
-    const resizeObserver =
-      typeof ResizeObserver === "undefined"
-        ? null
-        : new ResizeObserver(scheduleEqualize);
-
-    resizeObserver?.observe(listNode);
-
-    window.addEventListener("resize", scheduleEqualize);
-    document.fonts?.ready?.then(scheduleEqualize).catch(() => {});
-
-    return () => {
-      cancelAnimationFrame(frameId);
-      resizeObserver?.disconnect();
-      window.removeEventListener("resize", scheduleEqualize);
-    };
   }, []);
 
   return (
@@ -396,7 +331,7 @@ export function ProjectsSection() {
           </h2>
         </div>
 
-        <div className="projects-section__list" ref={listRef}>
+        <div className="projects-section__list">
           {projects.map((project) => (
             <ProjectCard project={project} key={project.title} />
           ))}

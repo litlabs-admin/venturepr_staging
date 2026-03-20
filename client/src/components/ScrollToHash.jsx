@@ -1,29 +1,30 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import {
+  consumeHomeScrollTarget,
+  scrollToHomeTarget,
+} from "../utils/homeNavigation";
 
 export default function ScrollToHash() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    if (!hash) {
-      window.scrollTo(0, 0);
+    const targetId = hash ? hash.replace("#", "") : consumeHomeScrollTarget();
+
+    if (!targetId) {
+      scrollToHomeTarget(null, { behavior: "auto" });
       return;
     }
 
-    // Delay slightly to ensure elements are rendered
-    const timeout = setTimeout(() => {
-      const id = hash.replace("#", "");
-      const element = document.getElementById(id);
-      if (element) {
-        // We use scrollIntoView which now respects scroll-padding-top in CSS
-        element.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }, 100);
+    const timeoutIds = [0, 60, 180].map((delay) =>
+      window.setTimeout(() => {
+        scrollToHomeTarget(targetId);
+      }, delay)
+    );
 
-    return () => clearTimeout(timeout);
+    return () => {
+      timeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));
+    };
   }, [pathname, hash]);
 
   return null;

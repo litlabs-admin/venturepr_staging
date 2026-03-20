@@ -1930,7 +1930,7 @@ a {
   display: grid;
   gap: 32px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
+  align-items: stretch;
   width: 100%;
 }
 
@@ -1939,6 +1939,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0;
+  height: 100%;
   max-width: none;
   width: 100%;
 }
@@ -1966,6 +1967,7 @@ a {
   border-radius: 30px;
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
   gap: 0;
   padding: 40px 30px 30px;
   width: 100%;
@@ -1973,14 +1975,14 @@ a {
 
 .projects-card__body {
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: 23px;
   width: 100%;
 }
 
 .projects-card__meta {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1988,6 +1990,7 @@ a {
 }
 
 .projects-card__tags {
+  align-content: flex-start;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
@@ -7968,6 +7971,8 @@ a {
 }
 
 .contact-form-exact__input {
+  appearance: none;
+  background-color: #ffffff;
   border: 1.08008px solid #e1e1e1;
   border-radius: 7px;
   color: rgb(168, 168, 168);
@@ -7978,11 +7983,55 @@ a {
   height: 48px;
   align-items: center;
   line-height: 28.49px;
+  outline: none;
   padding: 0 0 0 14px;
+  width: 100%;
+}
+
+.contact-form-exact__input::placeholder,
+.contact-form-exact__input--message::placeholder {
+  color: rgb(168, 168, 168);
+}
+
+.contact-form-exact__input:focus {
+  border-color: #f75738;
+  box-shadow: 0 0 0 3px rgba(247, 87, 56, 0.15);
+}
+
+.contact-form-exact__input.is-error {
+  border-color: #c84d34;
+}
+
+.contact-form-exact__input--message {
+  align-items: flex-start;
+  height: 125px;
+  line-height: 1.1;
+  padding: 14px;
+  resize: vertical;
+}
+
+.contact-form-exact__error,
+.contact-form-exact__status {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 6px 0 0;
+}
+
+.contact-form-exact__error {
+  color: #c84d34;
+}
+
+.contact-form-exact__status {
+  color: #4b4b4b;
+  left: 44px;
+  position: absolute;
+  top: 808px;
+  width: 702px;
 }
 
 .contact-form-exact__field--topic .contact-form-exact__input {
-  padding-right: 42px;
+  padding-right: 14px;
 }
 
 .contact-form-exact__message-frame {
@@ -8012,8 +8061,10 @@ a {
 .contact-form-exact__submit {
   align-items: center;
   background-color: #f75738;
+  border: none;
   border-radius: 1000px;
   color: #fff;
+  cursor: pointer;
   display: flex;
   font-family: "Inter", sans-serif;
   font-size: 18.65px;
@@ -8026,6 +8077,15 @@ a {
   position: absolute;
   top: 748px;
   width: 704px;
+}
+
+.contact-form-exact__submit:hover {
+  background-color: #e64e31;
+}
+
+.contact-form-exact__submit:focus-visible {
+  box-shadow: 0 0 0 3px rgba(247, 87, 56, 0.18);
+  outline: none;
 }
 
 .contact-card-exact {
@@ -8262,6 +8322,15 @@ a {
     width: 100%;
   }
 
+  .contact-page-shell-exact .contact-form-exact__status {
+    grid-area: submit;
+    left: auto;
+    margin-top: -6px;
+    position: relative;
+    top: auto;
+    width: 100%;
+  }
+
   .contact-page-shell-exact .contact-card-exact {
     box-sizing: border-box;
     height: auto;
@@ -8418,6 +8487,14 @@ a {
   .contact-page-shell-exact .contact-form-exact__submit {
     left: auto;
     margin-top: 2px;
+    position: relative;
+    top: auto;
+    width: 100%;
+  }
+
+  .contact-page-shell-exact .contact-form-exact__status {
+    left: auto;
+    margin-top: -8px;
     position: relative;
     top: auto;
     width: 100%;
