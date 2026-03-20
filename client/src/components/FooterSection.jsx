@@ -158,9 +158,9 @@ export function FooterSection() {
               © copyright 2026 VenturePR. All rights reserved.
             </span>
             <div className="footer-section__legal">
-              <a href="#cookie-policy">Cookie Policy</a>
+              <Link to="/cookie-policy">Cookie Policy</Link>
               <span className="footer-section__separator">|</span>
-              <a href="#privacy-policy">Privacy policy</a>
+              <Link to="/privacy-policy">Privacy policy</Link>
             </div>
           </div>
         </div>

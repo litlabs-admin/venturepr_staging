@@ -305,7 +305,9 @@
   .home-page,
   .our-work-page,
   .contact-page,
-  .case-studies-page-exact {
+  .case-studies-page-exact,
+  .cookie-policy-page-native,
+  .privacy-policy-page-native {
     padding-top: 81px;
   }
 }
@@ -565,7 +567,9 @@ a {
 .home-page,
 .our-work-page,
 .contact-page,
-.case-studies-page-exact {
+.case-studies-page-exact,
+.cookie-policy-page-native,
+.privacy-policy-page-native {
   padding-top: 105px;
 }
 
@@ -574,6 +578,47 @@ a {
 .contact-page > .contact-page-exact,
 .page-exact-shell > .case-studies-page-exact {
   margin-top: 62px;
+}
+
+.cookie-policy-page-native,
+.privacy-policy-page-native {
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+.cookie-policy-page-native__section,
+.privacy-policy-page-native__section {
+  padding: 50px 0 0;
+}
+
+.cookie-policy-page-native__container,
+.privacy-policy-page-native__container {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1140px;
+  padding: 0 12px;
+  width: 100%;
+}
+
+.cookie-policy-page-native__document,
+.privacy-policy-page-native__document {
+  width: 100%;
+}
+
+.cookie-policy-page-native__document [data-custom-class="body"],
+.privacy-policy-page-native__document [data-custom-class="body"] {
+  width: 100%;
+}
+
+.cookie-policy-page-native__document section[data-custom-class="body_text"],
+.privacy-policy-page-native__document section[data-custom-class="body_text"] {
+  overflow-x: auto;
+}
+
+.cookie-policy-page-native__document table,
+.privacy-policy-page-native__document table {
+  border-collapse: collapse;
+  max-width: 100%;
 }
 
 .fnav-wrapper {
@@ -1154,12 +1199,17 @@ a {
   width: 45px;
 }
 
-.benefits-carousel__arrow:hover {
+.benefits-carousel__arrow:hover:not(:disabled) {
   transform: translateY(-1px);
 }
 
-.benefits-carousel__arrow:active {
+.benefits-carousel__arrow:active:not(:disabled) {
   transform: translateY(0);
+}
+
+.benefits-carousel__arrow:disabled {
+  cursor: default;
+  opacity: 0.45;
 }
 
 .benefits-carousel__arrow svg {
@@ -1442,11 +1492,15 @@ a {
   .benefits-carousel {
     height: auto;
     min-width: 0;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
   }
 
   .benefit-card {
     flex: 0 0 calc(100% - 24px);
     height: 480px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
     width: calc(100% - 24px);
   }
 
@@ -2611,12 +2665,17 @@ a {
   width: 45px;
 }
 
-.testimonial-carousel__arrow:hover {
+.testimonial-carousel__arrow:hover:not(:disabled) {
   transform: translateY(-1px);
 }
 
-.testimonial-carousel__arrow:active {
+.testimonial-carousel__arrow:active:not(:disabled) {
   transform: translateY(0);
+}
+
+.testimonial-carousel__arrow:disabled {
+  cursor: default;
+  opacity: 0.45;
 }
 
 .testimonial-carousel__arrow svg {
@@ -2778,12 +2837,16 @@ a {
   .testimonial-carousel {
     height: auto;
     min-width: 0;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
   }
 
   .testimonial-card {
     flex-basis: calc(100% - 32px);
     height: auto;
     min-height: 360px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
     width: calc(100% - 32px);
   }
 }

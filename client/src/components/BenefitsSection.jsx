@@ -47,20 +47,72 @@ export function BenefitsSection() {
     startScrollLeft: 0
   });
   const [isVisible, setIsVisible] = useState(false);
+  const [scrollState, setScrollState] = useState({
+    canScrollPrev: false,
+    canScrollNext: benefits.length > 1
+  });
 
-  const scrollCarousel = (direction) => {
+  const getCards = () =>
+    Array.from(trackRef.current?.querySelectorAll(".benefit-card") ?? []).filter(
+      (card) => card instanceof HTMLElement
+    );
+
+  const updateScrollState = () => {
     const track = trackRef.current;
 
     if (!track) {
       return;
     }
 
-    const firstCard = track.querySelector(".benefit-card");
-    const cardWidth = firstCard instanceof HTMLElement ? firstCard.offsetWidth : 417;
-    const gap = 10;
+    const maxScrollLeft = Math.max(track.scrollWidth - track.clientWidth, 0);
+    const nextScrollState = {
+      canScrollPrev: track.scrollLeft > 1,
+      canScrollNext: track.scrollLeft < maxScrollLeft - 1
+    };
 
-    track.scrollBy({
-      left: direction * (cardWidth + gap),
+    setScrollState((currentState) => {
+      if (
+        currentState.canScrollPrev === nextScrollState.canScrollPrev &&
+        currentState.canScrollNext === nextScrollState.canScrollNext
+      ) {
+        return currentState;
+      }
+
+      return nextScrollState;
+    });
+  };
+
+  const scrollCarousel = (direction) => {
+    const track = trackRef.current;
+    const cards = getCards();
+
+    if (!track || cards.length === 0) {
+      return;
+    }
+
+    let currentIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    cards.forEach((card, index) => {
+      const distance = Math.abs(track.scrollLeft - card.offsetLeft);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        currentIndex = index;
+      }
+    });
+
+    const targetIndex = Math.min(
+      Math.max(currentIndex + direction, 0),
+      cards.length - 1
+    );
+
+    if (targetIndex === currentIndex) {
+      return;
+    }
+
+    track.scrollTo({
+      left: cards[targetIndex].offsetLeft,
       behavior: "smooth"
     });
   };
@@ -94,6 +146,8 @@ export function BenefitsSection() {
       return;
     }
 
+    updateScrollState();
+
     const onPointerDown = (event) => {
       dragStateRef.current = {
         isDragging: true,
@@ -123,16 +177,42 @@ export function BenefitsSection() {
       }
     };
 
+    const onScroll = () => {
+      updateScrollState();
+    };
+
+    const onResize = () => {
+      updateScrollState();
+    };
+
+    const resizeObserver =
+      typeof ResizeObserver === "undefined" ? null : new ResizeObserver(onResize);
+
+    if (resizeObserver) {
+      resizeObserver.observe(track);
+      getCards().forEach((card) => resizeObserver.observe(card));
+    } else {
+      window.addEventListener("resize", onResize);
+    }
+
     track.addEventListener("pointerdown", onPointerDown);
     track.addEventListener("pointermove", onPointerMove);
     track.addEventListener("pointerup", endDrag);
     track.addEventListener("pointercancel", endDrag);
+    track.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
       track.removeEventListener("pointerdown", onPointerDown);
       track.removeEventListener("pointermove", onPointerMove);
       track.removeEventListener("pointerup", endDrag);
       track.removeEventListener("pointercancel", endDrag);
+      track.removeEventListener("scroll", onScroll);
+
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      } else {
+        window.removeEventListener("resize", onResize);
+      }
     };
   }, []);
 
@@ -165,6 +245,7 @@ export function BenefitsSection() {
               type="button"
               className="benefits-carousel__arrow"
               aria-label="Previous benefits"
+              disabled={!scrollState.canScrollPrev}
               onClick={() => scrollCarousel(-1)}
             >
               <ArrowIcon direction="left" />
@@ -173,6 +254,7 @@ export function BenefitsSection() {
               type="button"
               className="benefits-carousel__arrow"
               aria-label="Next benefits"
+              disabled={!scrollState.canScrollNext}
               onClick={() => scrollCarousel(1)}
             >
               <ArrowIcon direction="right" />

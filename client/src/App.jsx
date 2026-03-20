@@ -16,6 +16,8 @@ import FloatingNav from "./components/FloatingNav";
 import { OurWorkPage } from "./pages/OurWork";
 import { ContactUsPage } from "./pages/ContactUs";
 import { CaseStudiesPage } from "./pages/CaseStudies";
+import { CookiePolicyPage } from "./pages/CookiePolicy";
+import { PrivacyPolicyPage } from "./pages/PrivacyPolicy";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { defaultCaseStudySlug } from "./data/caseStudies";
 import ScrollToHash from "./components/ScrollToHash";
@@ -49,6 +51,8 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/our-work" element={<OurWorkPage />} />
         <Route path="/contact-us" element={<ContactUsPage />} />
+        <Route path="/cookie-policy" element={<CookiePolicyPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route
           path="/case-studies"
           element={<Navigate replace to={`/case-studies/${defaultCaseStudySlug}`} />}
