@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import FloatingNav from "../components/FloatingNav";
 import { FooterSection } from "../components/FooterSection";
@@ -9,33 +9,10 @@ import {
 } from "../data/caseStudies";
 import { useOurWorkBreakpoint } from "../components/our-work/useOurWorkBreakpoint";
 
-const carouselSettingsByBreakpoint = {
-  desktop: {
-    cardWidthPx: 427,
-    cardHeightPx: 319,
-    panelWidthPx: 382,
-    gapPx: 25.7824,
-  },
-  tablet: {
-    cardWidthPx: 360,
-    cardHeightPx: 269,
-    panelWidthPx: 320,
-    gapPx: 22,
-  },
-  mobile: {
-    cardWidthPx: 286,
-    cardHeightPx: 214,
-    panelWidthPx: 286,
-    gapPx: 16,
-  },
-};
-
 const carouselTiming = {
   intervalMs: 2500,
   animationMs: 750,
 };
-
-const mod = (value, length) => ((value % length) + length) % length;
 
 function getGridCropStyle(study) {
   return {
@@ -48,15 +25,79 @@ function getGridCropStyle(study) {
   };
 }
 
+function renderBulletItem(
+  item,
+  sectionTitle,
+  index,
+  level = 0,
+  { hasNestedGroups = false } = {}
+) {
+  const text = typeof item === "string" ? item : item.text;
+  const children = typeof item === "object" && Array.isArray(item.children) ? item.children : null;
+  const isLeadingFlatBullet = level === 0 && index === 0 && !hasNestedGroups;
+  const weight =
+    typeof item === "object" && item.weight === "bold" && !isLeadingFlatBullet
+      ? "bold"
+      : "normal";
+
+  return (
+    <li
+      key={`${sectionTitle}-${level}-${index}`}
+      className={`case-detail-exact__paragraph case-detail-exact__paragraph--${weight} case-detail-exact__paragraph--level-${level}`}
+    >
+      {text}
+      {children && children.length > 0 ? (
+        <ul className="case-detail-exact__list case-detail-exact__list--nested">
+          {children.map((child, childIndex) =>
+            renderBulletItem(child, sectionTitle, `${index}-${childIndex}`, level + 1, {
+              hasNestedGroups,
+            })
+          )}
+        </ul>
+      ) : null}
+    </li>
+  );
+}
+
+function renderSectionBody(sectionBody, sectionTitle, listClassName = "case-detail-exact__list") {
+  const hasNestedGroups = sectionBody.some(
+    (item) => typeof item === "object" && Array.isArray(item.children) && item.children.length > 0
+  );
+
+  if (sectionBody.length === 1) {
+    const paragraph = sectionBody[0];
+    const text = typeof paragraph === "string" ? paragraph : paragraph.text;
+    const weight = typeof paragraph === "object" && paragraph.weight === "bold" ? "bold" : "normal";
+
+    return (
+      <p className={`case-detail-exact__paragraph case-detail-exact__paragraph--${weight}`}>
+        {text}
+      </p>
+    );
+  }
+
+  return (
+    <ul className={listClassName}>
+      {sectionBody.map((paragraph, paragraphIndex) =>
+        renderBulletItem(paragraph, sectionTitle, paragraphIndex, 0, { hasNestedGroups })
+      )}
+    </ul>
+  );
+}
+
 export function CaseStudiesPage() {
   const { slug } = useParams();
   const caseStudy = slug ? caseStudiesBySlug[slug] : caseStudiesBySlug[defaultCaseStudySlug];
   const resolvedCaseStudy = caseStudy ?? caseStudiesBySlug[defaultCaseStudySlug];
   const breakpoint = useOurWorkBreakpoint();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  const carouselSettings = carouselSettingsByBreakpoint[breakpoint];
+  const cardsPerView = breakpoint === "mobile" ? 1 : 3;
+  const carouselViewportRef = useRef(null);
+  const [trackIndex, setTrackIndex] = useState(0);
+  const [isTransitionEnabled, setIsTransitionEnabled] = useState(true);
+  const [carouselLayout, setCarouselLayout] = useState(() => ({
+    cardWidthPx: breakpoint === "mobile" ? 286 : 360,
+    gapPx: breakpoint === "mobile" ? 16 : 24,
+  }));
   const relatedCaseStudies = useMemo(
     () => caseStudies.filter((study) => study.slug !== resolvedCaseStudy.slug),
     [resolvedCaseStudy.slug]
@@ -68,94 +109,122 @@ export function CaseStudiesPage() {
     ? resolvedCaseStudy.overviewSections.slice(0, -1)
     : resolvedCaseStudy.overviewSections;
   const relatedCount = relatedCaseStudies.length;
+  const isLooping = relatedCount > cardsPerView;
 
   useEffect(() => {
-    setActiveIndex(0);
-    setIsAnimating(false);
-  }, [resolvedCaseStudy.slug]);
+    const viewportNode = carouselViewportRef.current;
+    if (!viewportNode) return undefined;
+
+    const measureLayout = () => {
+      const viewportWidth = viewportNode.clientWidth;
+      if (!viewportWidth) return;
+
+      const nextGapPx =
+        cardsPerView === 1 ? 16 : Math.min(26, Math.max(16, viewportWidth * 0.02));
+      const nextCardWidthPx =
+        cardsPerView === 1
+          ? viewportWidth
+          : (viewportWidth - nextGapPx * (cardsPerView - 1)) / cardsPerView;
+
+      setCarouselLayout((current) => {
+        if (
+          Math.abs(current.cardWidthPx - nextCardWidthPx) < 0.5 &&
+          Math.abs(current.gapPx - nextGapPx) < 0.5
+        ) {
+          return current;
+        }
+
+        return {
+          cardWidthPx: nextCardWidthPx,
+          gapPx: nextGapPx,
+        };
+      });
+    };
+
+    measureLayout();
+
+    let resizeObserver;
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(measureLayout);
+      resizeObserver.observe(viewportNode);
+    }
+
+    window.addEventListener("resize", measureLayout);
+    return () => {
+      resizeObserver?.disconnect();
+      window.removeEventListener("resize", measureLayout);
+    };
+  }, [cardsPerView]);
 
   useEffect(() => {
-    if (relatedCount < 2) return undefined;
+    setTrackIndex(isLooping ? cardsPerView : 0);
+    setIsTransitionEnabled(isLooping);
+  }, [cardsPerView, isLooping, resolvedCaseStudy.slug]);
+
+  useEffect(() => {
+    if (!isLooping || !isTransitionEnabled) return undefined;
 
     const intervalId = window.setInterval(() => {
-      setIsAnimating((prev) => (prev ? prev : true));
+      setTrackIndex((current) => current + 1);
     }, carouselTiming.intervalMs);
 
     return () => window.clearInterval(intervalId);
-  }, [relatedCount]);
+  }, [isLooping, isTransitionEnabled]);
 
   useEffect(() => {
-    if (!isAnimating || relatedCount < 2) return undefined;
+    if (!isLooping || isTransitionEnabled) return undefined;
 
-    const timeoutId = window.setTimeout(() => {
-      setActiveIndex((prev) => mod(prev + 1, relatedCount));
-      setIsAnimating(false);
-    }, carouselTiming.animationMs);
+    let firstFrameId = 0;
+    let secondFrameId = 0;
 
-    return () => window.clearTimeout(timeoutId);
-  }, [isAnimating, relatedCount]);
+    firstFrameId = window.requestAnimationFrame(() => {
+      secondFrameId = window.requestAnimationFrame(() => {
+        setIsTransitionEnabled(true);
+      });
+    });
 
-  const relatedSlots = useMemo(() => {
-    if (relatedCount === 0) return [];
-    if (relatedCount === 1) {
-      return [{ slot: "slot-center", study: relatedCaseStudies[0] }];
+    return () => {
+      window.cancelAnimationFrame(firstFrameId);
+      window.cancelAnimationFrame(secondFrameId);
+    };
+  }, [isLooping, isTransitionEnabled]);
+
+  const carouselItems = useMemo(() => {
+    if (!isLooping) {
+      return relatedCaseStudies.map((study, index) => ({
+        key: `${study.slug}-real-${index}`,
+        study,
+      }));
     }
 
-    if (breakpoint === "mobile") {
-      if (isAnimating) {
-        return [
-          {
-            slot: "slot-center-current",
-            study: relatedCaseStudies[mod(activeIndex, relatedCount)],
-          },
-          {
-            slot: "slot-center-next",
-            study: relatedCaseStudies[mod(activeIndex + 1, relatedCount)],
-          },
-        ];
-      }
+    const leadingClones = relatedCaseStudies.slice(-cardsPerView).map((study, index) => ({
+      key: `${study.slug}-leading-${index}`,
+      study,
+    }));
+    const realItems = relatedCaseStudies.map((study, index) => ({
+      key: `${study.slug}-real-${index}`,
+      study,
+    }));
+    const trailingClones = relatedCaseStudies.slice(0, cardsPerView).map((study, index) => ({
+      key: `${study.slug}-trailing-${index}`,
+      study,
+    }));
 
-      return [
-        {
-          slot: "slot-center",
-          study: relatedCaseStudies[mod(activeIndex, relatedCount)],
-        },
-      ];
+    return [...leadingClones, ...realItems, ...trailingClones];
+  }, [cardsPerView, isLooping, relatedCaseStudies]);
+
+  const trackOffsetPx = isLooping
+    ? trackIndex * (carouselLayout.cardWidthPx + carouselLayout.gapPx)
+    : 0;
+
+  const handleTrackTransitionEnd = (event) => {
+    if (event.target !== event.currentTarget || !isLooping) return;
+
+    if (trackIndex >= relatedCount + cardsPerView) {
+      setIsTransitionEnabled(false);
+      setTrackIndex(cardsPerView);
     }
-
-    return [
-      {
-        slot: "slot-buffer-left",
-        study:
-          relatedCaseStudies[mod(activeIndex + (isAnimating ? -2 : -3), relatedCount)],
-      },
-      {
-        slot: "slot-exit-left",
-        study:
-          relatedCaseStudies[mod(activeIndex + (isAnimating ? -1 : -2), relatedCount)],
-      },
-      {
-        slot: "slot-left",
-        study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 0 : -1), relatedCount)],
-      },
-      {
-        slot: "slot-center",
-        study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 1 : 0), relatedCount)],
-      },
-      {
-        slot: "slot-right",
-        study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 2 : 1), relatedCount)],
-      },
-      {
-        slot: "slot-enter-right",
-        study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 3 : 2), relatedCount)],
-      },
-      {
-        slot: "slot-buffer-right",
-        study: relatedCaseStudies[mod(activeIndex + (isAnimating ? 4 : 3), relatedCount)],
-      },
-    ];
-  }, [activeIndex, breakpoint, isAnimating, relatedCaseStudies, relatedCount]);
+  };
 
   if (!caseStudy) {
     return <Navigate replace to={`/case-studies/${defaultCaseStudySlug}`} />;
@@ -183,27 +252,14 @@ export function CaseStudiesPage() {
               </div>
 
               {mainSections.map((section, index) => (
-                <div key={section.title} className="case-detail-exact__block">
+                <div
+                  key={section.title}
+                  className={`case-detail-exact__block${
+                    index > 0 ? " case-detail-exact__block--with-divider" : ""
+                  }`}
+                >
                   <h2>{section.title}</h2>
-                  {section.body.map((paragraph, paragraphIndex) => {
-                    const text = typeof paragraph === "string" ? paragraph : paragraph.text;
-                    const weight =
-                      typeof paragraph === "object" && paragraph.weight === "bold"
-                        ? "bold"
-                        : "normal";
-
-                    return (
-                      <p
-                        key={`${section.title}-${paragraphIndex}`}
-                        className={`case-detail-exact__paragraph case-detail-exact__paragraph--${weight}`}
-                      >
-                        {text}
-                      </p>
-                    );
-                  })}
-                  {index < mainSections.length - 1 && (
-                    <div className="case-detail-exact__divider" />
-                  )}
+                  {renderSectionBody(section.body, section.title)}
                 </div>
               ))}
             </div>
@@ -212,28 +268,17 @@ export function CaseStudiesPage() {
           <div className="case-detail-exact__closing">
             <div className="case-detail-exact__publication">
               <h2>Publication highlights</h2>
-              <p>{resolvedCaseStudy.publicationIntro}</p>
+              <p className="case-detail-exact__paragraph">{resolvedCaseStudy.publicationIntro}</p>
             </div>
 
             {conclusionSection ? (
-              <div className="case-detail-exact__block case-detail-exact__block--closing">
+              <div className="case-detail-exact__block case-detail-exact__block--closing case-detail-exact__block--with-divider">
                 <h2>{conclusionSection.title}</h2>
-                {conclusionSection.body.map((paragraph, paragraphIndex) => {
-                  const text = typeof paragraph === "string" ? paragraph : paragraph.text;
-                  const weight =
-                    typeof paragraph === "object" && paragraph.weight === "bold"
-                      ? "bold"
-                      : "normal";
-
-                  return (
-                    <p
-                      key={`${conclusionSection.title}-${paragraphIndex}`}
-                      className={`case-detail-exact__paragraph case-detail-exact__paragraph--${weight}`}
-                    >
-                      {text}
-                    </p>
-                  );
-                })}
+                {renderSectionBody(
+                  conclusionSection.body,
+                  conclusionSection.title,
+                  "case-detail-exact__list case-detail-exact__list--nested"
+                )}
               </div>
             ) : null}
           </div>
@@ -252,42 +297,60 @@ export function CaseStudiesPage() {
 
           <div className="case-studies-grid-exact__carousel">
             <div
-              className={`case-studies-grid-exact__row${isAnimating ? " is-animating" : ""}`}
+              ref={carouselViewportRef}
+              className="case-studies-grid-exact__viewport"
               style={{
-                "--case-studies-card-width": `${carouselSettings.cardWidthPx}px`,
-                "--case-studies-card-height": `${carouselSettings.cardHeightPx}px`,
-                "--case-studies-panel-width": `${carouselSettings.panelWidthPx}px`,
-                "--case-studies-slot-step": `${
-                  carouselSettings.cardWidthPx + carouselSettings.gapPx
-                }px`,
+                "--case-studies-card-width": `${carouselLayout.cardWidthPx}px`,
+                "--case-studies-carousel-gap": `${carouselLayout.gapPx}px`,
               }}
             >
-              {relatedSlots.map(({ slot, study }) => (
-                <div
-                  key={study.slug}
-                  className={`case-studies-grid-exact__carousel-item case-studies-grid-exact__carousel-item--${slot}`}
-                >
-                  <Link
-                    to={`/case-studies/${study.slug}`}
-                    className="case-studies-grid-exact__card"
-                  >
+              <div
+                className={`case-studies-grid-exact__row${
+                  !isLooping ? " is-static" : ""
+                }${!isTransitionEnabled ? " is-transition-disabled" : ""}`}
+                onTransitionEnd={handleTrackTransitionEnd}
+                style={{
+                  transform: `translateX(-${trackOffsetPx}px)`,
+                  transitionDuration:
+                    isLooping && isTransitionEnabled
+                      ? `${carouselTiming.animationMs}ms`
+                      : "0ms",
+                }}
+              >
+                {carouselItems.map(({ key, study }, index) => {
+                  const isVisible =
+                    !isLooping || (index >= trackIndex && index < trackIndex + cardsPerView);
+
+                  return (
                     <div
-                      className="case-studies-grid-exact__frame"
-                      style={getGridCropStyle(study)}
+                      key={key}
+                      className="case-studies-grid-exact__carousel-item"
+                      aria-hidden={!isVisible}
                     >
-                      <img
-                        className="case-studies-grid-exact__image"
-                        src={study.gridImage}
-                        alt=""
-                      />
+                      <Link
+                        to={`/case-studies/${study.slug}`}
+                        className="case-studies-grid-exact__card"
+                        tabIndex={isVisible ? 0 : -1}
+                      >
+                        <div
+                          className="case-studies-grid-exact__frame"
+                          style={getGridCropStyle(study)}
+                        >
+                          <img
+                            className="case-studies-grid-exact__image"
+                            src={study.gridImage}
+                            alt=""
+                          />
+                        </div>
+                        <div className="case-studies-grid-exact__panel">
+                          <h3>{study.name}</h3>
+                          <p>{study.headline}</p>
+                        </div>
+                      </Link>
                     </div>
-                    <div className="case-studies-grid-exact__panel">
-                      <h3>{study.name}</h3>
-                      <p>{study.headline}</p>
-                    </div>
-                  </Link>
-                </div>
-              ))}
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>

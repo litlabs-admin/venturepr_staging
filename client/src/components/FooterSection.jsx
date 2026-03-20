@@ -14,9 +14,10 @@ const navLinks = [
 ];
 
 const socialLinks = [
+  { label: "X", href: "https://twitter.com" },
   { label: "Linkedin", href: "https://linkedin.com" },
-  { label: "X/Twitter", href: "https://twitter.com" },
-  { label: "Youtube", href: "https://youtube.com" }
+  { label: "Youtube", href: "https://youtube.com" },
+  { label: "Instagram", href: "https://instagram.com" }
 ];
 
 const navLinkColumns = [navLinks.slice(0, 4), navLinks.slice(4, 8)];

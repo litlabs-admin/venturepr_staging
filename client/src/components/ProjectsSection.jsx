@@ -192,7 +192,7 @@ function MinusIcon({ className }) {
   );
 }
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const contentRef = useRef(null);
   const [contentHeight, setContentHeight] = useState(0);
@@ -228,43 +228,45 @@ function ProjectCard({ project, index }) {
       </div>
 
       <div className="projects-card__content">
-        <div className="projects-card__meta">
-          <div className="projects-card__tags">
-            {project.services.map((service) => (
-              <span className="projects-card__tag" key={service}>
-                {service}
-              </span>
-            ))}
+        <div className="projects-card__body">
+          <div className="projects-card__meta">
+            <div className="projects-card__tags">
+              {project.services.map((service) => (
+                <span className="projects-card__tag" key={service}>
+                  {service}
+                </span>
+              ))}
+            </div>
+            <h3 className="projects-card__title">{project.title}</h3>
           </div>
-          <h3 className="projects-card__title">{project.title}</h3>
-        </div>
 
-        <div className="projects-card__actions">
-          {project.primaryLabel && (
-            <a
-              className="projects-card__link"
-              href={project.primaryHref}
-              target="_blank"
-              rel="noopener"
-            >
-              <span>{project.primaryLabel}</span>
-              <ArrowIcon className="projects-card__link-icon" />
-            </a>
-          )}
-          {project.detailsLabel && (
-            <button
-              className="projects-card__button"
-              type="button"
-              onClick={toggleExpand}
-            >
-              <span>{isExpanded ? project.hideLabel : project.detailsLabel}</span>
-              {isExpanded ? (
-                <MinusIcon className="projects-card__button-icon" />
-              ) : (
-                <PlusIcon className="projects-card__button-icon" />
-              )}
-            </button>
-          )}
+          <div className="projects-card__actions">
+            {project.primaryLabel && (
+              <a
+                className="projects-card__link"
+                href={project.primaryHref}
+                target="_blank"
+                rel="noopener"
+              >
+                <span>{project.primaryLabel}</span>
+                <ArrowIcon className="projects-card__link-icon" />
+              </a>
+            )}
+            {project.detailsLabel && (
+              <button
+                className="projects-card__button"
+                type="button"
+                onClick={toggleExpand}
+              >
+                <span>{isExpanded ? project.hideLabel : project.detailsLabel}</span>
+                {isExpanded ? (
+                  <MinusIcon className="projects-card__button-icon" />
+                ) : (
+                  <PlusIcon className="projects-card__button-icon" />
+                )}
+              </button>
+            )}
+          </div>
         </div>
 
         <div
@@ -282,6 +284,7 @@ function ProjectCard({ project, index }) {
 
 export function ProjectsSection() {
   const sectionRef = useRef(null);
+  const listRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -304,6 +307,70 @@ export function ProjectsSection() {
     observer.observe(node);
 
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const listNode = listRef.current;
+
+    if (!listNode) {
+      return;
+    }
+
+    let frameId = 0;
+
+    const equalizeCardBodies = () => {
+      const cardBodies = Array.from(
+        listNode.querySelectorAll(".projects-card__body")
+      );
+
+      if (cardBodies.length === 0) {
+        return;
+      }
+
+      cardBodies.forEach((body) => {
+        body.style.minHeight = "";
+      });
+
+      const rowHeights = new Map();
+
+      cardBodies.forEach((body) => {
+        const card = body.closest(".projects-card");
+        const rowTop = card?.offsetTop ?? 0;
+        const nextHeight = Math.max(rowHeights.get(rowTop) ?? 0, body.offsetHeight);
+        rowHeights.set(rowTop, nextHeight);
+      });
+
+      cardBodies.forEach((body) => {
+        const card = body.closest(".projects-card");
+        const rowTop = card?.offsetTop ?? 0;
+        const rowHeight = rowHeights.get(rowTop);
+
+        body.style.minHeight = rowHeight ? `${rowHeight}px` : "";
+      });
+    };
+
+    const scheduleEqualize = () => {
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(equalizeCardBodies);
+    };
+
+    scheduleEqualize();
+
+    const resizeObserver =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(scheduleEqualize);
+
+    resizeObserver?.observe(listNode);
+
+    window.addEventListener("resize", scheduleEqualize);
+    document.fonts?.ready?.then(scheduleEqualize).catch(() => {});
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      resizeObserver?.disconnect();
+      window.removeEventListener("resize", scheduleEqualize);
+    };
   }, []);
 
   return (
@@ -329,9 +396,9 @@ export function ProjectsSection() {
           </h2>
         </div>
 
-        <div className="projects-section__list">
-          {projects.map((project, i) => (
-            <ProjectCard project={project} index={i} key={project.title} />
+        <div className="projects-section__list" ref={listRef}>
+          {projects.map((project) => (
+            <ProjectCard project={project} key={project.title} />
           ))}
         </div>
       </div>
