@@ -160,7 +160,7 @@ export function FooterSection() {
             <div className="footer-section__legal">
               <Link to="/cookie-policy">Cookie Policy</Link>
               <span className="footer-section__separator">|</span>
-              <Link to="/privacy-policy">Privacy policy</Link>
+              <Link to="/privacy-policy">Privacy Policy</Link>
             </div>
           </div>
         </div>
