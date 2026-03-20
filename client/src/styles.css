@@ -1930,7 +1930,7 @@ a {
   display: grid;
   gap: 32px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: stretch;
+  align-items: start;
   width: 100%;
 }
 
@@ -1939,7 +1939,6 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0;
-  height: 100%;
   max-width: none;
   width: 100%;
 }
@@ -1947,7 +1946,7 @@ a {
 .projects-card__media {
   aspect-ratio: 1.3333333333 / 1;
   border-radius: 30px;
-  height: 100%;
+  height: auto;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -1967,7 +1966,6 @@ a {
   border-radius: 30px;
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto;
   gap: 0;
   padding: 40px 30px 30px;
   width: 100%;
@@ -1975,7 +1973,6 @@ a {
 
 .projects-card__body {
   display: flex;
-  flex: 1 1 auto;
   flex-direction: column;
   gap: 23px;
   width: 100%;
