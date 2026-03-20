@@ -126,7 +126,7 @@ export function FooterSection() {
               </span>
               <span className="footer-section__label">Email</span>
             </div>
-            <a href="mailto: agencie@email.com">info@venturepr.co</a>
+            <a href="mailto: agencie@email.com">ben@venturepr.co</a>
           </div>
           <div className="footer-section__contact-item">
             <div className="footer-section__label-row">
