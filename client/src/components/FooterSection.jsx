@@ -14,10 +14,10 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { label: "X", href: "https://twitter.com" },
-  { label: "Linkedin", href: "https://linkedin.com" },
-  { label: "Youtube", href: "https://youtube.com" },
-  { label: "Instagram", href: "https://instagram.com" }
+  { label: "X", href: "https://x.com/VenturePR_" },
+  { label: "Linkedin", href: "https://www.linkedin.com/company/venturepr" },
+  { label: "Youtube", href: "https://www.youtube.com/@TruthinTechwithBenRoc" },
+  { label: "Instagram", href: "https://www.instagram.com/venturepr_/" }
 ];
 
 const navLinkColumns = [navLinks.slice(0, 4), navLinks.slice(4, 8)];
