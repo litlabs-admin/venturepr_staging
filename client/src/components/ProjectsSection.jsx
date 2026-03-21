@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { PhosphorIcon } from "./PhosphorIcon";
 
 import rabbitaiImage from "../assets/agencie/projects/rabbit_thumbnail.png";
@@ -192,8 +192,13 @@ function MinusIcon({ className }) {
   );
 }
 
-function ProjectCard({ project }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+function ProjectCard({
+  project,
+  isExpanded,
+  onToggle,
+  equalizedMinHeight,
+  measurementRef
+}) {
   const contentRef = useRef(null);
   const [contentHeight, setContentHeight] = useState(0);
 
@@ -219,10 +224,12 @@ function ProjectCard({ project }) {
     return () => window.removeEventListener("resize", handleResize);
   }, [isExpanded]);
 
-  const toggleExpand = () => setIsExpanded(!isExpanded);
-
   return (
-    <article className={`projects-card ${isExpanded ? "is-expanded" : ""}`} key={project.title}>
+    <article
+      ref={measurementRef}
+      className={`projects-card ${isExpanded ? "is-expanded" : ""}`}
+      style={equalizedMinHeight ? { minHeight: `${equalizedMinHeight}px` } : undefined}
+    >
       <div className="projects-card__media">
         <img src={project.image} alt="" />
       </div>
@@ -256,7 +263,7 @@ function ProjectCard({ project }) {
               <button
                 className="projects-card__button"
                 type="button"
-                onClick={toggleExpand}
+                onClick={onToggle}
               >
                 <span>{isExpanded ? project.hideLabel : project.detailsLabel}</span>
                 {isExpanded ? (
@@ -284,7 +291,11 @@ function ProjectCard({ project }) {
 
 export function ProjectsSection() {
   const sectionRef = useRef(null);
+  const listRef = useRef(null);
+  const cardRefs = useRef(new Map());
   const [isVisible, setIsVisible] = useState(false);
+  const [expandedProjects, setExpandedProjects] = useState(() => new Set());
+  const [equalizedMinHeights, setEqualizedMinHeights] = useState({});
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -307,6 +318,154 @@ export function ProjectsSection() {
 
     return () => observer.disconnect();
   }, []);
+
+  useLayoutEffect(() => {
+    const listNode = listRef.current;
+
+    if (!listNode) {
+      return;
+    }
+
+    let frameId = null;
+    let resizeObserver = null;
+
+    const scheduleMeasurement = () => {
+      if (frameId !== null) {
+        cancelAnimationFrame(frameId);
+      }
+
+      frameId = requestAnimationFrame(() => {
+        frameId = null;
+
+        const cards = projects
+          .map(({ title }) => {
+            const node = cardRefs.current.get(title);
+
+            if (!node) {
+              return null;
+            }
+
+            return { title, node };
+          })
+          .filter(Boolean);
+
+        if (cards.length === 0) {
+          return;
+        }
+
+        const previousMinHeights = new Map();
+
+        cards.forEach(({ node }) => {
+          previousMinHeights.set(node, node.style.minHeight);
+          node.style.removeProperty("min-height");
+        });
+
+        const rows = new Map();
+
+        cards.forEach((card) => {
+          const rowKey = Math.round(card.node.offsetTop);
+          const row = rows.get(rowKey);
+
+          if (row) {
+            row.push(card);
+            return;
+          }
+
+          rows.set(rowKey, [card]);
+        });
+
+        const nextHeights = {};
+
+        rows.forEach((rowCards) => {
+          if (rowCards.length < 2) {
+            return;
+          }
+
+          if (rowCards.some(({ title }) => expandedProjects.has(title))) {
+            return;
+          }
+
+          const rowMaxHeight = rowCards.reduce(
+            (maxHeight, { node }) => Math.max(maxHeight, node.offsetHeight),
+            0
+          );
+
+          rowCards.forEach(({ title }) => {
+            nextHeights[title] = rowMaxHeight;
+          });
+        });
+
+        previousMinHeights.forEach((minHeight, node) => {
+          if (minHeight) {
+            node.style.minHeight = minHeight;
+            return;
+          }
+
+          node.style.removeProperty("min-height");
+        });
+
+        setEqualizedMinHeights((currentHeights) => {
+          const currentEntries = Object.entries(currentHeights);
+          const nextEntries = Object.entries(nextHeights);
+
+          if (
+            currentEntries.length === nextEntries.length &&
+            currentEntries.every(
+              ([title, height]) => nextHeights[title] === height
+            )
+          ) {
+            return currentHeights;
+          }
+
+          return nextHeights;
+        });
+      });
+    };
+
+    scheduleMeasurement();
+
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => {
+        scheduleMeasurement();
+      });
+
+      resizeObserver.observe(listNode);
+      cardRefs.current.forEach((node) => resizeObserver.observe(node));
+    }
+
+    return () => {
+      if (frameId !== null) {
+        cancelAnimationFrame(frameId);
+      }
+
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    };
+  }, [expandedProjects]);
+
+  const toggleProject = (title) => {
+    setExpandedProjects((currentExpandedProjects) => {
+      const nextExpandedProjects = new Set(currentExpandedProjects);
+
+      if (nextExpandedProjects.has(title)) {
+        nextExpandedProjects.delete(title);
+      } else {
+        nextExpandedProjects.add(title);
+      }
+
+      return nextExpandedProjects;
+    });
+  };
+
+  const setCardRef = (title, node) => {
+    if (node) {
+      cardRefs.current.set(title, node);
+      return;
+    }
+
+    cardRefs.current.delete(title);
+  };
 
   return (
     <section
@@ -331,9 +490,16 @@ export function ProjectsSection() {
           </h2>
         </div>
 
-        <div className="projects-section__list">
+        <div className="projects-section__list" ref={listRef}>
           {projects.map((project) => (
-            <ProjectCard project={project} key={project.title} />
+            <ProjectCard
+              project={project}
+              key={project.title}
+              isExpanded={expandedProjects.has(project.title)}
+              onToggle={() => toggleProject(project.title)}
+              equalizedMinHeight={equalizedMinHeights[project.title]}
+              measurementRef={(node) => setCardRef(project.title, node)}
+            />
           ))}
         </div>
       </div>

@@ -1940,6 +1940,7 @@ a {
   flex-direction: column;
   gap: 0;
   max-width: none;
+  min-height: 0;
   width: 100%;
 }
 
@@ -1961,20 +1962,24 @@ a {
 }
 
 .projects-card__content {
-  align-items: center;
+  align-items: stretch;
   background: rgb(245, 247, 249);
   border-radius: 30px;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: 0;
+  min-height: 0;
   padding: 40px 30px 30px;
   width: 100%;
 }
 
 .projects-card__body {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: 23px;
+  min-height: 0;
   width: 100%;
 }
 
@@ -8150,7 +8155,10 @@ a {
 }
 
 .contact-card-exact__link {
+  align-items: center;
   bottom: 40px;
+  color: inherit;
+  display: inline-flex;
   font-family: "Darker Grotesque", sans-serif;
   font-size: 26.19px;
   font-weight: 700;

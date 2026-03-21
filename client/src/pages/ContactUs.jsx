@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import FloatingNav from "../components/FloatingNav";
 import { FooterSection } from "../components/FooterSection";
 
@@ -226,7 +227,9 @@ export function ContactUsPage() {
               </div>
               <p>Facing a more technical issue ? Need an expert ? We're here.</p>
             </div>
-            <div className="contact-card-exact__link">support@venture.com</div>
+            <a className="contact-card-exact__link" href="mailto:support@venture.com">
+              support@venture.com
+            </a>
           </div>
 
           <div className="contact-card-exact contact-card-exact--sales">
@@ -244,9 +247,9 @@ export function ContactUsPage() {
               </div>
               <p>Questions about custom pricing ? Feature picking ? We'll handle it.</p>
             </div>
-            <div className="contact-card-exact__link">
+            <Link className="contact-card-exact__link" to="/contact-us">
               Book a call with sales <span className="contact-card-exact__arrow">{"->"}</span>
-            </div>
+            </Link>
           </div>
         </div>
       </main>
