@@ -430,7 +430,6 @@ export function ProjectsSection() {
       });
 
       resizeObserver.observe(listNode);
-      cardRefs.current.forEach((node) => resizeObserver.observe(node));
     }
 
     return () => {
