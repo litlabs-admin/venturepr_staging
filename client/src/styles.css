@@ -3605,6 +3605,9 @@ a {
 }
 
 .nl-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   width: 100%;
   max-width: 620px;
 }
@@ -3681,6 +3684,29 @@ a {
 .nl-form__button:focus-visible {
   outline: 2px solid var(--agencie-text);
   outline-offset: 3px;
+}
+
+.nl-form__button:disabled {
+  background: #ff8458;
+  box-shadow: none;
+  cursor: progress;
+  transform: none;
+}
+
+.nl-form__status {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+  min-height: 18px;
+}
+
+.nl-form__status.is-success {
+  color: #2f6f3e;
+}
+
+.nl-form__status.is-error {
+  color: #c84d34;
 }
 
 @media (max-width: 900px) {
@@ -8032,6 +8058,14 @@ a {
   width: 702px;
 }
 
+.contact-form-exact__status.is-success {
+  color: #2f6f3e;
+}
+
+.contact-form-exact__status.is-error {
+  color: #c84d34;
+}
+
 .contact-form-exact__field--topic .contact-form-exact__input {
   padding-right: 14px;
 }
@@ -8088,6 +8122,11 @@ a {
 .contact-form-exact__submit:focus-visible {
   box-shadow: 0 0 0 3px rgba(247, 87, 56, 0.18);
   outline: none;
+}
+
+.contact-form-exact__submit:disabled {
+  cursor: progress;
+  opacity: 0.72;
 }
 
 .contact-card-exact {

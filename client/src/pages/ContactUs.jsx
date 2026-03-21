@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import FloatingNav from "../components/FloatingNav";
 import { FooterSection } from "../components/FooterSection";
+import { isValidEmail, submitWeb3Form } from "../utils/web3forms";
 
 export function ContactUsPage() {
   const [formValues, setFormValues] = useState({
@@ -13,6 +14,7 @@ export function ContactUsPage() {
   });
   const [errors, setErrors] = useState({});
   const [submitMessage, setSubmitMessage] = useState("");
+  const [submitStatus, setSubmitStatus] = useState("idle");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,56 +36,87 @@ export function ContactUsPage() {
 
     if (submitMessage) {
       setSubmitMessage("");
+      setSubmitStatus("idle");
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const nextErrors = {};
+    if (submitStatus === "sending") {
+      return;
+    }
 
-    if (!formValues.firstName.trim()) {
+    const nextErrors = {};
+    const trimmedValues = {
+      firstName: formValues.firstName.trim(),
+      lastName: formValues.lastName.trim(),
+      email: formValues.email.trim(),
+      topic: formValues.topic.trim(),
+      message: formValues.message.trim(),
+    };
+
+    if (!trimmedValues.firstName) {
       nextErrors.firstName = "Please enter your first name.";
     }
 
-    if (!formValues.lastName.trim()) {
+    if (!trimmedValues.lastName) {
       nextErrors.lastName = "Please enter your surname.";
     }
 
-    if (!formValues.email.trim()) {
+    if (!trimmedValues.email) {
       nextErrors.email = "Please enter your email address.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email)) {
+    } else if (!isValidEmail(trimmedValues.email)) {
       nextErrors.email = "Please enter a valid email address.";
     }
 
-    if (!formValues.topic.trim()) {
+    if (!trimmedValues.topic) {
       nextErrors.topic = "Please enter a topic.";
     }
 
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
+      setSubmitStatus("error");
       setSubmitMessage("Please complete the required fields before submitting.");
       return;
     }
 
-    const subject = encodeURIComponent(
-      `Website inquiry: ${formValues.topic.trim()}`
-    );
-    const body = encodeURIComponent(
-      [
-        `Name: ${formValues.firstName.trim()} ${formValues.lastName.trim()}`,
-        `Email: ${formValues.email.trim()}`,
-        `Topic: ${formValues.topic.trim()}`,
-        "",
-        "Message:",
-        formValues.message.trim() || "No message provided.",
-      ].join("\n")
-    );
+    setSubmitStatus("sending");
+    setSubmitMessage("Sending your message...");
 
-    setSubmitMessage("Opening your email app with your message details.");
-    window.location.href = `mailto:ben@venturepr.co?subject=${subject}&body=${body}`;
+    const formData = new FormData();
+    formData.append("firstName", trimmedValues.firstName);
+    formData.append("lastName", trimmedValues.lastName);
+    formData.append("email", trimmedValues.email);
+    formData.append("topic", trimmedValues.topic);
+    formData.append("message", trimmedValues.message || "No message provided.");
+    formData.append("subject", `Website inquiry: ${trimmedValues.topic}`);
+    formData.append("form_name", "Contact Us Page");
+    formData.append("source", "Contact Us Page");
+
+    const result = await submitWeb3Form(formData);
+
+    if (result.success) {
+      setFormValues({
+        firstName: "",
+        lastName: "",
+        email: "",
+        topic: "",
+        message: "",
+      });
+      setErrors({});
+      setSubmitStatus("success");
+      setSubmitMessage("Thanks for reaching out. Your message has been sent.");
+      return;
+    }
+
+    setSubmitStatus("error");
+    setSubmitMessage(result.message);
   };
+
+  const isSubmitting = submitStatus === "sending";
+  const submitRole = submitStatus === "error" ? "alert" : "status";
 
   return (
     <div className="page-exact-shell contact-page-shell-exact">
@@ -120,6 +153,7 @@ export function ContactUsPage() {
                 name="firstName"
                 value={formValues.firstName}
                 onChange={handleChange}
+                disabled={isSubmitting}
                 placeholder="Neil"
                 autoComplete="given-name"
               />
@@ -139,6 +173,7 @@ export function ContactUsPage() {
                 name="lastName"
                 value={formValues.lastName}
                 onChange={handleChange}
+                disabled={isSubmitting}
                 placeholder="Armstrong"
                 autoComplete="family-name"
               />
@@ -158,6 +193,7 @@ export function ContactUsPage() {
                 name="email"
                 value={formValues.email}
                 onChange={handleChange}
+                disabled={isSubmitting}
                 placeholder="neilarmstrong@email.com"
                 autoComplete="email"
               />
@@ -177,6 +213,7 @@ export function ContactUsPage() {
                 name="topic"
                 value={formValues.topic}
                 onChange={handleChange}
+                disabled={isSubmitting}
                 placeholder="How can we help?"
               />
               {errors.topic ? (
@@ -197,16 +234,24 @@ export function ContactUsPage() {
                 name="message"
                 value={formValues.message}
                 onChange={handleChange}
+                disabled={isSubmitting}
                 placeholder="Tell us a bit about what you need."
                 rows="5"
               />
             </div>
 
-            <button type="submit" className="contact-form-exact__submit">
-              Get in touch
+            <button
+              type="submit"
+              className="contact-form-exact__submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending..." : "Get in touch"}
             </button>
             {submitMessage ? (
-              <p className="contact-form-exact__status" role="status">
+              <p
+                className={`contact-form-exact__status is-${submitStatus}`}
+                role={submitRole}
+              >
                 {submitMessage}
               </p>
             ) : null}
