@@ -49,42 +49,52 @@ const heroSlides = [
   {
     src: img1,
     href: "https://www.wsj.com/tech/ai/theft-of-trade-secrets-is-on-the-riseand-ai-is-making-it-worse-1b36122f",
+    alt: "Wall Street Journal article about rising trade secret theft in AI, featuring Google Cloud's office entrance and employees.",
   },
   {
     src: img2,
     href: "https://www.cnet.com/pictures/ces-2026-these-robots-and-ai-tools-dominated-the-show-floor/",
+    alt: "CNET coverage of CES 2026 featuring a white LG robot butler folding laundry on a table at the show.",
   },
   {
     src: img3,
     href: "https://www.tomshardware.com/desktops/mini-pcs/minisforum-ms-02-ultra-mini-workstation-hands-on",
+    alt: "Hands-on review of Minisforum MS-02 Ultra mini workstation with 24-core Arrow Lake CPU next to a large desktop PC.",
   },
   {
     src: img4,
     href: "https://time.com/7296841/dog-sunburn-sunscreen/#",
+    alt: "TIME magazine article \"Yes, Your Dog Can Get Sunburned\" featuring a Golden Retriever rolling on green grass in summer.",
   },
   {
     src: img5,
     href: "https://www.forbes.com/sites/forbes-personal-shopper/article/best-robotic-pool-cleaner/",
+    alt: "Forbes guide to the 8 best robotic pool cleaners of 2025, showing an automated teal cleaner underwater in a pool.",
   },
   {
     src: img6,
     href: "https://www.zdnet.com/home-and-office/smart-home/best-smart-home-tech-ces-2026/",
+    alt: "ZDNET article showcasing a Roborock stair-climbing robot vacuum prototype with unique leg-like wheels at CES 2026.",
   },
   {
     src: img7,
     href: "https://www.newsweek.com/best-mwc-2025-12-exciting-tech-products-coming-this-year-2042503",
+    alt: "Newsweek feature on the SATELLAI Tracker, showing a man with a black Lab and Golden Retriever wearing GPS collars.",
   },
   {
     src: img8,
     href: "https://www.cnet.com/pictures/ces-2026-these-robots-and-ai-tools-dominated-the-show-floor/",
+    alt: "CNET reporter interviewing an AI-powered robot butler folding towels, highlighting top robot and AI trends at CES 2026.",
   },
   {
     src: img9,
     href: "https://www.theverge.com/news/850787/narwal-flow-2-robovac-ai-object-recognition-ces-2026",
+    alt: "The Verge article about Narwal Flow 2 robovac, showing two sleek gray robot vacuum units with floor-scanning technology.",
   },
   {
     src: img10,
     href: "https://www.cnn.com/cnn-underscored/deals/esr-car-phone-holder-sale-2026-01-29",
+    alt: "CNN Underscored product feature showing a black ESR smartphone car mount with blue LED ring light at a discount.",
   },
 ];
 
@@ -271,7 +281,7 @@ export function OurWorkCoverageSection() {
                         <img
                           className="our-work-coverage-exact__hero-image marqo-hero__carousel-image"
                           src={slide.src}
-                          alt={`Coverage carousel image ${index + 1}`}
+                          alt={slide.alt}
                         />
                       </div>
                     </a>

@@ -1,30 +1,27 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import footerLogo from "../assets/logo/footer_logo.png";
-import {
-  saveHomeScrollTarget,
-  scrollToHomeTarget,
-} from "../utils/homeNavigation";
+import { scrollToTargetId } from "../utils/sectionRoutes";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/#services" },
+  { label: "Services", href: "/services", targetId: "services" },
   { label: "Our Work", href: "/our-work" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Process", href: "/#process" },
-  { label: "About", href: "/#about" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "Blog", href: "/blog" },
+  { label: "Projects", href: "/projects", targetId: "projects" },
+  { label: "Process", href: "/process", targetId: "process" },
+  { label: "About", href: "/about", targetId: "about" },
+  { label: "FAQ", href: "/faq", targetId: "faq" },
   { label: "Contact Us", href: "/contact-us" },
-
 ];
 
 const socialLinks = [
   { label: "X", href: "https://x.com/VenturePR_" },
   { label: "Linkedin", href: "https://www.linkedin.com/company/venturepr" },
   { label: "Youtube", href: "https://www.youtube.com/@TruthinTechwithBenRoc" },
-  { label: "Instagram", href: "https://www.instagram.com/venturepr_/" }
+  { label: "Instagram", href: "https://www.instagram.com/venturepr_/" },
 ];
 
-const navLinkColumns = [navLinks.slice(0, 4), navLinks.slice(4, 8)];
+const navLinkColumns = [navLinks.slice(0, 5), navLinks.slice(5)];
 
 function PhoneIcon() {
   return (
@@ -72,18 +69,27 @@ function ClockIcon() {
 
 export function FooterSection() {
   const location = useLocation();
-  const navigate = useNavigate();
 
-  const handleHomeNavigation = (event, targetId = null) => {
-    event.preventDefault();
-
-    if (location.pathname === "/") {
-      scrollToHomeTarget(targetId);
+  const handleHomeClick = (event) => {
+    if (location.pathname !== "/") {
       return;
     }
 
-    saveHomeScrollTarget(targetId);
-    navigate(targetId ? `/#${targetId}` : "/");
+    event.preventDefault();
+    scrollToTargetId(null, "smooth");
+  };
+
+  const handleLinkClick = (event, link) => {
+    if (link.href === "/" && location.pathname === "/") {
+      event.preventDefault();
+      scrollToTargetId(null, "smooth");
+      return;
+    }
+
+    if (link.targetId && location.pathname === link.href) {
+      event.preventDefault();
+      scrollToTargetId(link.targetId, "smooth");
+    }
   };
 
   return (
@@ -95,7 +101,7 @@ export function FooterSection() {
               <Link
                 to="/"
                 className="footer-section__logo"
-                onClick={(event) => handleHomeNavigation(event)}
+                onClick={handleHomeClick}
               >
                 <img src={footerLogo} alt="Venture" />
               </Link>
@@ -107,22 +113,18 @@ export function FooterSection() {
             <div className="footer-section__links">
               <div className="footer-section__links-group">
                 {navLinkColumns.map((column, columnIndex) => (
-                    <div className="footer-section__link-column" key={`nav-column-${columnIndex}`}>
-                      {column.map((link) => (
-                        <Link
-                          key={link.label}
-                          to={link.href}
-                          onClick={(event) => {
-                            if (link.href === "/" || link.href.startsWith("/#")) {
-                              handleHomeNavigation(
-                                event,
-                                link.href.startsWith("/#") ? link.href.slice(2) : null
-                              );
-                            }
-                          }}
-                        >
-                          {link.label}
-                        </Link>
+                  <div
+                    className="footer-section__link-column"
+                    key={`nav-column-${columnIndex}`}
+                  >
+                    {column.map((link) => (
+                      <Link
+                        key={link.label}
+                        to={link.href}
+                        onClick={(event) => handleLinkClick(event, link)}
+                      >
+                        {link.label}
+                      </Link>
                     ))}
                   </div>
                 ))}

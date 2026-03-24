@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  saveHomeScrollTarget,
-  scrollToHomeTarget,
-} from "../utils/homeNavigation";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { scrollToTargetId } from "../utils/sectionRoutes";
 
 const NAV_LINKS = [
-  { label: "Services", href: "/#services" },
+  { label: "Services", href: "/services", targetId: "services" },
   { label: "Our Work", href: "/our-work" },
-  { label: "Process", href: "/#process" },
-  { label: "Contact Us", href: "/contact-us" }
+  { label: "Process", href: "/process", targetId: "process" },
+  { label: "Contact Us", href: "/contact-us" },
 ];
 
 export default function FloatingNav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -26,35 +22,42 @@ export default function FloatingNav() {
 
   useEffect(() => {
     setMenuOpen(false);
-  }, [location.pathname, location.hash]);
+  }, [location.pathname]);
 
-  const handleHomeNavigation = (event, targetId = null) => {
-    event.preventDefault();
+  const handleHomeClick = (event) => {
     setMenuOpen(false);
 
-    if (location.pathname === "/") {
-      scrollToHomeTarget(targetId);
+    if (location.pathname !== "/") {
       return;
     }
 
-    saveHomeScrollTarget(targetId);
-    navigate(targetId ? `/#${targetId}` : "/");
+    event.preventDefault();
+    scrollToTargetId(null, "smooth");
+  };
+
+  const handleLinkClick = (event, link) => {
+    setMenuOpen(false);
+
+    if (location.pathname !== link.href || !link.targetId) {
+      return;
+    }
+
+    event.preventDefault();
+    scrollToTargetId(link.targetId, "smooth");
   };
 
   return (
     <>
-      {/* ── Pill bar ── */}
       <header className="fnav-wrapper" role="banner">
         <nav
           className={`fnav-pill${scrolled ? " is-scrolled" : ""}`}
           aria-label="Main navigation"
         >
-          {/* Logo */}
           <Link
             to="/"
             className="fnav-logo"
             aria-label="VenturePR home"
-            onClick={(event) => handleHomeNavigation(event)}
+            onClick={handleHomeClick}
           >
             <img
               src="/venturepr_hero_images/navbar_logo.png"
@@ -63,30 +66,23 @@ export default function FloatingNav() {
             />
           </Link>
 
-          {/* Desktop links */}
           <div className="fnav-links">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
                 to={link.href}
                 className="fnav-link"
-                onClick={(event) => {
-                  if (link.href.startsWith("/#")) {
-                    handleHomeNavigation(event, link.href.slice(2));
-                  }
-                }}
+                onClick={(event) => handleLinkClick(event, link)}
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          {/* CTA */}
           <Link to="/contact-us" className="fnav-cta">
             Request a strategy call
           </Link>
 
-          {/* Mobile hamburger */}
           <button
             className="fnav-hamburger"
             onClick={() => setMenuOpen((o) => !o)}
@@ -97,7 +93,7 @@ export default function FloatingNav() {
               style={{
                 transform: menuOpen
                   ? "rotate(45deg) translate(4px, 4px)"
-                  : "none"
+                  : "none",
               }}
             />
             <span style={{ opacity: menuOpen ? 0 : 1 }} />
@@ -105,14 +101,13 @@ export default function FloatingNav() {
               style={{
                 transform: menuOpen
                   ? "rotate(-45deg) translate(4px, -4px)"
-                  : "none"
+                  : "none",
               }}
             />
           </button>
         </nav>
       </header>
 
-      {/* ── Mobile dropdown ── */}
       <div
         className={`fnav-mobile-menu${menuOpen ? " open" : ""}`}
         role="dialog"
@@ -123,19 +118,16 @@ export default function FloatingNav() {
             key={link.label}
             to={link.href}
             className="fnav-mobile-link"
-            onClick={(event) => {
-              if (link.href.startsWith("/#")) {
-                handleHomeNavigation(event, link.href.slice(2));
-                return;
-              }
-
-              setMenuOpen(false);
-            }}
+            onClick={(event) => handleLinkClick(event, link)}
           >
             {link.label}
           </Link>
         ))}
-        <Link to="/contact-us" className="fnav-mobile-cta" onClick={() => setMenuOpen(false)}>
+        <Link
+          to="/contact-us"
+          className="fnav-mobile-cta"
+          onClick={() => setMenuOpen(false)}
+        >
           Book Now
         </Link>
       </div>

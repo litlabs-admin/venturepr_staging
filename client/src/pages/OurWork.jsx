@@ -6,8 +6,11 @@ import { OurWorkCoverageSection } from "../components/our-work/OurWorkCoverageSe
 import { OurWorkCaseStudiesSection } from "../components/our-work/OurWorkCaseStudiesSection";
 import FloatingNav from "../components/FloatingNav";
 import { FooterSection } from "../components/FooterSection";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 export function OurWorkPage() {
+  usePageTitle("Our Work - Venture PR");
+
   return (
     <main className="our-work-page">
       <FloatingNav />

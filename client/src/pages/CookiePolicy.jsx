@@ -1,12 +1,14 @@
-import { useEffect } from "react";
 import FloatingNav from "../components/FloatingNav";
 import { FooterSection } from "../components/FooterSection";
 import { cookiePolicyContent } from "../data/cookiePolicyContent";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 export function CookiePolicyPage() {
-  useEffect(() => {
-    document.title = "Cookie Policy - Venture PR";
-  }, []);
+  usePageTitle("Cookie Policy - Venture PR");
+  const renderedCookiePolicyContent = cookiePolicyContent.replaceAll(
+    'href="https://business.safety.google/privacy/"',
+    'href="/privacy-policy"'
+  );
 
   return (
     <main className="cookie-policy-page-native">
@@ -15,7 +17,7 @@ export function CookiePolicyPage() {
         <div className="cookie-policy-page-native__container">
           <div
             className="cookie-policy-page-native__document"
-            dangerouslySetInnerHTML={{ __html: cookiePolicyContent }}
+            dangerouslySetInnerHTML={{ __html: renderedCookiePolicyContent }}
           />
         </div>
       </section>

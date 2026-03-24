@@ -8,6 +8,7 @@ import {
   defaultCaseStudySlug,
 } from "../data/caseStudies";
 import { useOurWorkBreakpoint } from "../components/our-work/useOurWorkBreakpoint";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 const carouselTiming = {
   intervalMs: 2500,
@@ -88,7 +89,7 @@ function renderSectionBody(sectionBody, sectionTitle, listClassName = "case-deta
 export function CaseStudiesPage() {
   const { slug } = useParams();
   const caseStudy = slug ? caseStudiesBySlug[slug] : caseStudiesBySlug[defaultCaseStudySlug];
-  const resolvedCaseStudy = caseStudy ?? caseStudiesBySlug[defaultCaseStudySlug];
+  usePageTitle(caseStudy ? `${caseStudy.title} - Venture PR` : null);
   const breakpoint = useOurWorkBreakpoint();
   const cardsPerView = breakpoint === "mobile" ? 1 : 3;
   const carouselViewportRef = useRef(null);
@@ -99,15 +100,16 @@ export function CaseStudiesPage() {
     gapPx: breakpoint === "mobile" ? 16 : 24,
   }));
   const relatedCaseStudies = useMemo(
-    () => caseStudies.filter((study) => study.slug !== resolvedCaseStudy.slug),
-    [resolvedCaseStudy.slug]
+    () => caseStudies.filter((study) => study.slug !== caseStudy?.slug),
+    [caseStudy?.slug]
   );
 
-  const conclusionSection =
-    resolvedCaseStudy.overviewSections[resolvedCaseStudy.overviewSections.length - 1] ?? null;
+  const conclusionSection = caseStudy
+    ? caseStudy.overviewSections[caseStudy.overviewSections.length - 1] ?? null
+    : null;
   const mainSections = conclusionSection
-    ? resolvedCaseStudy.overviewSections.slice(0, -1)
-    : resolvedCaseStudy.overviewSections;
+    ? caseStudy.overviewSections.slice(0, -1)
+    : (caseStudy?.overviewSections ?? []);
   const relatedCount = relatedCaseStudies.length;
   const isLooping = relatedCount > cardsPerView;
 
@@ -159,7 +161,7 @@ export function CaseStudiesPage() {
   useEffect(() => {
     setTrackIndex(isLooping ? cardsPerView : 0);
     setIsTransitionEnabled(isLooping);
-  }, [cardsPerView, isLooping, resolvedCaseStudy.slug]);
+  }, [cardsPerView, isLooping, caseStudy?.slug]);
 
   useEffect(() => {
     if (!isLooping || !isTransitionEnabled) return undefined;
@@ -227,7 +229,7 @@ export function CaseStudiesPage() {
   };
 
   if (!caseStudy) {
-    return <Navigate replace to={`/case-studies/${defaultCaseStudySlug}`} />;
+    return <Navigate replace to="/not-found" />;
   }
 
   return (
@@ -239,16 +241,16 @@ export function CaseStudiesPage() {
             <div className="case-detail-exact__hero">
               <div className="case-detail-exact__hero-media">
                 <img
-                  src={resolvedCaseStudy.heroImage}
-                  alt={resolvedCaseStudy.heroImageAlt}
+                  src={caseStudy.heroImage}
+                  alt={caseStudy.heroImageAlt}
                 />
               </div>
             </div>
 
             <div className="case-detail-exact__stack">
               <div className="case-detail-exact__title">
-                <h1>{resolvedCaseStudy.title}</h1>
-                <p>{resolvedCaseStudy.headline}</p>
+                <h1>{caseStudy.title}</h1>
+                <p>{caseStudy.headline}</p>
               </div>
 
               {mainSections.map((section, index) => (
@@ -268,7 +270,7 @@ export function CaseStudiesPage() {
           <div className="case-detail-exact__closing">
             <div className="case-detail-exact__publication">
               <h2>Publication highlights</h2>
-              <p className="case-detail-exact__paragraph">{resolvedCaseStudy.publicationIntro}</p>
+              <p className="case-detail-exact__paragraph">{caseStudy.publicationIntro}</p>
             </div>
 
             {conclusionSection ? (

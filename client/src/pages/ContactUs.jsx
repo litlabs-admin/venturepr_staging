@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import FloatingNav from "../components/FloatingNav";
 import { FooterSection } from "../components/FooterSection";
 import { isValidEmail, submitWeb3Form } from "../utils/web3forms";
+import { usePageTitle } from "../hooks/usePageTitle";
 
 export function ContactUsPage() {
+  usePageTitle("Contact Us - Venture PR");
+
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -272,8 +275,8 @@ export function ContactUsPage() {
               </div>
               <p>Facing a more technical issue ? Need an expert ? We're here.</p>
             </div>
-            <a className="contact-card-exact__link" href="mailto:support@venture.com">
-              support@venture.com
+            <a className="contact-card-exact__link" href="mailto:info@venture.co">
+              info@venturepr.co
             </a>
           </div>
 
