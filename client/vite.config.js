@@ -5,7 +5,6 @@ import prerender from "@prerenderer/rollup-plugin";
 import puppeteerRenderer from "@prerenderer/renderer-puppeteer";
 import fs from "fs";
 import path from "path";
-
 const require = createRequire(import.meta.url);
 const {
   buildBlogsIndexResponse,
@@ -93,21 +92,100 @@ export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const isBuild = process.argv.includes("build");
 
-  const plugins = [react(), airtableBlogApiPlugin(mode)];
+  const plugins = [
+    react(),
+    airtableBlogApiPlugin(mode),
+  ];
 
   if (isBuild) {
     const routes = await getRoutesToPrerender(env);
     console.log("Preparing to prerender routes:", routes);
-    plugins.push(
-      prerender({
-        routes,
-        renderer: puppeteerRenderer,
-        rendererOptions: {
-          maxConcurrentRoutes: 2,
-          renderAfterTime: 2000, // wait 2s for react to render
-        },
-      })
-    );
+    const isVercel = process.env.VERCEL === "1";
+    let executablePath = undefined;
+    let args = undefined;
+    
+    if (isVercel) {
+      const chromium = (await import("@sparticuz/chromium")).default;
+      executablePath = await chromium.executablePath();
+      args = chromium.args;
+      console.log("Using Sparticuz Chromium for Vercel via", executablePath);
+    } else {
+      console.log("Using standard local Puppeteer");
+    }
+
+    const prerenderPlugin = prerender({
+      routes,
+      renderer: new puppeteerRenderer({
+        executablePath,
+        args,
+        renderAfterTime: 2000,
+      }),
+      server: {
+        proxy: {
+          "/api": {
+            target: "http://localhost:9999",
+            changeOrigin: true
+          }
+        }
+      }
+    });
+
+    // Some plugins define hooks as objects { handler: fn }, others as plain functions
+    const originalGenerateBundle = typeof prerenderPlugin.generateBundle === 'object' 
+      ? prerenderPlugin.generateBundle.handler 
+      : prerenderPlugin.generateBundle;
+
+    if (!originalGenerateBundle) {
+      console.warn("Prerender plugin does not have a generateBundle hook!");
+    }
+
+    const wrapperHandler = async function(...args) {
+      const http = await import('http');
+      
+      const apiServer = http.createServer(async (req, res) => {
+        const url = new URL(req.url, "http://localhost");
+        if (req.method === "GET" && url.pathname.startsWith("/api/blogs")) {
+          res.setHeader("Access-Control-Allow-Origin", "*");
+          try {
+            let response;
+            if (url.pathname === "/api/blogs") {
+              response = await buildBlogsIndexResponse(env);
+            } else {
+              const slug = decodeURIComponent(url.pathname.replace("/api/blogs/", ""));
+              response = await buildBlogDetailResponse(slug, env);
+            }
+            res.writeHead(response.status, { "Content-Type": "application/json" });
+            res.end(JSON.stringify(response.body));
+          } catch (error) {
+            res.writeHead(500);
+            res.end(JSON.stringify({ message: "Error" }));
+          }
+        } else {
+          res.writeHead(404);
+          res.end();
+        }
+      });
+
+      await new Promise(resolve => apiServer.listen(9999, resolve));
+      console.log("Started internal API server on port 9999 for prerendering...");
+
+      try {
+        if (originalGenerateBundle) {
+          await originalGenerateBundle.apply(this, args);
+        }
+      } finally {
+        apiServer.close();
+        console.log("Closed internal API server.");
+      }
+    };
+
+    if (typeof prerenderPlugin.generateBundle === 'object') {
+      prerenderPlugin.generateBundle.handler = wrapperHandler;
+    } else {
+      prerenderPlugin.generateBundle = wrapperHandler;
+    }
+
+    plugins.push(prerenderPlugin);
   }
 
   return {

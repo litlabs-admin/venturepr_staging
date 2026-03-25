@@ -46,7 +46,16 @@ function setDetailCache(post) {
 }
 
 async function fetchJson(url) {
-  const response = await fetch(url);
+  let finalUrl = url;
+  // During SSG, Puppeteer accesses the site through a static file server.
+  // To reach the mock API running in the background, we use absolute URLs.
+  if (typeof window !== "undefined" && window.__PRERENDER_INJECTED) {
+    if (finalUrl.startsWith("/")) {
+      finalUrl = "http://localhost:9999" + finalUrl;
+    }
+  }
+
+  const response = await fetch(finalUrl);
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {

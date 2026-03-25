@@ -6,6 +6,12 @@ The blog now loads from Airtable through a root-level API layer, while the clien
 
 It is structured as an npm workspace with a single front-end app in `client/`. The root package provides the top-level workspace scripts, the `api/` directory hosts serverless endpoints for Airtable-backed blog content, and the React app handles the UI and routing.
 
+## AI Discoverability & SEO Optimizations
+
+- **Build-Time SSG (Static Site Generation):** Replaced the empty SPA root div with fully pre-rendered HTML files for every static and dynamic route (including dynamic Airtable blogs and case studies) during the Vercel build. This allows standard search engines (Google, Bing) to instantly parse the site's layout and text content.
+- **AI-Native Endpoint (`/llm.txt`):** Added a custom build script (`generate-llm.js`) that safely parses the agency's React data files to extract all deep services, case study overviews, and blog posts into a single, massive Markdown file (`dist/llm.txt`). This acts as a dedicated, fully-populated knowledge base for AI chatbots (Claude, ChatGPT, Perplexity).
+- **Vercel-Native Compatibility:** Integrated the lightweight JSDOM rendering engine so the prerendering operation executes natively within Vercel's standard deployment environments without requiring custom OS packages.
+
 ## Recent Changes
 
 - Added a root-level serverless blog API backed by Airtable
