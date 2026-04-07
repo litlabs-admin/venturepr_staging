@@ -9265,10 +9265,18 @@ body,
   gap: 10px 16px;
 }
 
+.blog-posts-section__meta {
+  flex-wrap: nowrap;
+}
+
 .blog-posts-section__meta span,
 .blog-related__meta span,
 .blog-post-detail__meta span {
   position: relative;
+}
+
+.blog-posts-section__meta span {
+  white-space: nowrap;
 }
 
 .blog-posts-section__meta span + span::before,
