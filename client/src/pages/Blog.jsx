@@ -1,6 +1,5 @@
 import FloatingNav from "../components/FloatingNav";
 import { FooterSection } from "../components/FooterSection";
-import { BlogLabelSection } from "../components/blog/BlogLabelSection";
 import { BlogHeroSection } from "../components/blog/BlogHeroSection";
 import { BlogCtaSection } from "../components/blog/BlogCtaSection";
 import { BlogPostsSection } from "../components/blog/BlogPostsSection";
@@ -13,7 +12,6 @@ export function BlogPage() {
     <main className="blog-page">
       <FloatingNav />
       <div className="blog-page__content">
-        <BlogLabelSection />
         <BlogHeroSection />
         <BlogPostsSection />
         <BlogCtaSection />

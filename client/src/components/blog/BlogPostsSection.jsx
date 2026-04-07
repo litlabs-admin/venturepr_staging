@@ -53,7 +53,7 @@ export function BlogPostsSection() {
 
   return (
     <section className="blog-posts-section" aria-labelledby="blog-posts-title">
-      <div className="blog-posts-section__eyebrow">/ Blog</div>
+      <div className="blog-posts-section__eyebrow"></div>
       <div className="blog-posts-section__header">
         <h2 id="blog-posts-title">Recent writing from Venture PR</h2>
         <p>
