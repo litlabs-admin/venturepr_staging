@@ -9206,6 +9206,11 @@ body,
   text-decoration: none;
 }
 
+.blog-posts-section__card-link {
+  display: flex;
+  flex-direction: column;
+}
+
 .blog-posts-section__media,
 .blog-related__media {
   aspect-ratio: 16 / 10;
@@ -9236,6 +9241,12 @@ body,
   display: grid;
   gap: 16px;
   padding: 24px;
+}
+
+.blog-posts-section__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
 }
 
 .blog-posts-section__status,
@@ -9298,11 +9309,27 @@ body,
   margin: 0;
 }
 
+.blog-posts-section__content h3 {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.blog-posts-section__content p {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+}
+
 .blog-posts-section__readmore {
   color: var(--agencie-accent);
   font-family: "Instrument Sans", sans-serif;
   font-size: 15px;
   font-weight: 600;
+  margin-top: auto;
 }
 
 .blog-posts-section__actions {
