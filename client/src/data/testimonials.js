@@ -20,7 +20,7 @@ export const testimonials = [
   },
   {
     quote:
-      "“Venture PR has been a trusted partner to VEG ER for Pets for the past three years, growing alongside our company as it's expanded and the brand strategy has evolved. Their team is adaptable, solutions-oriented, and feels like a true extension of our own. They’re also excellent communicators, which has been critical for us. Our spokespeople are ER veterinarians first, focused on patient care, and Venture PR navigates their schedules with thoughtfulness and efficiency while still delivering strong media outcomes. What stands out most is their willingness to support. When we opened our first international hospital, they stepped in without hesitation by supporting talent sourcing, onboarding, and ultimately executing a launch that exceeded expectations. Their partnership has made a meaningful impact on our growth.”",
+      "“Venture PR has been a trusted partner to VEG ER for Pets for the past three years, growing alongside us as our brand has evolved. Their team is adaptable, solutions-oriented, and feels like a true extension of our own. They communicate effectively and work seamlessly with our ER veterinarians’ demanding schedules while still delivering strong media results. What stands out most is their willingness to support—especially during our first international hospital launch, where they helped with talent sourcing, onboarding, and execution, exceeding expectations.”",
     name: "Jackie DeLucia",
     role: "VEG ER",
     logo: vegerlogo,
