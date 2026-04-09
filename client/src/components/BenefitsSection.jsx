@@ -8,7 +8,7 @@ import benefitImage4 from "../assets/agencie/benefits/image4.png";
 
 const benefits = [
   {
-    text: "We earn your media coverage you focus on building your product. We pitch, they publish, you grow.",
+    text: "We earn your media coverage, you focus on building your product. We pitch, they publish, you grow.",
     image: benefitImage1
   },
   {
