@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { PhosphorIcon } from "./PhosphorIcon";
-import benefitImage1 from "../assets/agencie/benefits/benefit-1.png";
-import benefitImage2 from "../assets/agencie/benefits/benefit-2.png";
-import benefitImage3 from "../assets/agencie/benefits/benefit-3.png";
-import benefitImage4 from "../assets/agencie/benefits/benefit-4.png";
+import "./BenefitsGrid.css";
+import benefitImage1 from "../assets/agencie/benefits/image1.png";
+import benefitImage2 from "../assets/agencie/benefits/image2.png";
+import benefitImage3 from "../assets/agencie/benefits/image3.png";
+import benefitImage4 from "../assets/agencie/benefits/image4.png";
 
 const benefits = [
   {
@@ -24,98 +25,9 @@ const benefits = [
   }
 ];
 
-function ArrowIcon({ direction }) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path
-        d={
-          direction === "left"
-            ? "M14.75 5.5 8.25 12l6.5 6.5"
-            : "M9.25 5.5 15.75 12l-6.5 6.5"
-        }
-      />
-    </svg>
-  );
-}
-
 export function BenefitsSection() {
   const sectionRef = useRef(null);
-  const trackRef = useRef(null);
-  const dragStateRef = useRef({
-    isDragging: false,
-    startX: 0,
-    startScrollLeft: 0
-  });
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollState, setScrollState] = useState({
-    canScrollPrev: false,
-    canScrollNext: benefits.length > 1
-  });
-
-  const getCards = () =>
-    Array.from(trackRef.current?.querySelectorAll(".benefit-card") ?? []).filter(
-      (card) => card instanceof HTMLElement
-    );
-
-  const updateScrollState = () => {
-    const track = trackRef.current;
-
-    if (!track) {
-      return;
-    }
-
-    const maxScrollLeft = Math.max(track.scrollWidth - track.clientWidth, 0);
-    const nextScrollState = {
-      canScrollPrev: track.scrollLeft > 1,
-      canScrollNext: track.scrollLeft < maxScrollLeft - 1
-    };
-
-    setScrollState((currentState) => {
-      if (
-        currentState.canScrollPrev === nextScrollState.canScrollPrev &&
-        currentState.canScrollNext === nextScrollState.canScrollNext
-      ) {
-        return currentState;
-      }
-
-      return nextScrollState;
-    });
-  };
-
-  const scrollCarousel = (direction) => {
-    const track = trackRef.current;
-    const cards = getCards();
-
-    if (!track || cards.length === 0) {
-      return;
-    }
-
-    let currentIndex = 0;
-    let closestDistance = Number.POSITIVE_INFINITY;
-
-    cards.forEach((card, index) => {
-      const distance = Math.abs(track.scrollLeft - card.offsetLeft);
-
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        currentIndex = index;
-      }
-    });
-
-    const targetIndex = Math.min(
-      Math.max(currentIndex + direction, 0),
-      cards.length - 1
-    );
-
-    if (targetIndex === currentIndex) {
-      return;
-    }
-
-    track.scrollTo({
-      left: cards[targetIndex].offsetLeft,
-      behavior: "smooth"
-    });
-  };
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -137,92 +49,6 @@ export function BenefitsSection() {
     observer.observe(node);
 
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const track = trackRef.current;
-
-    if (!track) {
-      return;
-    }
-
-    updateScrollState();
-
-    const onScroll = () => {
-      updateScrollState();
-    };
-
-    const onResize = () => {
-      updateScrollState();
-    };
-
-    const enablePointerDrag =
-      typeof window !== "undefined" &&
-      typeof window.matchMedia === "function" &&
-      window.matchMedia("(pointer: fine)").matches;
-
-    const onPointerDown = (event) => {
-      dragStateRef.current = {
-        isDragging: true,
-        startX: event.clientX,
-        startScrollLeft: track.scrollLeft
-      };
-
-      track.setPointerCapture(event.pointerId);
-    };
-
-    const onPointerMove = (event) => {
-      if (!dragStateRef.current.isDragging) {
-        return;
-      }
-
-      const deltaX = event.clientX - dragStateRef.current.startX;
-      track.scrollLeft = dragStateRef.current.startScrollLeft - deltaX;
-    };
-
-    const endDrag = (event) => {
-      if (dragStateRef.current.isDragging) {
-        dragStateRef.current.isDragging = false;
-      }
-
-      if (track.hasPointerCapture(event.pointerId)) {
-        track.releasePointerCapture(event.pointerId);
-      }
-    };
-
-    const resizeObserver =
-      typeof ResizeObserver === "undefined" ? null : new ResizeObserver(onResize);
-
-    if (resizeObserver) {
-      resizeObserver.observe(track);
-      getCards().forEach((card) => resizeObserver.observe(card));
-    } else {
-      window.addEventListener("resize", onResize);
-    }
-
-    if (enablePointerDrag) {
-      track.addEventListener("pointerdown", onPointerDown);
-      track.addEventListener("pointermove", onPointerMove);
-      track.addEventListener("pointerup", endDrag);
-      track.addEventListener("pointercancel", endDrag);
-    }
-    track.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      if (enablePointerDrag) {
-        track.removeEventListener("pointerdown", onPointerDown);
-        track.removeEventListener("pointermove", onPointerMove);
-        track.removeEventListener("pointerup", endDrag);
-        track.removeEventListener("pointercancel", endDrag);
-      }
-      track.removeEventListener("scroll", onScroll);
-
-      if (resizeObserver) {
-        resizeObserver.disconnect();
-      } else {
-        window.removeEventListener("resize", onResize);
-      }
-    };
   }, []);
 
   return (
@@ -248,41 +74,53 @@ export function BenefitsSection() {
           </div>
         </div>
 
-        <div className="benefits-carousel-wrap">
-          <div className="benefits-carousel__controls" aria-label="Benefits navigation">
-            <button
-              type="button"
-              className="benefits-carousel__arrow"
-              aria-label="Previous benefits"
-              disabled={!scrollState.canScrollPrev}
-              onClick={() => scrollCarousel(-1)}
-            >
-              <ArrowIcon direction="left" />
-            </button>
-            <button
-              type="button"
-              className="benefits-carousel__arrow"
-              aria-label="Next benefits"
-              disabled={!scrollState.canScrollNext}
-              onClick={() => scrollCarousel(1)}
-            >
-              <ArrowIcon direction="right" />
-            </button>
+        <div className="benefits-grid">
+          {/* Item 01 */}
+          <div className="benefits-item benefits-item-1">
+            <div className="benefits-line benefits-line-1-to-2"></div>
+            <div className="benefits-image-placeholder img-1" style={{ backgroundImage: `url(${benefits[0].image})` }}></div>
+            <div className="benefits-step-marker">
+              <div className="benefits-circle">01</div>
+            </div>
+            <div className="benefits-text">
+              {benefits[0].text}
+            </div>
           </div>
-          <div ref={trackRef} className="benefits-carousel" aria-label="Benefits">
-            {benefits.map((benefit, index) => (
-              <article
-                key={benefit.text}
-                className="benefit-card"
-              >
-                <div className="benefit-card__text-wrap">
-                  <p>{benefit.text}</p>
-                </div>
-                <div className="benefit-card__image-wrap">
-                  <img src={benefit.image} alt="" draggable="false" />
-                </div>
-              </article>
-            ))}
+
+          {/* Item 02 */}
+          <div className="benefits-item benefits-item-2">
+            <div className="benefits-line benefits-line-2-down"></div>
+            <div className="benefits-image-placeholder img-2" style={{ backgroundImage: `url(${benefits[1].image})` }}></div>
+            <div className="benefits-step-marker">
+              <div className="benefits-circle">02</div>
+            </div>
+            <div className="benefits-text">
+              {benefits[1].text}
+            </div>
+          </div>
+
+          {/* Item 04 (visually left, but DOM order can match visual or logical) */}
+          <div className="benefits-item benefits-item-4">
+            <div className="benefits-image-placeholder img-4" style={{ backgroundImage: `url(${benefits[3].image})` }}></div>
+            <div className="benefits-step-marker">
+              <div className="benefits-circle">04</div>
+            </div>
+            <div className="benefits-text">
+              {benefits[3].text}
+            </div>
+          </div>
+
+          {/* Item 03 */}
+          <div className="benefits-item benefits-item-3">
+            <div className="benefits-line benefits-line-3-up"></div>
+            <div className="benefits-line benefits-line-3-to-4"></div>
+            <div className="benefits-image-placeholder img-3" style={{ backgroundImage: `url(${benefits[2].image})` }}></div>
+            <div className="benefits-step-marker">
+              <div className="benefits-circle">03</div>
+            </div>
+            <div className="benefits-text">
+              {benefits[2].text}
+            </div>
           </div>
         </div>
       </div>

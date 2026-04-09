@@ -1,0 +1,176 @@
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+    "item1 item2"
+    "item4 item3";
+  row-gap: 80px;
+  column-gap: 80px;
+  align-items: stretch;
+  position: relative;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.benefits-item-1 { grid-area: item1; }
+.benefits-item-2 { grid-area: item2; }
+.benefits-item-3 { grid-area: item3; }
+.benefits-item-4 { grid-area: item4; }
+
+.benefits-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.benefits-image-placeholder {
+  width: 100%;
+  max-width: 245px; /* Reduced by half */
+  height: 225px; /* Reduced by half */
+  background-color: #E5E5E5; 
+  border-radius: 50px; /* Scaled down border-radius */
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 40px;
+  flex-shrink: 0;
+}
+
+.benefits-step-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 490px;
+  margin-bottom: 30px;
+  flex-shrink: 0;
+}
+
+.benefits-circle {
+  box-sizing: border-box;
+  width: 111px;
+  height: 109px;
+  border: 1px solid #FF0000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 36px;
+  color: #FF0000;
+  background: #FFFFFF;
+  position: relative;
+  z-index: 2;
+}
+
+.benefits-text {
+  max-width: 490px;
+  color: var(--agencie-text);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.3;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+/* Connecting Dashed Lines EXACTLY matching path */
+.benefits-line {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.benefits-line-1-to-2 {
+  top: 319.5px; /* (225 + 40 + (109/2)) = center of circle */
+  left: calc(50% + 55.5px);
+  width: calc(100% + 80px - 111px);
+  border-top: 3px dashed #FF0000;
+}
+
+.benefits-line-2-down {
+  top: 319.5px;
+  left: calc(50% + 55.5px);
+  right: 0; 
+  bottom: -40px;
+  border-top: 3px dashed #FF0000;
+  border-right: 3px dashed #FF0000;
+  border-top-right-radius: 20px;
+}
+
+.benefits-line-3-up {
+  top: -40px;
+  left: calc(50% + 55.5px);
+  right: 0;
+  height: calc(319.5px + 40px);
+  border-bottom: 3px dashed #FF0000;
+  border-right: 3px dashed #FF0000;
+  border-bottom-right-radius: 20px;
+}
+
+.benefits-line-3-to-4 {
+  top: 319.5px;
+  right: calc(50% + 55.5px); /* from left edge of circle 3 */
+  width: calc(100% + 80px - 111px); /* exactly reaches circle 4 right edge */
+  border-top: 3px dashed #FF0000;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .benefits-grid {
+    column-gap: 40px;
+    row-gap: 60px;
+  }
+  .benefits-image-placeholder {
+    height: 175px; 
+    max-width: 190px;
+    border-radius: 30px;
+  }
+  .benefits-circle {
+    width: 80px;
+    height: 80px;
+    font-size: 28px;
+  }
+  .benefits-text {
+    font-size: 18px;
+  }
+  /* Recalculate top center */
+  .benefits-line-1-to-2, .benefits-line-2-down, .benefits-line-3-to-4 {
+    top: 255px; /* 175 + 40 + 40 */
+  }
+  .benefits-line-1-to-2 { left: calc(50% + 40px); width: calc(100% + 40px - 80px); }
+  .benefits-line-2-down { left: calc(50% + 40px); right: 0; }
+  .benefits-line-3-up { left: calc(50% + 40px); right: 0; height: calc(255px + 40px); }
+  .benefits-line-3-to-4 { right: calc(50% + 40px); width: calc(100% + 40px - 80px); }
+}
+
+@media (max-width: 640px) {
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "item1"
+      "item2"
+      "item3"
+      "item4";
+    row-gap: 60px;
+  }
+  
+  .benefits-item-3 { grid-area: item3; } 
+  .benefits-item-4 { grid-area: item4; }
+
+  .benefits-line {
+    display: none; /* Hide dashed lines on mobile only */
+  }
+  
+  .benefits-image-placeholder {
+    height: 150px;
+    border-radius: 20px;
+  }
+  
+  .benefits-text {
+    text-align: center;
+  }
+}

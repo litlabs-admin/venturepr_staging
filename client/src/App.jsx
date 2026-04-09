@@ -48,11 +48,11 @@ function HomePage() {
       <StatisticsSection />
       <BenefitsSection />
       <BrandsSection />
+      <TestimonialSection />
       <ServicesSection />
       <ProjectsSection />
       <ProcessSection />
       <DifferencesSection />
-      <TestimonialSection />
       <AboutSection />
       <FaqSection />
       <CtaSection />
