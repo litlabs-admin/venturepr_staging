@@ -8,9 +8,17 @@ import satellailogo from "../assets/agencie/testimonials/satellai_logo.png";
 import channellogo from "../assets/agencie/testimonials/channel99.svg";
 import nowverticallogo from "../assets/agencie/testimonials/nowvertical.png";
 import vegerlogo from "../assets/agencie/testimonials/veg_er.jpeg";
+import roborocklogo from "../assets/agencie/testimonials/roborocklogo.png";
 
 
 export const testimonials = [
+  {
+    quote:
+      "“When we brought Venture PR in to support Roborock's in-house team, they didn't just add to our existing coverage they helped us break into tech publications, review sites, and business press. More importantly, they laid the foundation for Roborock's long-term relationships with media and journalists. As our brand grew, they helped us diversify and scale our coverage significantly. We renewed our agreement with them multiple times because their team worked hard, genuinely cared about our success, and delivered results. We're truly grateful.”",
+    name: "Dan Cham",
+    role: "Roborock",
+    logo: roborocklogo,
+  },
   {
     quote:
       "“Their work ethic and discipline were outstanding. Venture Public Relations provided PR services for an AI company. The team was responsible for generating placements in press releases. Venture Public Relations achieved over five press placements per month with notable publications. The team managed the project seamlessly and delivered excellent work. Moreover, they communicated effectively through virtual meetings; the client saw no need for improvements.”",
