@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import videoPoster from "../assets/video_poster.png";
 import { useOurWorkBreakpoint } from "./our-work/useOurWorkBreakpoint";
 
 // Import all 9 hero images
@@ -185,30 +186,48 @@ export function HeroSection() {
       className={`marqo-hero marqo-hero--new${isVisible ? " is-visible" : ""}`}
       aria-label="Hero"
     >
-      <div className="marqo-hero__container">
-        <div className="marqo-hero__heading">
-          <h1 className="marqo-hero__title marqo-appear marqo-appear--delay-1">
-            Be the <span className="marqo-hero__title-accent">brand</span>{" "}
-            everyone's talking about.
-          </h1>
-          <p className="marqo-hero__subtitle marqo-appear marqo-appear--delay-2">
-            Strategic PR that's earned billions of impressions for the world's most ambitious brands.
-          </p>
+      <div className="marqo-hero__container hero-two-column">
+        <div className="hero-left-column">
+          <div className="marqo-hero__heading hero-heading-left">
+            <h1 className="marqo-hero__title marqo-appear marqo-appear--delay-1">
+              Be the <span className="marqo-hero__title-accent">brand</span>{" "}
+              everyone's talking about.
+            </h1>
+            <p className="marqo-hero__subtitle marqo-appear marqo-appear--delay-2">
+              Strategic PR that's earned billions of impressions for the world's most ambitious brands.
+            </p>
+          </div>
+
+          <div className="marqo-hero__actions hero-actions-left">
+            <Link
+              className="marqo-button marqo-button--green marqo-appear marqo-appear--delay-3"
+              to="/contact-us"
+            >
+              See what's possible
+            </Link>
+            <Link
+              className="marqo-button marqo-button--outline marqo-appear marqo-appear--delay-4"
+              to="/our-work"
+            >
+              See our work
+            </Link>
+          </div>
         </div>
 
-        <div className="marqo-hero__actions">
-          <Link
-            className="marqo-button marqo-button--green marqo-appear marqo-appear--delay-3"
-            to="/contact-us"
-          >
-            See what's possible
-          </Link>
-          <Link
-            className="marqo-button marqo-button--outline marqo-appear marqo-appear--delay-4"
-            to="/our-work"
-          >
-            See our work
-          </Link>
+        <div className="hero-right-column marqo-appear marqo-appear--delay-5">
+          <div className="hero-video-card">
+            <div className="hero-video-thumbnail">
+              <img src={videoPoster} alt="Watch how we earn coverage" />
+              <div className="hero-play-button-overlay">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+            <div className="hero-video-label">
+              <span>Watch how we earn coverage</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -267,3 +286,4 @@ export function HeroSection() {
     </section>
   );
 }
+

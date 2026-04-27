@@ -45,12 +45,12 @@ function HomePage() {
       </Helmet>
       <FloatingNav />
       <HeroSection />
+      {/* <BrandsSection /> Optional small press/logo strip hidden for now */}
       <StatisticsSection />
-      <BenefitsSection />
-      <BrandsSection />
+      <ProjectsSection />
+      {/* <BenefitsSection /> Hidden for now */}
       <TestimonialSection />
       <ServicesSection />
-      <ProjectsSection />
       <ProcessSection />
       <DifferencesSection />
       <AboutSection />
