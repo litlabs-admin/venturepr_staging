@@ -1,81 +1,63 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@700&family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
 
 @font-face {
-  font-family: "Darker Grotesque";
-  font-style: normal;
-  font-weight: 500;
-  src: url("./assets/fonts/our-work/DarkerGrotesque-500.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Darker Grotesque";
-  font-style: normal;
-  font-weight: 600;
-  src: url("./assets/fonts/our-work/DarkerGrotesque-600.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Darker Grotesque";
-  font-style: normal;
-  font-weight: 700;
-  src: url("./assets/fonts/our-work/DarkerGrotesque-700.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Familjen Grotesk";
+  font-family: "Tobias";
   font-style: normal;
   font-weight: 400;
-  src: url("./assets/fonts/our-work/FamiljenGrotesk-400.woff2") format("woff2");
+  src: url("./assets/fonts/Tobias/Tobias-TRIAL-Regular.woff2") format("woff2");
 }
-
 @font-face {
-  font-family: "Familjen Grotesk";
-  font-style: normal;
-  font-weight: 700;
-  src: url("./assets/fonts/our-work/FamiljenGrotesk-700.woff2") format("woff2");
+  font-family: "Tobias";
+  font-style: italic;
+  font-weight: 400;
+  src: url("./assets/fonts/Tobias/Tobias-TRIAL-RegularItalic.woff2") format("woff2");
 }
-
 @font-face {
-  font-family: "Inria Serif";
-  font-style: normal;
-  font-weight: 700;
-  src: url("./assets/fonts/our-work/InriaSerif-700.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Lora";
+  font-family: "Tobias";
   font-style: normal;
   font-weight: 500;
-  src: url("./assets/fonts/our-work/Lora-500.woff2") format("woff2");
+  src: url("./assets/fonts/Tobias/Tobias-TRIAL-Medium.woff2") format("woff2");
 }
-
 @font-face {
-  font-family: "Inter";
-  font-style: normal;
+  font-family: "Tobias";
+  font-style: italic;
   font-weight: 500;
-  src: url("./assets/fonts/our-work/Inter-500.woff2") format("woff2");
+  src: url("./assets/fonts/Tobias/Tobias-TRIAL-MediumItalic.woff2") format("woff2");
 }
-
 @font-face {
-  font-family: "Inter";
+  font-family: "Tobias";
   font-style: normal;
   font-weight: 600;
-  src: url("./assets/fonts/our-work/Inter-600.woff2") format("woff2");
+  src: url("./assets/fonts/Tobias/Tobias-TRIAL-SemiBold.woff2") format("woff2");
 }
-
 @font-face {
-  font-family: "Inter";
+  font-family: "Tobias";
   font-style: normal;
   font-weight: 700;
-  src: url("./assets/fonts/our-work/Inter-700.woff2") format("woff2");
+  src: url("./assets/fonts/Tobias/Tobias-TRIAL-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "SuisseIntl";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/fonts/SuisseIntl/SuisseIntl-Regular.woff2") format("woff2"),
+       url("./assets/fonts/SuisseIntl/SuisseIntl-Regular.ttf") format("truetype");
 }
 
-@font-face {
-  font-family: "Raleway";
-  font-style: normal;
-  font-weight: 700;
-  src: url("./assets/fonts/diligent/Raleway-700.woff2") format("woff2");
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 :root {
   --agencie-cream: rgb(253, 252, 238);
@@ -109,64 +91,24 @@
   --marqo-pill-text: rgb(240, 244, 243);
   --marqo-green: rgb(167, 229, 99);
   --marqo-dark: rgb(6, 64, 53);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-sans: "SuisseIntl", "Inter", sans-serif;
+  --font-heading: "Tobias", serif;
 }
 
-
-.marqo-hero {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 74px;
-  height: 1185px;
-  justify-content: flex-start;
-  overflow: hidden;
-  padding: 0;
-  position: relative;
-  width: 100%;
-}
-
-.marqo-hero__container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  max-width: 1200px;
-  padding: 0 40px;
-  position: relative;
-  width: 100%;
-  z-index: 3;
-}
-
-
-.marqo-hero__heading {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 800px;
-  text-align: center;
-}
-
-.marqo-hero__title {
-  color: var(--agencie-type-dark);
-  font-family: "DM Sans", sans-serif;
-  font-size: var(--agencie-type-hero-h1-size);
-  font-weight: 700;
-  letter-spacing: var(--agencie-type-hero-h1-tracking);
-  line-height: 1;
-  margin: 0;
-  text-transform: none;
+/* Global: headings use Tobias Medium/Regular; body uses SuisseIntl */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 500;
 }
 
 .marqo-hero__title-accent {
   color: var(--agencie-accent);
 }
 
+
 .marqo-hero__subtitle {
   color: var(--agencie-text);
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 400;
   line-height: 1.55;
@@ -187,7 +129,7 @@
   align-items: center;
   border-radius: 36px;
   display: inline-flex;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 600;
   gap: 10px;
@@ -216,7 +158,8 @@
   transform: translateY(30px);
 }
 
-.marqo-hero.is-visible .marqo-appear {
+.marqo-hero.is-visible .marqo-appear,
+.hero-2-section.is-visible .marqo-appear {
   opacity: 1;
   transform: translateY(0);
 }
@@ -259,6 +202,53 @@
 
 .marqo-appear--delay-10 {
   transition-delay: 1s;
+}
+
+
+/* ─── Hero Section – Base Layout ─── */
+.marqo-hero {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 74px;
+  height: 1185px;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+.marqo-hero__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1200px;
+  padding: 0 40px;
+  position: relative;
+  width: 100%;
+  z-index: 3;
+}
+
+.marqo-hero__heading {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  text-align: center;
+}
+
+.marqo-hero__title {
+  color: var(--agencie-type-dark);
+  font-family: var(--font-heading);
+  font-size: var(--agencie-type-hero-h1-size);
+  font-weight: 500;
+  letter-spacing: var(--agencie-type-hero-h1-tracking);
+  line-height: 1;
+  margin: 0;
+  text-transform: none;
 }
 
 @media (max-width: 1199px) and (min-width: 810px) {
@@ -628,7 +618,7 @@ a {
 
 .not-found-page__eyebrow {
   color: #f75738;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -638,7 +628,7 @@ a {
 
 .not-found-page__title {
   color: #0f0f0f;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(52px, 8vw, 86px);
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -649,7 +639,7 @@ a {
 
 .not-found-page__copy {
   color: #2d2d2d;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 28px;
   font-weight: 500;
   line-height: 1.05;
@@ -667,7 +657,7 @@ a {
 
 .not-found-page__action {
   border-radius: 999px;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -758,7 +748,7 @@ a {
   border: 1px solid rgba(0, 0, 0, 0.07);
   max-width: 820px;
   width: 100%;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-sans);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   transform: translateY(0);
 }
@@ -879,7 +869,7 @@ a {
   z-index: 9998;
   flex-direction: column;
   gap: 2px;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
 }
 
 .fnav-mobile-menu.open {
@@ -1057,7 +1047,7 @@ a {
 
 .stats-card__value {
   color: #000000;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 74px;
   font-weight: 400;
   letter-spacing: -0.09em;
@@ -3804,7 +3794,7 @@ a {
 }
 
 .nl-form__status {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   line-height: 1.4;
   margin: 0;
@@ -4751,7 +4741,7 @@ a {
 
 .our-work-label__text {
   color: rgb(255, 79, 1);
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 18.65px;
   letter-spacing: -0.98px;
   line-height: 19.76px;
@@ -4782,7 +4772,7 @@ a {
   color: #000000;
   display: flex;
   flex-direction: column;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-heading);
   font-size: 85.08px;
   font-weight: 700;
   letter-spacing: -2.71px;
@@ -4792,7 +4782,7 @@ a {
 
 .our-work-hero__subtitle {
   color: #000000;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-heading);
   font-size: 25.11px;
   font-weight: 500;
   line-height: 21.13px;
@@ -4819,7 +4809,7 @@ a {
   border-radius: 999px;
   color: rgb(255, 255, 255);
   cursor: pointer;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 30.16px;
   font-weight: 600;
   letter-spacing: -1.28px;
@@ -4884,7 +4874,7 @@ a {
 }
 
 .our-work-featured__description {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 27.79px;
   font-weight: 500;
   line-height: 23.38px;
@@ -4892,7 +4882,7 @@ a {
 }
 
 .our-work-featured__name {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 47.96px;
   font-weight: 700;
   line-height: 40.37px;
@@ -4902,7 +4892,7 @@ a {
 .our-work-featured__rotated {
   bottom: 40px;
   color: #fff;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 47.96px;
   font-weight: 700;
   left: 50%;
@@ -4937,7 +4927,7 @@ a {
 }
 
 .our-work-featured__text h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 60px;
   font-weight: 700;
   letter-spacing: -1.59px;
@@ -4946,7 +4936,7 @@ a {
 }
 
 .our-work-featured__text p {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -0.68px;
@@ -4992,7 +4982,7 @@ a {
 }
 
 .our-work-coverage__header h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 85.08px;
   font-weight: 700;
   letter-spacing: -2.71px;
@@ -5001,7 +4991,7 @@ a {
 }
 
 .our-work-coverage__header p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 25.11px;
   font-weight: 500;
   line-height: 21.13px;
@@ -5048,7 +5038,7 @@ a {
 }
 
 .our-work-coverage__body h3 {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 13.5px;
   font-weight: 700;
   letter-spacing: -0.7px;
@@ -5058,7 +5048,7 @@ a {
 
 .our-work-coverage__body p {
   color: rgb(107, 107, 107);
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 9.2px;
   letter-spacing: -0.48px;
   line-height: 11.5px;
@@ -5068,7 +5058,7 @@ a {
 .our-work-coverage__tag {
   color: #000000;
   display: inline-block;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: -0.4px;
@@ -5077,7 +5067,7 @@ a {
 
 .our-work-coverage__footnote {
   color: #000000;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
 }
 
@@ -5133,7 +5123,7 @@ a {
 
 .our-work-label-exact__text {
   color: rgb(255, 79, 1);
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 18.65px;
   font-weight: 500;
   letter-spacing: -0.98px;
@@ -5156,7 +5146,7 @@ a {
 }
 
 .our-work-hero-exact__title {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-heading);
   font-size: 85.08px;
   font-weight: 700;
   letter-spacing: -2.71px;
@@ -5169,7 +5159,7 @@ a {
 }
 
 .our-work-hero-exact__subtitle {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-heading);
   font-size: 25.11px;
   font-weight: 500;
   line-height: 21.13px;
@@ -5194,7 +5184,7 @@ a {
   color: #fff;
   cursor: pointer;
   display: flex;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 30.16px;
   font-weight: 600;
   height: 46px;
@@ -5232,7 +5222,7 @@ a {
 }
 
 .our-work-featured-exact__responsive-heading {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-heading);
   font-size: 60px;
   font-weight: 700;
   letter-spacing: -1.59px;
@@ -5242,7 +5232,7 @@ a {
 }
 
 .our-work-featured-exact__responsive-subtext {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -0.68px;
@@ -5293,7 +5283,7 @@ a {
 
 .our-work-featured-exact__responsive-name {
   color: #fff;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 44px;
   font-weight: 700;
   line-height: 0.9;
@@ -5302,7 +5292,7 @@ a {
 
 .our-work-featured-exact__responsive-desc {
   color: #fff;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 23px;
   font-weight: 500;
   line-height: 0.95;
@@ -5312,7 +5302,7 @@ a {
 .our-work-featured-exact__responsive-label {
   color: rgba(255, 255, 255, 0.8);
   display: inline-block;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.4px;
@@ -5450,7 +5440,7 @@ a {
 
 .our-work-featured-exact__desc {
   color: #fff;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 27.79px;
   font-weight: 500;
   line-height: 23.38px;
@@ -5463,7 +5453,7 @@ a {
 
 .our-work-featured-exact__name {
   color: #fff;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 47.96px;
   font-weight: 700;
   line-height: 40.37px;
@@ -5475,7 +5465,7 @@ a {
 
 .our-work-featured-exact__rotated {
   color: #fff;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 47.96px;
   font-weight: 700;
   line-height: 40.37px;
@@ -5500,7 +5490,7 @@ a {
 }
 
 .our-work-featured-exact__heading {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-heading);
   font-size: 60px;
   font-weight: 700;
   letter-spacing: -1.59px;
@@ -5513,7 +5503,7 @@ a {
 }
 
 .our-work-featured-exact__subtext {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -0.68px;
@@ -5544,7 +5534,7 @@ a {
 }
 
 .our-work-coverage-exact__header h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 85.08px;
   font-weight: 700;
   letter-spacing: -2.71px;
@@ -5555,7 +5545,7 @@ a {
 }
 
 .our-work-coverage-exact__header p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 25.11px;
   font-weight: 500;
   line-height: 21.13px;
@@ -5808,7 +5798,7 @@ a {
 }
 
 .owc-text--post1-title {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-heading);
   font-size: 13.59px;
   font-weight: 700;
   letter-spacing: -0.71px;
@@ -5820,7 +5810,7 @@ a {
 
 .owc-text--post1-desc {
   color: rgb(107, 107, 107);
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 8.97px;
   letter-spacing: -0.47px;
   line-height: 11.93px;
@@ -5865,7 +5855,7 @@ a {
 }
 
 .owc-text--post2-title {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-heading);
   font-size: 13.26px;
   font-weight: 600;
   letter-spacing: -0.69px;
@@ -5877,7 +5867,7 @@ a {
 
 .owc-text--post2-desc {
   color: rgb(107, 107, 107);
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 9.26px;
   letter-spacing: -0.48px;
   line-height: 9.81px;
@@ -6032,7 +6022,7 @@ a {
 
 .owc-text--post5-desc {
   color: rgb(107, 107, 107);
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 13.85px;
   letter-spacing: -0.72px;
   line-height: 18.22px;
@@ -6067,7 +6057,7 @@ a {
 }
 
 .our-work-coverage-exact__footnote {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 20px;
   letter-spacing: -0.68px;
   line-height: 26px;
@@ -6093,7 +6083,7 @@ a {
 }
 
 .our-work-case-studies-exact__eyebrow {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -0.68px;
@@ -6110,7 +6100,7 @@ a {
 }
 
 .our-work-case-studies-exact__header h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 85.08px;
   font-weight: 700;
   letter-spacing: -2.71px;
@@ -6120,7 +6110,7 @@ a {
 }
 
 .our-work-case-studies-exact__header p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 25.11px;
   font-weight: 500;
   line-height: 31px;
@@ -6252,7 +6242,7 @@ a {
 }
 
 .our-work-case-studies-exact__panel h3 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 45px;
   font-weight: 700;
   line-height: 49.07px;
@@ -6260,7 +6250,7 @@ a {
 }
 
 .our-work-case-studies-exact__panel p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 28px;
   font-weight: 500;
   line-height: 28.43px;
@@ -6724,7 +6714,7 @@ a {
 }
 
 .our-work-case-studies__eyebrow {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -6732,7 +6722,7 @@ a {
 }
 
 .our-work-case-studies__header h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 45px;
   font-weight: 700;
   line-height: 49.07px;
@@ -6740,7 +6730,7 @@ a {
 }
 
 .our-work-case-studies__header p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 28px;
   font-weight: 500;
   line-height: 28.43px;
@@ -6773,7 +6763,7 @@ a {
 }
 
 .our-work-case-studies__content h3 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 45px;
   font-weight: 700;
   line-height: 49.07px;
@@ -6781,7 +6771,7 @@ a {
 }
 
 .our-work-case-studies__content p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 28px;
   font-weight: 500;
   line-height: 28.43px;
@@ -6824,7 +6814,7 @@ a {
 
 .contact-hero__eyebrow {
   color: rgb(180, 180, 180);
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 12.51px;
   font-weight: 600;
   letter-spacing: -0.65px;
@@ -6833,7 +6823,7 @@ a {
 }
 
 .contact-hero h1 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 85.08px;
   font-weight: 700;
   letter-spacing: -2.71px;
@@ -6842,7 +6832,7 @@ a {
 }
 
 .contact-hero p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 25.11px;
   font-weight: 500;
   line-height: 21.13px;
@@ -6865,7 +6855,7 @@ a {
 }
 
 .contact-form-section__header h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 51.95px;
   font-weight: 700;
   letter-spacing: -1.66px;
@@ -6874,7 +6864,7 @@ a {
 }
 
 .contact-form-section__header p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 24px;
   font-weight: 500;
   line-height: 27px;
@@ -6898,7 +6888,7 @@ a {
 }
 
 .contact-form__label {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 28.08px;
   font-weight: 600;
   line-height: 28.49px;
@@ -6915,7 +6905,7 @@ a {
   appearance: none;
   border: 1px solid #e1e1e1;
   border-radius: 12px;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 26px;
   font-weight: 500;
   line-height: 28.49px;
@@ -6966,7 +6956,7 @@ a {
   color: #ffffff;
   cursor: pointer;
   display: inline-flex;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 22px;
   font-weight: 700;
   justify-content: center;
@@ -7019,7 +7009,7 @@ a {
 }
 
 .contact-card h3 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 34.22px;
   font-weight: 700;
   line-height: 34.71px;
@@ -7027,7 +7017,7 @@ a {
 }
 
 .contact-card p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 26.19px;
   font-weight: 600;
   line-height: 21.43px;
@@ -7035,7 +7025,7 @@ a {
 }
 
 .contact-card a {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 26.19px;
   font-weight: 700;
   line-height: 21.43px;
@@ -7141,7 +7131,7 @@ a {
 }
 
 .case-detail__header h1 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 73.09px;
   font-weight: 700;
   letter-spacing: -2.33px;
@@ -7150,7 +7140,7 @@ a {
 }
 
 .case-detail__header p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 23px;
   font-weight: 500;
   line-height: 25px;
@@ -7164,7 +7154,7 @@ a {
 }
 
 .case-detail__block h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 30px;
   font-weight: 700;
   line-height: 33px;
@@ -7172,7 +7162,7 @@ a {
 }
 
 .case-detail__block p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 23px;
   font-weight: 500;
   line-height: 33px;
@@ -7186,7 +7176,7 @@ a {
 }
 
 .case-studies-grid__eyebrow {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -0.68px;
@@ -7201,7 +7191,7 @@ a {
 }
 
 .case-studies-grid__header h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 85.08px;
   font-weight: 700;
   letter-spacing: -2.71px;
@@ -7210,7 +7200,7 @@ a {
 }
 
 .case-studies-grid__header p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 25.11px;
   font-weight: 500;
   line-height: 31px;
@@ -7253,7 +7243,7 @@ a {
 }
 
 .case-studies-grid__body h3 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 31.81px;
   font-weight: 700;
   line-height: 34.69px;
@@ -7261,7 +7251,7 @@ a {
 }
 
 .case-studies-grid__body p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 19.8px;
   font-weight: 500;
   line-height: 20.1px;
@@ -7385,7 +7375,7 @@ a {
 }
 
 .case-detail-exact__title h1 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 73.09px;
   font-weight: 700;
   letter-spacing: -2.33px;
@@ -7394,7 +7384,7 @@ a {
 }
 
 .case-detail-exact__title p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 23px;
   font-weight: 500;
   line-height: 25px;
@@ -7412,7 +7402,7 @@ a {
 }
 
 .case-detail-exact__block h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 30px;
   font-weight: 700;
   line-height: 1;
@@ -7425,7 +7415,7 @@ a {
 }
 
 .case-detail-exact__paragraph {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 23px;
   font-weight: 500;
   line-height: 33px;
@@ -7485,7 +7475,7 @@ a {
 }
 
 .case-detail-exact__publication h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 30px;
   font-weight: 700;
   line-height: 1;
@@ -7493,7 +7483,7 @@ a {
 }
 
 .case-detail-exact__publication p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 23px;
   font-weight: 500;
   line-height: 33px;
@@ -7519,7 +7509,7 @@ a {
 }
 
 .case-studies-grid-exact__eyebrow {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -0.68px;
@@ -7534,7 +7524,7 @@ a {
 }
 
 .case-studies-grid-exact__header h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 85.08px;
   font-weight: 700;
   letter-spacing: -2.71px;
@@ -7544,7 +7534,7 @@ a {
 }
 
 .case-studies-grid-exact__header p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 25.11px;
   font-weight: 500;
   line-height: 31px;
@@ -7645,7 +7635,7 @@ a {
 }
 
 .case-studies-grid-exact__panel h3 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 31.81px;
   font-weight: 700;
   line-height: 34.69px;
@@ -7653,7 +7643,7 @@ a {
 }
 
 .case-studies-grid-exact__panel p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 19.8px;
   font-weight: 500;
   line-height: 20.1px;
@@ -7982,7 +7972,7 @@ a {
 
 .contact-intro-exact__pill span {
   color: var(--agencie-accent);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 19px;
   font-weight: 600;
   letter-spacing: var(--agencie-type-section-label-tracking);
@@ -7999,7 +7989,7 @@ a {
 }
 
 .contact-intro-exact__copy h1 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 85.08px;
   font-weight: 700;
   letter-spacing: -2.71px;
@@ -8008,7 +7998,7 @@ a {
 }
 
 .contact-intro-exact__copy p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 25.11px;
   font-weight: 500;
   line-height: 21.13px;
@@ -8036,7 +8026,7 @@ a {
 }
 
 .contact-form-exact__header h2 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 51.95px;
   font-weight: 700;
   letter-spacing: -1.66px;
@@ -8045,7 +8035,7 @@ a {
 }
 
 .contact-form-exact__header p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 24px;
   font-weight: 500;
   line-height: 27px;
@@ -8091,7 +8081,7 @@ a {
 }
 
 .contact-form-exact__label {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 28.08px;
   font-weight: 600;
   line-height: 28.49px;
@@ -8114,7 +8104,7 @@ a {
   border-radius: 7px;
   color: rgb(168, 168, 168);
   display: flex;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 26px;
   font-weight: 500;
   height: 48px;
@@ -8149,7 +8139,7 @@ a {
 
 .contact-form-exact__error,
 .contact-form-exact__status {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   line-height: 1.4;
   margin: 6px 0 0;
@@ -8211,7 +8201,7 @@ a {
   color: #fff;
   cursor: pointer;
   display: flex;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 18.65px;
   font-weight: 600;
   height: 50px;
@@ -8286,7 +8276,7 @@ a {
 }
 
 .contact-card-exact h3 {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 34.22px;
   font-weight: 700;
   line-height: 34.71px;
@@ -8294,7 +8284,7 @@ a {
 }
 
 .contact-card-exact p {
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 26.19px;
   font-weight: 600;
   line-height: 21.43px;
@@ -8307,7 +8297,7 @@ a {
   bottom: 40px;
   color: inherit;
   display: inline-flex;
-  font-family: "Darker Grotesque", sans-serif;
+  font-family: var(--font-sans);
   font-size: 26.19px;
   font-weight: 700;
   line-height: 21.43px;
@@ -8803,7 +8793,7 @@ a {
 .our-work-label-exact__text,
 .our-work-case-studies-exact__eyebrow {
   color: var(--agencie-accent);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 19px;
   font-weight: 600;
   letter-spacing: var(--agencie-type-section-label-tracking);
@@ -8812,7 +8802,7 @@ a {
 
 .our-work-hero-exact__title {
   color: var(--agencie-type-dark);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-heading);
   font-size: var(--agencie-type-hero-h1-size);
   font-weight: 700;
   letter-spacing: var(--agencie-type-hero-h1-tracking);
@@ -8827,7 +8817,7 @@ a {
 .our-work-case-studies-exact__panel p,
 .our-work-coverage-exact__footnote {
   color: var(--agencie-type-dark);
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 18px;
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -8837,7 +8827,7 @@ a {
 .our-work-featured-exact__desc,
 .our-work-featured-exact__responsive-desc {
   color: #ffffff;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 18px;
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -8849,7 +8839,7 @@ a {
 .our-work-featured-exact__responsive-heading,
 .our-work-case-studies-exact__header h2 {
   color: var(--agencie-type-dark);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: var(--agencie-type-section-h2-size);
   font-weight: 600;
   letter-spacing: var(--agencie-type-section-h2-tracking);
@@ -8860,7 +8850,7 @@ a {
 .our-work-featured-exact__name,
 .our-work-featured-exact__rotated,
 .our-work-featured-exact__responsive-name {
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: var(--agencie-type-feature-h3-size);
   font-weight: 600;
   letter-spacing: var(--agencie-type-feature-h3-tracking);
@@ -8879,7 +8869,7 @@ a {
 
 .our-work-featured-exact__responsive-label {
   color: rgba(255, 255, 255, 0.84);
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: var(--agencie-type-section-label-size);
   font-weight: 500;
   letter-spacing: var(--agencie-type-section-label-tracking);
@@ -8893,7 +8883,7 @@ a {
   border-radius: 36px;
   color: var(--agencie-cream);
   display: inline-flex;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 600;
   gap: 10px;
@@ -9037,7 +9027,7 @@ body,
 .blog-posts-section__eyebrow,
 .blog-cta__eyebrow {
   color: var(--agencie-accent);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 19px;
   font-weight: 600;
   letter-spacing: var(--agencie-type-section-label-tracking);
@@ -9062,7 +9052,7 @@ body,
 .blog-hero__title {
   color: var(--agencie-type-dark);
   display: grid;
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-heading);
   font-size: var(--agencie-type-hero-h1-size);
   font-weight: 700;
   letter-spacing: var(--agencie-type-hero-h1-tracking);
@@ -9083,7 +9073,7 @@ body,
 .blog-post-detail__list,
 .blog-related__content p {
   color: var(--agencie-type-dark);
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 18px;
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -9098,7 +9088,7 @@ body,
   border-radius: 36px;
   color: var(--agencie-cream);
   display: inline-flex;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 600;
   justify-content: center;
@@ -9140,7 +9130,7 @@ body,
 .blog-related__header h2,
 .blog-post-detail__section h2 {
   color: var(--agencie-type-dark);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: var(--agencie-type-section-h2-size);
   font-weight: 600;
   letter-spacing: var(--agencie-type-section-h2-tracking);
@@ -9156,7 +9146,7 @@ body,
   border-radius: 999px;
   color: #fdf8f2;
   display: inline-flex;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 600;
   justify-content: center;
@@ -9255,7 +9245,7 @@ body,
   border: 1px solid rgba(15, 15, 15, 0.08);
   border-radius: 24px;
   color: var(--agencie-type-dark);
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 17px;
   line-height: 1.6;
   padding: 22px 24px;
@@ -9301,7 +9291,7 @@ body,
 .blog-posts-section__content h3,
 .blog-related__content h3 {
   color: var(--agencie-type-dark);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: var(--agencie-type-feature-h3-size);
   font-weight: 600;
   letter-spacing: var(--agencie-type-feature-h3-tracking);
@@ -9326,7 +9316,7 @@ body,
 
 .blog-posts-section__readmore {
   color: var(--agencie-accent);
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 600;
   margin-top: auto;
@@ -9346,7 +9336,7 @@ body,
   color: var(--agencie-type-dark);
   cursor: pointer;
   display: inline-flex;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 600;
   justify-content: center;
@@ -9407,7 +9397,7 @@ body,
 
 .blog-post-detail__category {
   color: var(--agencie-accent);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: var(--agencie-type-section-label-size);
   font-weight: 600;
   letter-spacing: var(--agencie-type-section-label-tracking);
@@ -9416,7 +9406,7 @@ body,
 
 .blog-post-detail h1 {
   color: var(--agencie-type-dark);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: var(--agencie-type-section-h2-size);
   font-weight: 600;
   letter-spacing: var(--agencie-type-section-h2-tracking);
@@ -9456,7 +9446,7 @@ body,
 .blog-post-markdown h3,
 .blog-post-markdown h4 {
   color: var(--agencie-type-dark);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: var(--agencie-type-feature-h3-size);
   font-weight: 600;
   letter-spacing: var(--agencie-type-feature-h3-tracking);
@@ -9466,7 +9456,7 @@ body,
 
 .blog-post-detail__excerpt {
   color: var(--agencie-type-dark);
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 22px;
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -9475,7 +9465,7 @@ body,
 
 .blog-post-detail__meta,
 .blog-post-detail__backlink {
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -9494,7 +9484,7 @@ body,
 .blog-post-markdown ul,
 .blog-post-detail__list li {
   color: var(--agencie-type-dark);
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-sans);
   font-size: 18px;
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -9769,16 +9759,17 @@ body,
 }
 
 .hero-video-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   padding: 16px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   gap: 12px;
   max-width: 480px;
   width: 100%;
+  cursor: pointer;
 }
 
 .hero-video-thumbnail {
@@ -9804,7 +9795,7 @@ body,
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(255, 107, 0, 0.9);
+  background: var(--agencie-accent);
   color: white;
   border-radius: 50%;
   width: 64px;
@@ -9812,24 +9803,95 @@ body,
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(241, 85, 51, 0.5);
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .hero-video-card:hover .hero-play-button-overlay {
   transform: translate(-50%, -50%) scale(1.1);
-  background: rgba(255, 107, 0, 1);
 }
 
 .hero-video-label {
   text-align: center;
-  color: rgba(255, 255, 255, 0.7);
+  color: #555;
   font-size: 13px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
+/* Left-align subtitle in hero 1 */
+.hero-subtitle-left {
+  text-align: left !important;
+  max-width: 500px;
+}
+
+/* ── Video modal overlay ── */
+.hero-video-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  animation: hero-modal-fadein 0.2s ease;
+}
+
+@keyframes hero-modal-fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.hero-video-modal-inner {
+  position: relative;
+  width: min(900px, 92vw);
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+  animation: hero-modal-slidein 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes hero-modal-slidein {
+  from { transform: translateY(24px) scale(0.97); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.hero-video-player {
+  width: 100%;
+  display: block;
+  max-height: 80vh;
+  border-radius: 16px;
+}
+
+.hero-video-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.hero-video-modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+
 
 @media (max-width: 900px) {
   .hero-two-column {
@@ -9860,5 +9922,224 @@ body,
 .services-sidebar__link.is-active .services-sidebar__icon {
   color: var(--agencie-accent) !important;
 }
+
+/* Hero 2 Section Styles */
+.hero-2-section {
+  background-color: #ffffff;
+  color: #0f0f0f;
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 800px;
+}
+
+.hero-2-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.hero-2-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-2-eyebrow {
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--agencie-accent);
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-2-eyebrow-line {
+  width: 40px;
+  height: 1px;
+  background-color: var(--agencie-accent);
+}
+
+.hero-2-title {
+  font-size: clamp(48px, 6vw, 82px);
+  line-height: 1.05;
+  font-weight: 700;
+  margin: 0 0 24px;
+  letter-spacing: -2px;
+}
+
+.hero-2-title-accent {
+  color: var(--agencie-accent);
+  font-style: italic;
+}
+
+.hero-2-subtitle {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #2d2d2d;
+  margin-bottom: 40px;
+  max-width: 480px;
+}
+
+.hero-2-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.hero-2-button {
+  padding: 16px 28px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+  text-decoration: none;
+}
+
+.hero-2-button:hover {
+  opacity: 0.8;
+}
+
+.hero-2-button--primary {
+  background-color: var(--agencie-accent);
+  color: #ffffff;
+}
+
+.hero-2-button--outline {
+  color: #0f0f0f;
+  background: transparent;
+  padding-left: 0;
+}
+
+/* Coverage Feed */
+.coverage-feed-card {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+}
+
+.coverage-feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.coverage-feed-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--agencie-accent);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.coverage-feed-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--agencie-accent);
+}
+
+.coverage-feed-header-right {
+  display: flex;
+  gap: 4px;
+}
+
+.coverage-feed-dot-small {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.coverage-feed-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.coverage-feed-row {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.coverage-feed-row:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.coverage-feed-row:last-child {
+  border-bottom: none;
+}
+
+.coverage-feed-time {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: monospace;
+}
+
+.coverage-feed-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.coverage-feed-logo img {
+  height: 12px;
+  width: auto;
+  filter: grayscale(1) opacity(0.8);
+  object-fit: contain;
+  object-position: left;
+}
+
+.coverage-feed-headline {
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.4;
+  color: #0f0f0f;
+}
+
+.coverage-feed-badge-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.coverage-feed-badge {
+  font-size: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 4px 8px;
+  border-radius: 2px;
+  color: rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 991px) {
+  .hero-2-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
 
 

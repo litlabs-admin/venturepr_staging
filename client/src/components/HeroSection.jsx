@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import videoPoster from "../assets/video_poster.png";
+import heroVideo from "../assets/hero_video.mp4";
 import { useOurWorkBreakpoint } from "./our-work/useOurWorkBreakpoint";
 
 // Import all 9 hero images
@@ -106,6 +107,8 @@ export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+  const videoRef = useRef(null);
   const breakpoint = useOurWorkBreakpoint();
   const carouselSettings = carouselSettingsByBreakpoint[breakpoint];
 
@@ -193,7 +196,7 @@ export function HeroSection() {
               Be the <span className="marqo-hero__title-accent">brand</span>{" "}
               everyone's talking about.
             </h1>
-            <p className="marqo-hero__subtitle marqo-appear marqo-appear--delay-2">
+            <p className="marqo-hero__subtitle hero-subtitle-left marqo-appear marqo-appear--delay-2">
               Strategic PR that's earned billions of impressions for the world's most ambitious brands.
             </p>
           </div>
@@ -215,12 +218,14 @@ export function HeroSection() {
         </div>
 
         <div className="hero-right-column marqo-appear marqo-appear--delay-5">
-          <a 
-            href="https://drive.google.com/file/d/1X8qxow_AxzI7sAfv1__Zx-gAxsMRCnbL/view"
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* Video card – click to play inline */}
+          <div
             className="hero-video-card"
-            style={{ textDecoration: 'none' }}
+            onClick={() => setVideoOpen(true)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === "Enter" && setVideoOpen(true)}
+            aria-label="Play video"
           >
             <div className="hero-video-thumbnail">
               <img src={videoPoster} alt="Watch how we earn coverage" />
@@ -231,11 +236,43 @@ export function HeroSection() {
               </div>
             </div>
             <div className="hero-video-label">
-              <span>Watch how we earn coverage</span>
+              <span>How We Propel High-Growth Brands</span>
             </div>
-          </a>
+          </div>
         </div>
       </div>
+
+      {/* ── Inline video modal ── */}
+      {videoOpen && (
+        <div
+          className="hero-video-modal-overlay"
+          onClick={() => setVideoOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Video player"
+        >
+          <div
+            className="hero-video-modal-inner"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="hero-video-modal-close"
+              onClick={() => setVideoOpen(false)}
+              aria-label="Close video"
+            >
+              ✕
+            </button>
+            <video
+              ref={videoRef}
+              src={heroVideo}
+              controls
+              autoPlay
+              className="hero-video-player"
+              poster={videoPoster}
+            />
+          </div>
+        </div>
+      )}
 
       <div className="marqo-hero__carousel-wrapper marqo-appear marqo-appear--delay-5">
         <div className="marqo-hero__carousel">

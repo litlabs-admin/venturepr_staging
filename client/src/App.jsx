@@ -1,4 +1,5 @@
 import { HeroSection } from "./components/HeroSection";
+import { HeroSection2 } from "./components/HeroSection2";
 import { BenefitsSection } from "./components/BenefitsSection";
 import { BrandsSection } from "./components/BrandsSection";
 import { ServicesSection } from "./components/ServicesSection";
@@ -45,6 +46,7 @@ function HomePage() {
       </Helmet>
       <FloatingNav />
       <HeroSection />
+      <HeroSection2 />
       {/* <BrandsSection /> Optional small press/logo strip hidden for now */}
       <StatisticsSection />
       <ProjectsSection />
