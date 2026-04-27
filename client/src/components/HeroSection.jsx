@@ -215,7 +215,13 @@ export function HeroSection() {
         </div>
 
         <div className="hero-right-column marqo-appear marqo-appear--delay-5">
-          <div className="hero-video-card">
+          <a 
+            href="https://drive.google.com/file/d/1X8qxow_AxzI7sAfv1__Zx-gAxsMRCnbL/view"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-video-card"
+            style={{ textDecoration: 'none' }}
+          >
             <div className="hero-video-thumbnail">
               <img src={videoPoster} alt="Watch how we earn coverage" />
               <div className="hero-play-button-overlay">
@@ -227,7 +233,7 @@ export function HeroSection() {
             <div className="hero-video-label">
               <span>Watch how we earn coverage</span>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
